@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.sayadev.finalproject.kitchen.KitchenMainActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     private Button appOne;
@@ -33,8 +35,7 @@ public class MainActivity extends AppCompatActivity {
         appTwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // replace null with our main application activity
-                Intent intent = new Intent(MainActivity.this, null);
+                Intent intent = new Intent(MainActivity.this, KitchenMainActivity.class);
                 startActivity(intent);
             }
         });
