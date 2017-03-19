@@ -1,17 +1,20 @@
 package com.sayadev.finalproject;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public abstract class MainActivity extends AppCompatActivity {
+import com.sayadev.finalproject.kitchen.KitchenMainActivity;
+
+public class MainActivity extends AppCompatActivity {
 
     private Button appOne;
     private Button appTwo;
     private Button appThree;
     private Button appFour;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +35,7 @@ public abstract class MainActivity extends AppCompatActivity {
         appTwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // replace null with our main application activity
-                Intent intent = new Intent(MainActivity.this, null);
+                Intent intent = new Intent(MainActivity.this, KitchenMainActivity.class);
                 startActivity(intent);
             }
         });
@@ -59,5 +61,4 @@ public abstract class MainActivity extends AppCompatActivity {
         });
 
     }
-
 }
