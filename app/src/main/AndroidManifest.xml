@@ -17,6 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".livingroom.LivingRoom"></activity>
+        <activity android:name=".BaseActivity"></activity>
+
     </application>
 
 </manifest>
