@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".kitchen.KitchenMainActivity"></activity>
+        <activity android:name=".livingroom.LivingRoom"></activity>
     </application>
 
 </manifest>
