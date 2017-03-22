@@ -20,14 +20,14 @@
         android:text="@string/appTwo" />
 
     <Button
-        android:id="@+id/appThree"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/appThree" />
-
-    <Button
         android:id="@+id/appFour"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/appFour" />
+
+    <Button
+        android:id="@+id/appThree"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/appThree" />
 </LinearLayout>
