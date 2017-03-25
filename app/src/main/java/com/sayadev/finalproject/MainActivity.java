@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.sayadev.finalproject.House.House;
 import com.sayadev.finalproject.kitchen.KitchenMainActivity;
 import com.sayadev.finalproject.livingroom.LivingRoom;
 
@@ -26,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
         appOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // replace null with our main application activity
                 Intent intent = new Intent(MainActivity.this, LivingRoom.class);
                 startActivity(intent);
             }
@@ -45,8 +45,7 @@ public class MainActivity extends AppCompatActivity {
         appThree.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // replace null with our main application activity
-                Intent intent = new Intent(MainActivity.this, null);
+                Intent intent = new Intent(MainActivity.this, House.class);
                 startActivity(intent);
             }
         });
@@ -56,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // replace null with our main application activity
-                Intent intent = new Intent(MainActivity.this, null);
+                Intent intent = new Intent(MainActivity.this, House.class);
                 startActivity(intent);
             }
         });
