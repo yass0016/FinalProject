@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nameText">Name of item</string>
+    <string name="descText">Description</string>
+    <string name="addButton">Add</string>
+</resources>
