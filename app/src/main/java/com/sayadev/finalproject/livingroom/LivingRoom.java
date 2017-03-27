@@ -1,7 +1,7 @@
 package com.sayadev.finalproject.livingroom;
 
-import android.app.ActionBar;
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -16,6 +16,9 @@ import android.widget.TextView;
 
 import com.sayadev.finalproject.BaseActivity;
 import com.sayadev.finalproject.R;
+import com.sayadev.finalproject.livingroom.Blinding.Blinding;
+import com.sayadev.finalproject.livingroom.Lamps.Lamps;
+import com.sayadev.finalproject.livingroom.TV.TV;
 
 import java.util.ArrayList;
 
@@ -24,7 +27,6 @@ public class LivingRoom extends BaseActivity {
     private ListView roomList;
     private ArrayList<RoomData> roomItems;
     private RoomAdapter roomAdapter;
-    private boolean isFrameLoaded;
 
     private SQLiteDatabase db;
     @Override
@@ -51,11 +53,25 @@ public class LivingRoom extends BaseActivity {
 
         roomList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
-
                 Object o = roomList.getItemAtPosition(position);
-                RoomData str=(RoomData) o;
+                RoomData str = (RoomData) o;
                 Bundle data = new Bundle();
 
+                data.putString("id", Long.toString(id));
+                data.putString("itemTitle", roomItems.get(position).getTitle());
+                data.putString("itemImage", roomItems.get(position).getImageUri());
+
+                Intent intent = null;
+
+                if (position == 0)
+                    intent = new Intent(LivingRoom.this, TV.class);
+                else if (position == 1)
+                    intent = new Intent(LivingRoom.this, Lamps.class);
+                else if (position == 2)
+                    intent = new Intent(LivingRoom.this, Blinding.class);
+
+                intent.putExtras(data);
+                startActivity(intent);
             }
         });
 

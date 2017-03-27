@@ -9,13 +9,13 @@
         android:id="@+id/roomItemImage"
         android:layout_marginLeft="10dp"
         android:layout_width="wrap_content"
-        android:layout_height="200px"
+        android:layout_height="400px"
         app:srcCompat="@drawable/blind" />
 
     <TextView
         android:id="@+id/roomItemText"
         android:layout_width="wrap_content"
-        android:layout_height="200px"
+        android:layout_height="400px"
         android:layout_alignBottom="@+id/roomItemImage"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
