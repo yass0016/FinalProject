@@ -18,6 +18,12 @@
         </activity>
         <activity android:name=".kitchen.KitchenMainActivity" />
         <activity android:name=".livingroom.LivingRoom" />
+
+        <activity android:name=".livingroom.TV.TV" />
+        <activity android:name=".livingroom.Lamps.Lamps" />
+        <activity android:name=".livingroom.Blinding.Blinding" />
+
+
         <activity android:name=".House.House"></activity>
     </application>
 
