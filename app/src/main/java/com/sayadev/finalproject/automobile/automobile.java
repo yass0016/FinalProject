@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sayadev.finalproject.Model.ProjectDatabaseHelper;
 import com.sayadev.finalproject.R;
@@ -34,6 +36,7 @@ public class automobile extends AppCompatActivity {
     private String[] sa;
     private ContentValues cv;
     private AlertDialog.Builder builder;
+    private Toast toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +60,11 @@ public class automobile extends AppCompatActivity {
         butt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.i("test","this(" + nameText.getText().toString() + ")");
+                if(nameText.getText().toString().equalsIgnoreCase("")){
+                    toast = Toast.makeText(automobile.this,"Name was not entered",Toast.LENGTH_LONG);
+                    toast.show();
+                }else{
                /* cv.put(dbh.COLUMN_AUTO_NAME,nameText.getText().toString());
                 cv.put(dbh.COLUMN_AUTO_DESCRIPTION,descText.getText().toString());
                 db.insert(dbh.TABLE_AUTO_ITEMS,null,cv);
@@ -68,6 +76,7 @@ public class automobile extends AppCompatActivity {
                 descText.setHint("Description");
                 nameText.setText("");
                 descText.setText("");
+                }
             }
         });
 
