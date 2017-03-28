@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.sayadev.finalproject.House.House;
+import com.sayadev.finalproject.automobile.automobile;
 import com.sayadev.finalproject.kitchen.KitchenMainActivity;
 import com.sayadev.finalproject.livingroom.LivingRoom;
 
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // replace null with our main application activity
-                Intent intent = new Intent(MainActivity.this, House.class);
+                Intent intent = new Intent(MainActivity.this, automobile.class);
                 startActivity(intent);
             }
         });
