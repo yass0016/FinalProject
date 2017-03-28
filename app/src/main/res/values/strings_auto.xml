@@ -3,4 +3,14 @@
     <string name="nameText">Name of item</string>
     <string name="descText">Description</string>
     <string name="addButton">Add</string>
+    <string name="temp">Temperature</string>
+    <string name="radio">Radio</string>
+    <string name="cb">Citizen Band Radio</string>
+    <string name="gps">Global Positioning Device</string>
+    <string name="chair">Seat Position</string>
+    <string name="tempdesc">This controls all of the temperature settings in the car.</string>
+    <string name="radiodesc">This is where all of the radio controls are. Volume, Chanel, Programed Channels, etc.</string>\
+    <string name="cbdesc">This controls the settings to the CB Radio. Volume, Chanel, Tune.</string>
+    <string name="gpsdesc">This controls the GPS. Destination, Position, ETA, Next turn, etc.</string>
+    <string name="chairdesc">This is where all the seat position setting are kept. Back angle, Bottom angle, Seat Height, Distance from Front, Programed Positions.</string>
 </resources>
