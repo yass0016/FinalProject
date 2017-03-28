@@ -49,7 +49,17 @@ public class automobile extends AppCompatActivity {
         dbh = new ProjectDatabaseHelper(getApplicationContext());
         db = dbh.getWritableDatabase();
         items = new ArrayList<>();
+        items.add(getString(R.string.temp));
+        items.add(getString(R.string.radio));
+        items.add(getString(R.string.cb));
+        items.add(getString(R.string.gps));
+        items.add(getString(R.string.chair));
         desc = new ArrayList<>();
+        desc.add(getString(R.string.tempdesc));
+        desc.add(getString(R.string.radiodesc));
+        desc.add(getString(R.string.cbdesc));
+        desc.add(getString(R.string.gpsdesc));
+        desc.add(getString(R.string.chairdesc));
         adapter = new ItemAdapter(this);
         ls.setAdapter(adapter);
         sa = new String[]{dbh.COLUMN_AUTO_ID,dbh.COLUMN_AUTO_NAME,dbh.COLUMN_AUTO_DESCRIPTION};
