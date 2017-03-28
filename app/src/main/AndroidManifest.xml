@@ -17,7 +17,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".kitchen.KitchenMainActivity" />
-        <activity android:name=".automobile.automobile" />
+        <activity android:name=".livingroom.LivingRoom" />
+        <activity android:name=".House.House"></activity>
+        <activity android:name=".House.Garage"></activity>
+        <activity android:name=".House.TempIn"></activity>
+        <activity android:name=".House.TempOut"></activity>
     </application>
 
 </manifest>

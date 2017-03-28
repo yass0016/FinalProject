@@ -1,6 +1,7 @@
 package com.sayadev.finalproject.House;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -44,20 +45,33 @@ public class House extends BaseActivity {
 
         HouseList.setAdapter(HouseAdapter);
 
-        HouseItems.add(new HouseData(0, "TV", "@drawable/tv"));
-        HouseItems.add(new HouseData(1, "Lamps", "@drawable/lamp"));
-        HouseItems.add(new HouseData(2, "Blinding", "@drawable/blind"));
+        HouseItems.add(new HouseData(0, "Garage", "@drawable/garage"));
+        HouseItems.add(new HouseData(1, "Temprature Inside", "@drawable/tempin"));
+        HouseItems.add(new HouseData(2, "Temprature Outside", "@drawable/tempout"));
 
         HouseList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
-
                 Object o = HouseList.getItemAtPosition(position);
                 HouseData str = (HouseData) o;
                 Bundle data = new Bundle();
 
+                data.putString("id", Long.toString(id));
+                data.putString("itemTitle", HouseItems.get(position).getTitle());
+                data.putString("itemImage", HouseItems.get(position).getImageUri());
+
+                Intent intent = null;
+
+                if (position == 0)
+                    intent = new Intent(House.this, Garage.class);
+                else if (position == 1)
+                    intent = new Intent(House.this, TempIn.class);
+                else if (position == 2)
+                    intent = new Intent(House.this, TempOut.class);
+
+                intent.putExtras(data);
+                startActivity(intent);
             }
         });
-
     }
 
     private class HouseAdapter extends ArrayAdapter<HouseData> {
