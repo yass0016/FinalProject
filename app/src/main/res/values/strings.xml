@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">CST2335 Final Project</string>
+    <string name="appOne">Living Room</string>
+    <string name="appTwo">Kitchen</string>
+    <string name="appThree">House</string>
+    <string name="appFour">Automobile</string>
+</resources>
