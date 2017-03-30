@@ -43,7 +43,7 @@ public class automobile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_automobile);
 
-        getSupportActionBar().setTitle("Automobile");
+        getSupportActionBar().setTitle("Automobile Items");
 
         ls = (ListView) findViewById(R.id.autoList);
         butt = (Button) findViewById(R.id.autoButton);
