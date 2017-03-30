@@ -38,6 +38,8 @@ public class KitchenMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kitchen_main);
 
+        getSupportActionBar().setTitle("Kitchen");
+
         addDeviceFAB = (FloatingActionButton) findViewById(R.id.add_device_fab);
         deviceListView = (ListView) findViewById(R.id.device_list);
 
