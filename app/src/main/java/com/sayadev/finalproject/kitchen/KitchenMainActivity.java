@@ -8,15 +8,13 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +25,7 @@ import java.util.ArrayList;
 
 public class KitchenMainActivity extends AppCompatActivity {
 
+    final static String ACTIVITY_NAME = "KitchenMainActivity";
     final Context context = this;
 
     protected FloatingActionButton addDeviceFAB;
@@ -39,6 +38,9 @@ public class KitchenMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kitchen_main);
 
+        getSupportActionBar().setTitle("Kitchen Items");
+
+
         addDeviceFAB = (FloatingActionButton) findViewById(R.id.add_device_fab);
         deviceListView = (ListView) findViewById(R.id.device_list);
 
@@ -46,6 +48,14 @@ public class KitchenMainActivity extends AppCompatActivity {
 
         final KitchenDeviceAdapter deviceAdapter = new KitchenDeviceAdapter(this);
         deviceListView.setAdapter(deviceAdapter);
+
+        deviceListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                KitchenDevice clickedDevice = (KitchenDevice) parent.getItemAtPosition(position);
+                showDeviceInfoDialog(clickedDevice, position);
+            }
+        });
 
         addDeviceFAB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,6 +106,42 @@ public class KitchenMainActivity extends AppCompatActivity {
                 addDeviceDialog.show();
             }
         });
+    }
+
+    private void showDeviceInfoDialog(KitchenDevice device, final int position) {
+        LayoutInflater inflater =
+                (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View dialogView = inflater.inflate(R.layout.dialog_kitchen_about_device, null);
+
+        TextView deviceModel = (TextView) dialogView.findViewById(R.id.about_kitchen_device_model);
+        TextView deviceName = (TextView) dialogView.findViewById(R.id.about_kitchen_device_name);
+
+        deviceModel.setText(device.getModel());
+        deviceName.setText(device.getName());
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(R.string.kitchen_show_device_title)
+                .setView(dialogView)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                })
+                .setNegativeButton(R.string.kitchen_show_device_delete, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteDevice(position);
+                    }
+                });
+
+        AlertDialog showDeviceDialog = builder.create();
+        showDeviceDialog.show();
+    }
+
+    protected void deleteDevice(int position) {
+        deviceList.remove(position);
+        ((KitchenDeviceAdapter) deviceListView.getAdapter()).notifyDataSetChanged();
     }
 
     private class KitchenDeviceAdapter extends ArrayAdapter<KitchenDevice> {

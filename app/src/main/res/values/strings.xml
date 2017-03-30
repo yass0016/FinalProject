@@ -1,7 +1,25 @@
 <resources>
-    <string name="app_name">CST2335 Final Project</string>
+    <string name="app_name"><b><u>CST2335 Final Project</u></b></string>
     <string name="appOne">Living Room</string>
     <string name="appTwo">Kitchen</string>
     <string name="appThree">House</string>
     <string name="appFour">Automobile</string>
+    <string name="appInfo">Use the buttons on the toolbar to switch between activities.\nFor help, use the help item from the drop down menu in the toolbar.</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="main_dialog_help">
+        This is the final project for the course CST2335.\n
+        It consists of 4 main activities each with its own functionality.
+        Each activity is done by a different person in a team.
+        \n
+        \n
+        <b>1.</b> Living Room: contains living room items\n
+        \t\tAuthor: <u>Saleh Yassin</u>\n
+        <b>2.</b> Kitchen: contains kitchen items\n
+        \t\tAuthor: <u>Tryton Vanmeer</u>\n
+        <b>3.</b> House: contains house items\n
+        \t\tAuthor: <u>Rudwan Al Shama\'a</u>\n
+        <b>4.</b> Automobile: contains automobile items\n
+        \t\tAuthor: <u>Sheldon McGrath</u>
+    </string>
 </resources>
