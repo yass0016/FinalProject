@@ -1,5 +1,6 @@
 package com.sayadev.finalproject.kitchen;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
@@ -7,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +37,9 @@ public class KitchenMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kitchen_main);
+
+        getSupportActionBar().setTitle("Kitchen Items");
+
 
         addDeviceFAB = (FloatingActionButton) findViewById(R.id.add_device_fab);
         deviceListView = (ListView) findViewById(R.id.device_list);
