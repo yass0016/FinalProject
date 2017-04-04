@@ -1,8 +1,10 @@
 package com.sayadev.finalproject.automobile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.Switch;
@@ -11,16 +13,22 @@ import android.widget.Toast;
 import com.sayadev.finalproject.R;
 
 public class FragPhone extends AppCompatActivity {
-
+    Bundle bun = new Bundle();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.auto_empty_frame);
         fragmentLayout frag = new fragmentLayout();
-        Bundle bun = getIntent().getExtras();
+        bun = getIntent().getExtras();
         frag.setArguments(bun);
         getFragmentManager().beginTransaction().add(R.id.fraghold,frag).commit();
+
+        /*if(bun.getString("Type").equalsIgnoreCase("trunk")){
+            Log.i("type","type");
+            Button deleteButt =(Button) frag.getView().findViewById(R.id.deletetrunk);
+            deleteButt.setOnClickListener(frag);
+        }*/
 
         /*switch (bun.getString("Option")){
             case "Temperature":
@@ -58,5 +66,13 @@ public class FragPhone extends AppCompatActivity {
 
                 break;
         }*/
+    }
+    public void delete(){
+        Log.i("Delete","got here");
+        Intent intent = new Intent();
+        intent.putExtra("id",bun.getInt("id"));
+        intent.putExtra("position",bun.getInt("position"));
+        setResult(4,intent);
+        finish();
     }
 }

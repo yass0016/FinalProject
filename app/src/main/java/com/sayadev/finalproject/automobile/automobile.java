@@ -41,6 +41,7 @@ public class automobile extends AppCompatActivity {
     private ProjectDatabaseHelper dbh;
     private SQLiteDatabase db;
     private ArrayList<String> items,desc,type,typedummy,itemdummy,descdummy;
+    private ArrayList<Integer> idal,iddummy;
     private ItemAdapter adapter;
     private Cursor cursor;
     private String[] sa;
@@ -69,6 +70,8 @@ public class automobile extends AppCompatActivity {
         db = dbh.getWritableDatabase();
         items = new ArrayList<>();
         type = new ArrayList<>();
+        idal = new ArrayList<>();
+        iddummy = new ArrayList<>();
         typedummy = new ArrayList<>();
         itemdummy = new ArrayList<>();
         descdummy = new ArrayList<>();
@@ -140,10 +143,12 @@ public class automobile extends AppCompatActivity {
                        /* bundle.clear();
                         bundle.putString("Option",items.get(position));*/
                         Intent i = new Intent(automobile.this,FragPhone.class);
+                        i.putExtra("position",position);
+                        i.putExtra("id",idal.get(position));
                         i.putExtra("Type",type.get(position));
                         i.putExtra("Name",items.get(position));
                         i.putExtra("Desc",desc.get(position));
-                        startActivity(i,bundle);
+                        startActivityForResult(i,1);
                     }
                 });
                 builder.setNegativeButton("Cancel",null);
@@ -201,6 +206,24 @@ public class automobile extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if((requestCode == 1) && (resultCode == 4)){
+            Log.i("ID for delete",Integer.toString(data.getExtras().getInt("id")));
+            Log.i("Database","Got here");
+            Log.i("position",Integer.toString(data.getExtras().getInt("position")));
+            db.execSQL("delete from " + dbh.TABLE_AUTO_ITEMS + " where " + dbh.COLUMN_AUTO_ID  + " = " + data.getExtras().getInt("id"));
+            items.remove(data.getExtras().getInt("position"));
+            desc.remove(data.getExtras().getInt("position"));
+            type.remove(data.getExtras().getInt("position"));
+            idal.remove(data.getExtras().getInt("position"));
+            adapter.notifyDataSetChanged();
+        }
+
+    }
+
     private void setList(){
         items.clear();
         cursor = db.query(dbh.TABLE_AUTO_ITEMS,sa,null,null,null,null,null,null);
@@ -215,6 +238,7 @@ public class automobile extends AppCompatActivity {
         items = itemdummy;
         desc = descdummy;
         type = typedummy;
+        idal = iddummy;
         adapter.notifyDataSetChanged();
     }
 
@@ -250,6 +274,7 @@ public class automobile extends AppCompatActivity {
         protected ArrayList doInBackground(Cursor... params) {
 
             while(!params[0].isAfterLast()){
+                iddummy.add(params[0].getInt(params[0].getColumnIndex(dbh.COLUMN_AUTO_ID)));
                 itemdummy.add(params[0].getString(params[0].getColumnIndex(dbh.COLUMN_AUTO_NAME)));
                 descdummy.add(params[0].getString(params[0].getColumnIndex(dbh.COLUMN_AUTO_DESCRIPTION)));
                 typedummy.add(params[0].getString(params[0].getColumnIndex(dbh.COLUMN_AUTO_TYPE)));

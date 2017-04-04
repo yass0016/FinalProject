@@ -109,6 +109,14 @@ public class fragmentLayout extends Fragment {
                 v = inflater.inflate(R.layout.auto_trunk_frag,container,false);
                 TextView trunktv = (TextView) v.findViewById(R.id.trunktext);
                 trunktv.setText(getArguments().getString("Name")+"\n"+getArguments().getString("Desc"));
+
+                Button deleteButt =(Button) v.findViewById(R.id.deletetrunk);
+                deleteButt.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ((FragPhone) getActivity()).delete();
+                    }
+                });
                 break;
         }
 
