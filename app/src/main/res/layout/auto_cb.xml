@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/cbvoltv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="Volume" />
+
+    <SeekBar
+        android:id="@+id/cbvolsb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/cbvoltv" />
+
+    <TextView
+        android:id="@+id/cbchantv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/cbvolsb"
+        android:text="Chanel" />
+
+    <SeekBar
+        android:id="@+id/cbchansb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/cbchantv" />
+
+    <TextView
+        android:id="@+id/cbgaintv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/cbchansb"
+        android:text="TextView" />
+
+    <SeekBar
+        android:id="@+id/cbgainsb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cbgaintv" />
+
+    <Button
+        android:id="@+id/cbset1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/cbgainsb"
+        android:layout_marginTop="36dp"
+        android:text="1" />
+
+    <Button
+        android:id="@+id/cbset2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/cbset1"
+        android:layout_toEndOf="@+id/cbset1"
+        android:text="2" />
+
+    <Button
+        android:id="@+id/cbset3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3"
+        android:layout_alignBaseline="@+id/cbset2"
+        android:layout_alignBottom="@+id/cbset2"
+        android:layout_toStartOf="@+id/cbset4" />
+
+    <Button
+        android:id="@+id/cbset4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/cbset3"
+        android:text="4" />
+
+    <Button
+        android:id="@+id/cbdelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:text="Delete CB Radio" />
+</RelativeLayout>

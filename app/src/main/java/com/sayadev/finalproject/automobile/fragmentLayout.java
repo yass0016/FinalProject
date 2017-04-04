@@ -25,7 +25,7 @@ public class fragmentLayout extends Fragment {
             case "Temp Control":
                 v = inflater.inflate(R.layout.auto_temp_frag,container,false);
                 final SeekBar temp,fan;
-                Button set1,set2,set3,set4;
+                Button set1,set2,set3,set4,delete;
                 final Switch acswitch = (Switch) v.findViewById(R.id.acswitch);
 
                 set1 = (Button) v.findViewById(R.id.buttemp1);
@@ -34,6 +34,7 @@ public class fragmentLayout extends Fragment {
                 set4 = (Button) v.findViewById(R.id.buttemp4);
                 temp = (SeekBar) v.findViewById(R.id.tempslider);
                 fan = (SeekBar) v.findViewById(R.id.fanslider);
+                delete = (Button) v.findViewById(R.id.tempdelete);
 
                 temp.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                     Toast toast = new Toast(getActivity());
@@ -102,6 +103,13 @@ public class fragmentLayout extends Fragment {
                         temp.setProgress(15);
                         fan.setProgress(5);
                         Snackbar.make(getView(),"Preset 4 selected",Snackbar.LENGTH_SHORT).show();
+                    }
+                });
+
+                delete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ((FragPhone) getActivity()).delete();
                     }
                 });
                 break;

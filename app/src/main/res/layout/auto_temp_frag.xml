@@ -88,4 +88,12 @@
         android:layout_alignParentEnd="true"
         android:text="4" />
 
+    <Button
+        android:id="@+id/tempdelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:text="Delete Temp Control" />
+
 </RelativeLayout>
