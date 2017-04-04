@@ -61,16 +61,15 @@
         android:text="2"
         android:layout_alignBaseline="@+id/buttemp1"
         android:layout_alignBottom="@+id/buttemp1"
-        android:layout_centerHorizontal="true" />
+        android:layout_toEndOf="@+id/buttemp1" />
 
     <Button
         android:id="@+id/buttemp3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="3"
-        android:layout_alignBaseline="@+id/buttemp2"
-        android:layout_alignBottom="@+id/buttemp1"
-        android:layout_alignParentEnd="true" />
+        android:layout_below="@+id/tvtemppre"
+        android:layout_toStartOf="@+id/buttemp4" />
 
     <TextView
         android:id="@+id/tvtemppre"
@@ -80,5 +79,13 @@
         android:layout_above="@+id/buttemp2"
         android:layout_alignParentStart="true"
         android:textAlignment="center"/>
+
+    <Button
+        android:id="@+id/buttemp4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/buttemp3"
+        android:layout_alignParentEnd="true"
+        android:text="4" />
 
 </RelativeLayout>

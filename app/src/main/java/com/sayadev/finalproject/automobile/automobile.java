@@ -1,5 +1,6 @@
 package com.sayadev.finalproject.automobile;
 
+import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,6 +11,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -21,6 +23,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,10 +36,11 @@ import java.util.ArrayList;
 public class automobile extends AppCompatActivity {
     private ListView ls;
     private Button butt;
+    private FloatingActionButton addbutt;
     private EditText nameText,descText;
     private ProjectDatabaseHelper dbh;
     private SQLiteDatabase db;
-    private ArrayList<String> items,desc,itemdummy,descdummy;
+    private ArrayList<String> items,desc,type,typedummy,itemdummy,descdummy;
     private ItemAdapter adapter;
     private Cursor cursor;
     private String[] sa;
@@ -46,24 +50,26 @@ public class automobile extends AppCompatActivity {
     private Getdb asyncdb;
     private Spinner comboBox;
     private Bundle bundle;
+    private ProgressBar pb;
+    private int count;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_automobile);
-        comboBox = (Spinner) findViewById(R.id.spinner);
-        ArrayAdapter<CharSequence> adapterspin = ArrayAdapter.createFromResource(this,
-                R.array.spinopt, R.layout.support_simple_spinner_dropdown_item);
-        adapterspin.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        comboBox.setAdapter(adapterspin);
+        addbutt = (FloatingActionButton) findViewById(R.id.floatadd);
+
+
+
         ls = (ListView) findViewById(R.id.autoList);
-        butt = (Button) findViewById(R.id.autoButton);
-        nameText = (EditText) findViewById(R.id.nameText);
-        descText = (EditText) findViewById(R.id.descText);
+
+        count = 0;
         bundle = new Bundle();
         dbh = new ProjectDatabaseHelper(this);
         db = dbh.getWritableDatabase();
         items = new ArrayList<>();
+        type = new ArrayList<>();
+        typedummy = new ArrayList<>();
         itemdummy = new ArrayList<>();
         descdummy = new ArrayList<>();
         items.add(getString(R.string.temp));
@@ -79,22 +85,27 @@ public class automobile extends AppCompatActivity {
         desc.add(getString(R.string.chairdesc));
         adapter = new ItemAdapter(this);
         ls.setAdapter(adapter);
-        sa = new String[]{dbh.COLUMN_AUTO_ID,dbh.COLUMN_AUTO_NAME,dbh.COLUMN_AUTO_DESCRIPTION};
+        sa = new String[]{dbh.COLUMN_AUTO_ID,dbh.COLUMN_AUTO_NAME,dbh.COLUMN_AUTO_DESCRIPTION,dbh.COLUMN_AUTO_TYPE};
         cv = new ContentValues();
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         if(prefs.getBoolean("firstTime",true)){
-            cv.put(dbh.COLUMN_AUTO_NAME,getString(R.string.temp));
-            cv.put(dbh.COLUMN_AUTO_DESCRIPTION,getString(R.string.tempdesc));
-            cv.put(dbh.COLUMN_AUTO_TYPE,"Temp Control");
-            db.insert(dbh.TABLE_AUTO_ITEMS,null,cv);
+                cv.put(dbh.COLUMN_AUTO_NAME, getString(R.string.temp));
+                cv.put(dbh.COLUMN_AUTO_DESCRIPTION, getString(R.string.tempdesc));
+                cv.put(dbh.COLUMN_AUTO_TYPE, "Temp Control");
+                db.insert(dbh.TABLE_AUTO_ITEMS, null, cv);
+
 
             prefs.edit().putBoolean("firstTime", false).commit();
         }
         builder = new AlertDialog.Builder(this);
         asyncdb = new Getdb();
+        pb = (ProgressBar) findViewById(R.id.progressBar);
+        pb.setVisibility(View.VISIBLE);
+        pb.setMax(1000);
         setList();
+        pb.setVisibility(View.INVISIBLE);
 
-        butt.setOnClickListener(new View.OnClickListener() {
+        /*butt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i("test","this(" + nameText.getText().toString() + ")");
@@ -116,39 +127,94 @@ public class automobile extends AppCompatActivity {
                     adapter.notifyDataSetChanged();
                 }
             }
-        });
+        });*/
 
         ls.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                 builder.setTitle(items.get(position));
-                builder.setMessage(desc.get(position));
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                builder.setMessage("Type: " + type.get(position) + "\nDescription: " + desc.get(position));
+                builder.setPositiveButton("Options", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        bundle.clear();
-                        bundle.putString("Option",items.get(position));
+                       /* bundle.clear();
+                        bundle.putString("Option",items.get(position));*/
                         Intent i = new Intent(automobile.this,FragPhone.class);
+                        i.putExtra("Type",type.get(position));
+                        i.putExtra("Name",items.get(position));
+                        i.putExtra("Desc",desc.get(position));
                         startActivity(i,bundle);
                     }
                 });
+                builder.setNegativeButton("Cancel",null);
                 builder.show();
             }
         });
+
+        addbutt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Dialog dialog = new Dialog(automobile.this);
+                dialog.setContentView(R.layout.auto_add_dialog);
+                dialog.setTitle("Add Item");
+
+                ArrayAdapter<CharSequence> adapterspin = ArrayAdapter.createFromResource(getApplicationContext(),
+                        R.array.spinopt, R.layout.support_simple_spinner_dropdown_item);
+                adapterspin.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                comboBox = (Spinner) dialog.findViewById(R.id.spinner);
+                comboBox.setAdapter(adapterspin);
+                nameText = (EditText) dialog.findViewById(R.id.nameText);
+                descText = (EditText) dialog.findViewById(R.id.descText);
+                butt = (Button) dialog.findViewById(R.id.autoButton);
+
+                butt.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.i("test","this(" + nameText.getText().toString() + ")");
+                        if(nameText.getText().toString().equalsIgnoreCase("")){
+                            toast = Toast.makeText(automobile.this,"Name was not entered",Toast.LENGTH_LONG);
+                            toast.show();
+                        }else{
+                            cv.clear();
+                            cv.put(dbh.COLUMN_AUTO_NAME,nameText.getText().toString());
+                            cv.put(dbh.COLUMN_AUTO_DESCRIPTION,descText.getText().toString());
+                            cv.put(dbh.COLUMN_AUTO_TYPE,comboBox.getSelectedItem().toString());
+                            db.insert(dbh.TABLE_AUTO_ITEMS,null,cv);
+                            items.add(nameText.getText().toString());
+                            desc.add(descText.getText().toString());
+                            type.add(comboBox.getSelectedItem().toString());
+                            adapter.notifyDataSetChanged();
+                            nameText.setHint("Name of Item");
+                            descText.setHint("Description");
+                            nameText.setText("");
+                            descText.setText("");
+                            adapter.notifyDataSetChanged();
+                        }
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
+
+            }
+        });
+
     }
 
     private void setList(){
         items.clear();
         cursor = db.query(dbh.TABLE_AUTO_ITEMS,sa,null,null,null,null,null,null);
         cursor.moveToFirst();
-        asyncdb.execute(cursor);
-
-       /*while(!cursor.isAfterLast()){
-            items.add(cursor.getString(cursor.getColumnIndex(dbh.COLUMN_AUTO_NAME)));
+       while(!cursor.isAfterLast()){
+            count ++;
             cursor.moveToNext();
-        }*/
+        }
+
+        cursor.moveToFirst();
+        asyncdb.execute(cursor);
         items = itemdummy;
         desc = descdummy;
+        type = typedummy;
         adapter.notifyDataSetChanged();
     }
 
@@ -182,12 +248,28 @@ public class automobile extends AppCompatActivity {
 
         @Override
         protected ArrayList doInBackground(Cursor... params) {
+
             while(!params[0].isAfterLast()){
                 itemdummy.add(params[0].getString(params[0].getColumnIndex(dbh.COLUMN_AUTO_NAME)));
                 descdummy.add(params[0].getString(params[0].getColumnIndex(dbh.COLUMN_AUTO_DESCRIPTION)));
+                typedummy.add(params[0].getString(params[0].getColumnIndex(dbh.COLUMN_AUTO_TYPE)));
                 params[0].moveToNext();
+                publishProgress(1000/count);
+
             }
+            publishProgress(1000);
             return itemdummy;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+            if(values[0] == 1000) {
+                pb.setProgress(values[0]);
+            }else{
+                pb.setProgress(pb.getProgress()+values[0]);
+            }
+            Log.i("progress",Integer.toString(values[0]));
         }
 
         @Override

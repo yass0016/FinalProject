@@ -1,27 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.sayadev.finalproject.automobile.automobile">
 
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/autoButton"
-        android:layout_toEndOf="@+id/nameText"/>
 
-    <EditText
-        android:id="@+id/nameText"
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:layout_above="@+id/descText"
-        android:hint="@string/nameText"
-        android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/autoButton" />
+        android:layout_centerInParent="true"/>
 
     <ListView
         android:id="@+id/autoList"
@@ -30,24 +21,17 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
 
-    <Button
-        android:id="@+id/autoButton"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:text="@string/addButton"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true" />
 
-    <EditText
-        android:id="@+id/descText"
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatadd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/autoButton"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="@string/descText"
-        android:layout_below="@+id/autoList"
-        android:layout_toStartOf="@+id/autoButton"
-        android:layout_alignParentBottom="true" />
+        android:layout_marginEnd="15dp"
+        android:clickable="true"
+        app:fabSize="mini"
+        app:srcCompat="@android:drawable/ic_menu_add"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="13dp" />
 </RelativeLayout>
