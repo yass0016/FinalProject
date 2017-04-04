@@ -47,9 +47,9 @@ public class LivingRoom extends BaseActivity {
 
         roomList.setAdapter(roomAdapter);
 
-        roomItems.add(new RoomData(0, "TV", "@drawable/tv"));
-        roomItems.add(new RoomData(1, "Lamps", "@drawable/lamp"));
-        roomItems.add(new RoomData(2, "Blinding", "@drawable/blind"));
+        roomItems.add(new RoomData(0, "TV", "@drawable/tv", 0, null, null, null));
+        roomItems.add(new RoomData(1, "Lamps", "@drawable/lamp", 0, null, null, null));
+        roomItems.add(new RoomData(2, "Blinding", "@drawable/blind", 0, null, null, null));
 
         roomList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
