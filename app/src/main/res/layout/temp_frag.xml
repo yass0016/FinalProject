@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.sayadev.finalproject.automobile.fragmentLayout">
+
+
+    <TextView
+        android:id="@+id/tvtemp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Temperature"
+        android:layout_alignParentTop="true"/>
+
+    <SeekBar
+        android:id="@+id/tempslider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="30"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/acswitch"
+        android:layout_below="@+id/tvtemp"/>
+
+    <Switch
+        android:id="@+id/acswitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="AC"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/tvtemp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvfan"
+        android:layout_below="@+id/tempslider"
+        android:text="Fan Speed"/>
+
+    <SeekBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/fanslider"
+        android:max="10"
+        android:layout_below="@+id/tvfan"/>
+
+    <Button
+        android:id="@+id/buttemp1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/fanslider"
+        android:layout_marginTop="40dp"
+        android:text="1" />
+
+    <Button
+        android:id="@+id/buttemp2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2"
+        android:layout_alignBaseline="@+id/buttemp1"
+        android:layout_alignBottom="@+id/buttemp1"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/buttemp3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3"
+        android:layout_alignBaseline="@+id/buttemp2"
+        android:layout_alignBottom="@+id/buttemp1"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/tvtemppre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pre-sets"
+        android:layout_above="@+id/buttemp2"
+        android:layout_alignParentStart="true"
+        android:textAlignment="center"/>
+
+</RelativeLayout>

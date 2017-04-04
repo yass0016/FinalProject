@@ -5,6 +5,13 @@
     android:layout_height="match_parent"
     tools:context="com.sayadev.finalproject.automobile.automobile">
 
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/autoButton"
+        android:layout_toEndOf="@+id/nameText"/>
+
     <EditText
         android:id="@+id/nameText"
         android:layout_width="wrap_content"
@@ -25,7 +32,7 @@
 
     <Button
         android:id="@+id/autoButton"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:text="@string/addButton"
         android:layout_alignParentBottom="true"

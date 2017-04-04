@@ -26,6 +26,7 @@ public class ProjectDatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_AUTO_ID = "_id";
     public static final String COLUMN_AUTO_NAME = "name";
     public static final String COLUMN_AUTO_DESCRIPTION = "description";
+    public static final String COLUMN_AUTO_TYPE = "type";
 
     // Database creation sql statement
     private static final String CREATE_ROOM_ITEMS_TABLE = "create table "
@@ -35,7 +36,7 @@ public class ProjectDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_AUTO_ITEMS = "create table " + TABLE_AUTO_ITEMS +  " ( "
             + COLUMN_AUTO_ID + " integer primary key autoincrement, "
-            +  COLUMN_AUTO_NAME + " text, " + COLUMN_AUTO_DESCRIPTION + " text);";
+            +  COLUMN_AUTO_NAME + " text, " + COLUMN_AUTO_DESCRIPTION + " text, " + COLUMN_AUTO_TYPE + " text);";
 
     public ProjectDatabaseHelper(Context ctx) {
         super(ctx, DATABASE_NAME, null, VERSION_NUM);
@@ -54,7 +55,7 @@ public class ProjectDatabaseHelper extends SQLiteOpenHelper {
                 "Upgrading database from version " + oldVersion + " to "
                         + newVersion + ", which will destroy all old data");
         db.execSQL("DROP TABLE IF EXISTS messages");
-        db.execSQL("drop table if exists " + TABLE_AUTO_ITEMS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_AUTO_ITEMS);
         onCreate(db);
 
         Log.i("ProjectDatabaseHelper", "Calling onUpgrade, oldVersion=" + oldVersion + " newVersion=" + newVersion);

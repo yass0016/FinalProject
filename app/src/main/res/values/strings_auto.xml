@@ -13,4 +13,12 @@
     <string name="cbdesc">This controls the settings to the CB Radio. Volume, Chanel, Tune.</string>
     <string name="gpsdesc">This controls the GPS. Destination, Position, ETA, Next turn, etc.</string>
     <string name="chairdesc">This is where all the seat position setting are kept. Back angle, Bottom angle, Seat Height, Distance from Front, Programed Positions.</string>
+    <string-array name="spinopt">
+        <item>Temp Control</item>
+        <item>Radio</item>
+        <item>CB Radio</item>
+        <item>GPS</item>
+        <item>Seat</item>
+        <item>Trunk</item>
+    </string-array>
 </resources>
