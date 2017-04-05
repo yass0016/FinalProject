@@ -1,21 +1,23 @@
 package com.sayadev.finalproject.livingroom.TV;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.sayadev.finalproject.BaseActivity;
 import com.sayadev.finalproject.R;
 
 /**
  * Created by saleh on 3/26/2017.
  */
 
-public class TV extends BaseActivity {
+public class TV extends Fragment {
 
     private ImageView image;
     private TextView tvText;
@@ -23,25 +25,22 @@ public class TV extends BaseActivity {
     private EditText channelData;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
-        setContentView(R.layout.activity_tv);
+        final Bundle data = this.getArguments();
 
-        getSupportActionBar().setTitle("Samsung TV");
+        View v = inflater.inflate(R.layout.activity_tv, container, false);
 
-        final Bundle data = this.getIntent().getExtras();
+        image = (ImageView) v.findViewById(R.id.tvImage);
 
+        image.setImageDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(), getResources().getIdentifier(data.getString("itemImage"), null, getActivity().getPackageName())));
 
-        image = (ImageView) findViewById(R.id.tvImage);
-
-        image.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), getResources().getIdentifier(data.getString("itemImage"), null, getPackageName())));
-
-        tvText = (TextView) findViewById(R.id.tvText);
+        tvText = (TextView) v.findViewById(R.id.tvText);
         tvText.setText("TV ID: " + data.getString("id") + " No Channel is Playing ");
 
-        channelData = (EditText) findViewById(R.id.channelTitle);
-        addChannel = (Button) findViewById(R.id.addChannel);
+        channelData = (EditText) v.findViewById(R.id.channelTitle);
+        addChannel = (Button) v.findViewById(R.id.addChannel);
 
         addChannel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,5 +54,6 @@ public class TV extends BaseActivity {
             }
         });
 
+        return v;
     }
 }

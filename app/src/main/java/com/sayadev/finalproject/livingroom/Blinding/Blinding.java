@@ -1,7 +1,11 @@
 package com.sayadev.finalproject.livingroom.Blinding;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,28 +16,26 @@ import com.sayadev.finalproject.R;
  * Created by saleh on 3/26/2017.
  */
 
-public class Blinding extends BaseActivity {
+public class Blinding extends Fragment {
     private ImageView image;
     private TextView blindingText;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
-        setContentView(R.layout.activity_blinding);
+        final Bundle data = this.getArguments();
 
-        getSupportActionBar().setTitle("House Blindings");
+        View v = inflater.inflate(R.layout.activity_blinding, container, false);
 
-        final Bundle data = this.getIntent().getExtras();
+        image = (ImageView) v.findViewById(R.id.blindingImage);
 
+        image.setImageDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(), getResources().getIdentifier(data.getString("itemImage"), null, getActivity().getPackageName())));
 
-        image = (ImageView) findViewById(R.id.blindingImage);
-
-        image.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), getResources().getIdentifier(data.getString("itemImage"), null, getPackageName())));
-
-        blindingText = (TextView) findViewById(R.id.blindingText);
+        blindingText = (TextView) v.findViewById(R.id.blindingText);
 
         blindingText.setText("ID: " + data.getString("id"));
 
+        return v;
     }
 }

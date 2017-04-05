@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
@@ -19,7 +20,9 @@ import android.widget.TextView;
 import com.sayadev.finalproject.BaseActivity;
 import com.sayadev.finalproject.R;
 import com.sayadev.finalproject.livingroom.Blinding.Blinding;
-import com.sayadev.finalproject.livingroom.Lamps.Lamps;
+import com.sayadev.finalproject.livingroom.Lamps.Lamp1;
+import com.sayadev.finalproject.livingroom.Lamps.Lamp2;
+import com.sayadev.finalproject.livingroom.Lamps.Lamp3;
 import com.sayadev.finalproject.livingroom.TV.TV;
 
 import java.util.ArrayList;
@@ -54,7 +57,7 @@ public class LivingRoom extends BaseActivity {
         roomList.setAdapter(roomAdapter);
 
         roomItems.add(new RoomData(0, "TV", "@drawable/tv", 0, null, null, null));
-        roomItems.add(new RoomData(1, "Lamps", "@drawable/lamp", 1, null, null, null));
+        roomItems.add(new RoomData(1, "Lamp1", "@drawable/lamp", 1, null, null, null));
         roomItems.add(new RoomData(2, "Blinding", "@drawable/blind", 4, null, null, null));
         roomItems.add(new RoomData(4, "TV", "@drawable/tv", 0, null, null, null));
 
@@ -67,7 +70,7 @@ public class LivingRoom extends BaseActivity {
         roomList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
                 Object o = roomList.getItemAtPosition(position);
-                RoomData str = (RoomData) o;
+                RoomData itemData = (RoomData) o;
                 Bundle data = new Bundle();
 
                 Intent intent = null;
@@ -75,52 +78,31 @@ public class LivingRoom extends BaseActivity {
                 data.putString("id", Long.toString(id));
                 data.putString("itemTitle", roomItems.get(position).getTitle());
                 data.putString("itemImage", roomItems.get(position).getImageUri());
+                data.putString("deviceType", Integer.toString(itemData.getItemType()));
 
                 if (!isFrameLoaded) {        // phone
-                    if (str.getItemType() == RoomData.DEVICE_TV) {
-                        data.putString("deviceType", Integer.toString(RoomData.DEVICE_TV));
-
-                        data.putString("orientation", "port");
-                        intent = new Intent(LivingRoom.this, TV.class);
-                        intent.putExtras(data);
-                        startActivityForResult(intent, 5);
-                    } else if (str.getItemType() == RoomData.DEVICE_LAMP1) {
-                        data.putString("deviceType", Integer.toString(RoomData.DEVICE_LAMP1));
-
-                        data.putString("orientation", "port");
-                        intent = new Intent(LivingRoom.this, Lamps.class);
-                        intent.putExtras(data);
-                        startActivityForResult(intent, 5);
-                    } else if (str.getItemType() == RoomData.DEVICE_LAMP2) {
-                        data.putString("deviceType", Integer.toString(RoomData.DEVICE_LAMP2));
-
-                        data.putString("orientation", "port");
-                        intent = new Intent(LivingRoom.this, Lamps.class);
-                        intent.putExtras(data);
-                        startActivityForResult(intent, 5);
-                    } else if (str.getItemType() == RoomData.DEVICE_LAMP3) {
-                        data.putString("deviceType", Integer.toString(RoomData.DEVICE_LAMP3));
-
-                        data.putString("orientation", "port");
-                        intent = new Intent(LivingRoom.this, Lamps.class);
-                        intent.putExtras(data);
-                        startActivityForResult(intent, 5);
-
-                    } else if (str.getItemType() == RoomData.DEVICE_BLINDING) {
-                        data.putString("deviceType", Integer.toString(RoomData.DEVICE_BLINDING));
-
-                        data.putString("orientation", "port");
-                        intent = new Intent(LivingRoom.this, Blinding.class);
-                        intent.putExtras(data);
-                        startActivityForResult(intent, 5);
-                    }
-
+                    data.putString("orientation", "port");
+                    intent = new Intent(LivingRoom.this, RoomDetails.class);
+                    intent.putExtras(data);
+                    startActivityForResult(intent, 5);
                 } else {                    // tablet
-                    data.putString("deviceType", Integer.toString(str.getItemType()));
-
                     data.putString("orientation", "land");
                     FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                    RoomFragment f = new RoomFragment();
+
+                    Fragment f = null;
+
+                    if(itemData.getItemType() == RoomData.DEVICE_TV) {
+                        f = new TV();
+                    } else if(itemData.getItemType() == RoomData.DEVICE_LAMP1) {
+                        f = new Lamp1();
+                    } else if(itemData.getItemType() == RoomData.DEVICE_LAMP2) {
+                        f = new Lamp2();
+                    } else if(itemData.getItemType() == RoomData.DEVICE_LAMP3) {
+                        f = new Lamp3();
+                    } else if(itemData.getItemType() == RoomData.DEVICE_BLINDING) {
+                        f = new Blinding();
+                    }
+
                     f.setArguments(data);
 
                     ft.replace(R.id.livingRoomFrame, f);
