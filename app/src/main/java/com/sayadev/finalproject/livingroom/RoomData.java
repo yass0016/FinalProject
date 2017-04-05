@@ -1,22 +1,18 @@
 package com.sayadev.finalproject.livingroom;
 
-import android.util.Log;
-
 import java.util.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 /**
  * Created by saleh on 2017-03-25.
  */
 
 public class RoomData {
-    public enum DeviceType {
-        TV,
-        LAMP,
-        BLINDING
-    }
+
+    public static final int DEVICE_TV = 0;
+    public static final int DEVICE_LAMP1 = 1;
+    public static final int DEVICE_LAMP2 = 2;
+    public static final int DEVICE_LAMP3 = 3;
+    public static final int DEVICE_BLINDING = 4;
 
     private int _id;
     private String title;
@@ -31,7 +27,7 @@ public class RoomData {
         this.title = "";
         this.imageUri = "";
 
-        this.itemType = DeviceType.TV.ordinal();
+        this.itemType = DEVICE_TV;
         itemName = "";
         lastVisitDate = new Date();
         createdDate = new Date();
