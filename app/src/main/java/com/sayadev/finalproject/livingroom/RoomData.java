@@ -14,13 +14,13 @@ public class RoomData {
     public static final int DEVICE_LAMP3 = 3;
     public static final int DEVICE_BLINDING = 4;
 
-    private int _id;
+    private long _id;
     private String title;
     private String imageUri;
     private int itemType;
     private String itemName;
-    private Date lastVisitDate;
-    private Date createdDate;
+    private long lastVisitDate;
+    private long createdDate;
 
     public RoomData() {
         this._id = 0;
@@ -29,11 +29,11 @@ public class RoomData {
 
         this.itemType = DEVICE_TV;
         itemName = "";
-        lastVisitDate = new Date();
-        createdDate = new Date();
+        lastVisitDate = 0;
+        createdDate = 0;
     }
 
-    public RoomData(int _id, String title, String imageUri, int itemType, String itemName, Date lastVisitDate, Date createdDate) {
+    public RoomData(long _id, String title, String imageUri, int itemType, String itemName, long lastVisitDate, long createdDate) {
         this._id = _id;
         this.title = title;
         this.imageUri = imageUri;
@@ -43,11 +43,11 @@ public class RoomData {
         this.createdDate = createdDate;
     }
 
-    public int get_id() {
+    public long get_id() {
         return _id;
     }
 
-    public void set_id(int _id) {
+    public void set_id(long _id) {
         this._id = _id;
     }
 
@@ -83,19 +83,19 @@ public class RoomData {
         this.itemName = itemName;
     }
 
-    public Date getLastVisitDate() {
+    public long getLastVisitDate() {
         return lastVisitDate;
     }
 
-    public void setLastVisitDate(Date lastVisitDate) {
+    public void setLastVisitDate(long lastVisitDate) {
         this.lastVisitDate = lastVisitDate;
     }
 
-    public Date getCreatedDate() {
+    public long getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(Date createdDate) {
+    public void setCreatedDate(long createdDate) {
         this.createdDate = createdDate;
     }
 }

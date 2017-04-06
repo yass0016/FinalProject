@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dialog_room_device_type">Device Type:</string>
+    <string name="dialog_room_device_tv">TV</string>
+    <string name="dialog_room_device_lamp1">Lamp 1</string>
+    <string name="dialog_room_device_lamp2">Lamp 2</string>
+    <string name="dialog_room_device_lamp3">Lamp 3</string>
+    <string name="dialog_room_device_blinding">Blinds</string>
+
+    <string name="dialog_room_device_tv_desc">TV Interface - User can turn on / off the TV. User can change channels either by buttons or by entering the channel number or by using the entry pad. User can also change the volume using the entry pad.</string>
+    <string name="dialog_room_device_lamp1_desc">Lamp 1 Interface - User can turn on / off the lamp.</string>
+    <string name="dialog_room_device_lamp2_desc">Lamp 2 Interface - User can turn on / off the lamp. User can change the brightness of a lamp.</string>
+    <string name="dialog_room_device_lamp3_desc">Lamp 3 Interface - User can turn on / off the lamp. User can change the brightness of a lamp. User can change color of a lamp.</string>
+    <string name="dialog_room_device_blinding_desc">Blinds Interface - User can open or close blinds using a slider.</string>
+
+    <string-array name="rooms_array">
+        <item>TV</item>
+        <item>Lamp 1</item>
+        <item>Lamp 2</item>
+        <item>Lamp 3</item>
+        <item>Blinds</item>
+    </string-array>
+</resources>
