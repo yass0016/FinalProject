@@ -20,4 +20,28 @@
         <item>Lamp 3</item>
         <item>Blinds</item>
     </string-array>
+
+    <string name="tv_help">
+        Use the On/Off button to turn the TV ON or OFF\n
+        Use the PADs Left and Right buttons to change volume\n
+        Use the PADs Up and Down to change channels\n
+        Use the enter button to play the selected channel.\n
+        Use can also enter a channel to add it to the channels list.
+    </string>
+    <string name="lamp1_help">
+        Use the ON/OFF button to turn the lamp ON or OFF.
+    </string>
+    <string name="lamp2_help">
+        Use the ON/OFF button to turn the lamp ON or OFF\n
+        Use the Seek Bar to change the lamps dimming level.
+    </string>
+    <string name="lamp3_help">
+        Use the ON/OFF button to turn the lamp ON or OFF\n
+        Use the Seek Bar to change the lamps dimming level\n
+        Use the Spinner to change the lamps color.
+    </string>
+    <string name="blind_help">
+        Use the slider to open or close the blinds.
+    </string>
+    <string name="dialog_delete_device">Are you sure you want to delete this device?</string>
 </resources>

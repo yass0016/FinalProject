@@ -9,10 +9,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -95,7 +97,7 @@ public class LivingRoom extends BaseActivity {
 
                 Intent intent = null;
 
-                data.putString("id", Long.toString(id));
+                data.putString("id", Long.toString(position));
                 data.putString("itemTitle", roomItems.get(position).getTitle());
                 data.putString("itemImage", roomItems.get(position).getImageUri());
                 data.putString("deviceType", Integer.toString(itemData.getItemType()));
@@ -325,6 +327,43 @@ public class LivingRoom extends BaseActivity {
         }
     };
 
+    public void deleteItem(int id) {
+        db.delete(ProjectDatabaseHelper.TABLE_ROOM_ITEMS, "_id=?",
+                new String[]{Long.toString(roomItems.get(id).get_id())});
+
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+
+        if (roomItems.get(id).getItemType() == RoomData.DEVICE_TV) {
+            TV tv = (TV)getSupportFragmentManager().findFragmentById(R.id.livingRoomFrame);
+            ft.remove(tv);
+            ft.commit();
+        } else if (roomItems.get(id).getItemType() == RoomData.DEVICE_LAMP1) {
+            Lamp1 lamp1 = (Lamp1)getSupportFragmentManager().findFragmentById(R.id.livingRoomFrame);
+            ft.remove(lamp1);
+            ft.commit();
+        } else if (roomItems.get(id).getItemType() == RoomData.DEVICE_LAMP2) {
+            Lamp2 lamp2 = (Lamp2)getSupportFragmentManager().findFragmentById(R.id.livingRoomFrame);
+            ft.remove(lamp2);
+            ft.commit();
+        } else if (roomItems.get(id).getItemType() == RoomData.DEVICE_LAMP3) {
+            Lamp3 lamp3 = (Lamp3)getSupportFragmentManager().findFragmentById(R.id.livingRoomFrame);
+            ft.remove(lamp3);
+            ft.commit();
+        } else if (roomItems.get(id).getItemType() == RoomData.DEVICE_BLINDING) {
+            Blinding blind = (Blinding)getSupportFragmentManager().findFragmentById(R.id.livingRoomFrame);
+            ft.remove(blind);
+            ft.commit();
+        }
+
+        roomItems.remove(id);
+        roomAdapter.notifyDataSetChanged();
+
+        Snackbar.make(this.findViewById(android.R.id.content), "Item was deleted successfully", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+    }
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent = null;
@@ -352,6 +391,22 @@ public class LivingRoom extends BaseActivity {
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == 5) {
+            Bundle extras = data.getExtras();
+            int id = Integer.parseInt(extras.getString("id"));
+
+            db.delete(ProjectDatabaseHelper.TABLE_ROOM_ITEMS, "_id=?",
+                    new String[]{Long.toString(roomItems.get(id).get_id())});
+
+            roomItems.remove(id);
+            roomAdapter.notifyDataSetChanged();
+            Snackbar.make(this.findViewById(android.R.id.content), "Item was deleted successfully", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
         }
     }
 
