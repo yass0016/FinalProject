@@ -19,4 +19,6 @@ androidStudioFirstRun.xml
 IntelliLang.xml
 /inspection
 /_windows
-
+ui.lnf.xml
+debugger.renderers.xml
+/colors
