@@ -28,6 +28,14 @@ public class ProjectDatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_AUTO_DESCRIPTION = "description";
     public static final String COLUMN_AUTO_TYPE = "type";
 
+    //Auto programmed buttons tables
+    public static final String TABLE_AUTO_TEMP = "programmedButtons";
+    public static final String COLUMN_TEMP_ID = "_id";
+    public static final String COLUMN_TEMP_TEMP = "temp";
+    public static final String COLUMN_TEMP_FAN = "fanSpeed";
+    public static final String COLUMN_TEMP_AC = "ac";
+
+
     // Database creation sql statement
     private static final String CREATE_ROOM_ITEMS_TABLE = "create table "
             + TABLE_ROOM_ITEMS + "( " + COLUMN_ROOM_ID
@@ -38,6 +46,10 @@ public class ProjectDatabaseHelper extends SQLiteOpenHelper {
             + COLUMN_AUTO_ID + " integer primary key autoincrement, "
             +  COLUMN_AUTO_NAME + " text, " + COLUMN_AUTO_DESCRIPTION + " text, " + COLUMN_AUTO_TYPE + " text);";
 
+    private static final String CREATE_AUTO_TEMP = "create table " + TABLE_AUTO_TEMP + " ( "
+            + COLUMN_TEMP_ID  + " integer primary key autoincrement, " + COLUMN_TEMP_TEMP + " integer, " + COLUMN_TEMP_FAN + " integer, "
+            +COLUMN_TEMP_AC + " integer);";
+
     public ProjectDatabaseHelper(Context ctx) {
         super(ctx, DATABASE_NAME, null, VERSION_NUM);
     }
@@ -46,6 +58,7 @@ public class ProjectDatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_ROOM_ITEMS_TABLE);
         db.execSQL(CREATE_AUTO_ITEMS);
+        db.execSQL(CREATE_AUTO_TEMP);
         Log.i("ChatDatabaseHelper", "Calling onCreate");
     }
 
@@ -56,6 +69,7 @@ public class ProjectDatabaseHelper extends SQLiteOpenHelper {
                         + newVersion + ", which will destroy all old data");
         db.execSQL("DROP TABLE IF EXISTS messages");
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_AUTO_ITEMS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_AUTO_TEMP);
         onCreate(db);
 
         Log.i("ProjectDatabaseHelper", "Calling onUpgrade, oldVersion=" + oldVersion + " newVersion=" + newVersion);

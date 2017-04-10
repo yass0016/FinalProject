@@ -94,10 +94,12 @@ public class automobile extends AppCompatActivity {
         cv = new ContentValues();
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         if(prefs.getBoolean("firstTime",true)){
+
                 cv.put(dbh.COLUMN_AUTO_NAME, getString(R.string.temp));
                 cv.put(dbh.COLUMN_AUTO_DESCRIPTION, getString(R.string.tempdesc));
                 cv.put(dbh.COLUMN_AUTO_TYPE, "Temp Control");
                 db.insert(dbh.TABLE_AUTO_ITEMS, null, cv);
+
             cv.clear();
             cv.put(dbh.COLUMN_AUTO_NAME, getString(R.string.radio));
             cv.put(dbh.COLUMN_AUTO_DESCRIPTION, getString(R.string.radiodesc));
@@ -122,6 +124,29 @@ public class automobile extends AppCompatActivity {
             cv.put(dbh.COLUMN_AUTO_TYPE, "Seat");
             db.insert(dbh.TABLE_AUTO_ITEMS, null, cv);
 
+            cv.clear();
+            cv.put(dbh.COLUMN_TEMP_TEMP, 20);
+            cv.put(dbh.COLUMN_TEMP_FAN,5);
+            cv.put(dbh.COLUMN_TEMP_AC,1);
+            db.insert(dbh.TABLE_AUTO_TEMP,null,cv);
+
+            cv.clear();
+            cv.put(dbh.COLUMN_TEMP_TEMP, 8);
+            cv.put(dbh.COLUMN_TEMP_FAN,5);
+            cv.put(dbh.COLUMN_TEMP_AC,1);
+            db.insert(dbh.TABLE_AUTO_TEMP,null,cv);
+
+            cv.clear();
+            cv.put(dbh.COLUMN_TEMP_TEMP, 30);
+            cv.put(dbh.COLUMN_TEMP_FAN,10);
+            cv.put(dbh.COLUMN_TEMP_AC,0);
+            db.insert(dbh.TABLE_AUTO_TEMP,null,cv);
+
+            cv.clear();
+            cv.put(dbh.COLUMN_TEMP_TEMP, 15);
+            cv.put(dbh.COLUMN_TEMP_FAN,5);
+            cv.put(dbh.COLUMN_TEMP_AC,0);
+            db.insert(dbh.TABLE_AUTO_TEMP,null,cv);
 
             prefs.edit().putBoolean("firstTime", false).commit();
         }

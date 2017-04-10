@@ -1,6 +1,8 @@
 package com.sayadev.finalproject.automobile;
 
 import android.app.Fragment;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
@@ -15,24 +17,45 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sayadev.finalproject.Model.ProjectDatabaseHelper;
 import com.sayadev.finalproject.R;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import static com.sayadev.finalproject.R.drawable.up;
 
 public class fragmentLayout extends Fragment {
     Toast toast;
+    private ProjectDatabaseHelper dbh;
+    private SQLiteDatabase db;
+    private String[] sa;
+    private ArrayList<Integer> tempar,fanar,acar;
+    private Cursor cursor;
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance){
         toast = new Toast(getActivity());
         View v = null ;
         Button delete;
+
+
+        tempar = new ArrayList();
+        fanar = new ArrayList();
+        acar = new ArrayList();
+
+
         Log.i("bundle items", "" + getArguments().getString("Type"));
         switch (getArguments().getString("Type")){
             case "Temp Control":
                 v = inflater.inflate(R.layout.auto_temp_frag,container,false);
+                dbh = new ProjectDatabaseHelper(v.getContext());
+                db = dbh.getWritableDatabase();
+                sa = new String[]{dbh.COLUMN_TEMP_ID,dbh.COLUMN_TEMP_TEMP,dbh.COLUMN_TEMP_FAN,dbh.COLUMN_TEMP_AC};
+                cursor = db.query(dbh.TABLE_AUTO_TEMP,sa,null,null,null,null,null,null);
+                cursor.moveToFirst();
                 final SeekBar temp,fan;
                 Button set1,set2,set3,set4;
+
                 final Switch acswitch = (Switch) v.findViewById(R.id.acswitch);
                 delete = (Button) v.findViewById(R.id.tempdelete);
                 set1 = (Button) v.findViewById(R.id.buttemp1);
@@ -41,6 +64,13 @@ public class fragmentLayout extends Fragment {
                 set4 = (Button) v.findViewById(R.id.buttemp4);
                 temp = (SeekBar) v.findViewById(R.id.tempslider);
                 fan = (SeekBar) v.findViewById(R.id.fanslider);
+
+                while(!cursor.isAfterLast()){
+                    tempar.add(cursor.getColumnIndex(dbh.COLUMN_TEMP_TEMP));
+                    fanar.add(cursor.getColumnIndex(dbh.COLUMN_TEMP_FAN));
+                    acar.add(cursor.getColumnIndex(dbh.COLUMN_TEMP_AC));
+                    cursor.moveToNext();
+                }
 
 
                 temp.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -75,9 +105,17 @@ public class fragmentLayout extends Fragment {
                 set1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        acswitch.setChecked(true);
+                        if(acar.get(0) == 0){
+                            acswitch.setChecked(false);
+                        }else{
+                            acswitch.setChecked(true);
+                        }
+                        Log.i("tempDB",""+String.valueOf(tempar.get(0)));
+                        temp.setProgress(tempar.get(0));
+                        fan.setProgress(fanar.get(0));
+                       /* acswitch.setChecked(true);
                         temp.setProgress(20);
-                        fan.setProgress(5);
+                        fan.setProgress(5);*/
                         Snackbar.make(getView(),"Preset 1 selected",Snackbar.LENGTH_SHORT).show();
                     }
                 });
@@ -85,9 +123,17 @@ public class fragmentLayout extends Fragment {
                 set2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        acswitch.setChecked(true);
+                        if(acar.get(1) == 0){
+                            acswitch.setChecked(false);
+                        }else{
+                            acswitch.setChecked(true);
+                        }
+
+                        temp.setProgress(tempar.get(1));
+                        fan.setProgress(fanar.get(1));
+                        /*acswitch.setChecked(true);
                         temp.setProgress(8);
-                        fan.setProgress(5);
+                        fan.setProgress(5);*/
                         Snackbar.make(getView(),"Preset 2 selected",Snackbar.LENGTH_SHORT).show();
                     }
                 });
@@ -95,9 +141,17 @@ public class fragmentLayout extends Fragment {
                 set3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        acswitch.setChecked(false);
+                        if(acar.get(2) == 0){
+                            acswitch.setChecked(false);
+                        }else{
+                            acswitch.setChecked(true);
+                        }
+
+                        temp.setProgress(tempar.get(2));
+                        fan.setProgress(fanar.get(2));
+                        /* acswitch.setChecked(false);
                         temp.setProgress(30);
-                        fan.setProgress(10);
+                        fan.setProgress(10);*/
                         Snackbar.make(getView(),"Preset 3 selected",Snackbar.LENGTH_SHORT).show();
                     }
                 });
@@ -105,9 +159,17 @@ public class fragmentLayout extends Fragment {
                 set4.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        acswitch.setChecked(false);
+                        if(acar.get(3) == 0){
+                            acswitch.setChecked(false);
+                        }else{
+                            acswitch.setChecked(true);
+                        }
+
+                        temp.setProgress(tempar.get(3));
+                        fan.setProgress(fanar.get(3));
+                       /* acswitch.setChecked(false);
                         temp.setProgress(15);
-                        fan.setProgress(5);
+                        fan.setProgress(5);*/
                         Snackbar.make(getView(),"Preset 4 selected",Snackbar.LENGTH_SHORT).show();
                     }
                 });
