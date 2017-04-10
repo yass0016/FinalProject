@@ -77,17 +77,17 @@ public class automobile extends AppCompatActivity {
         typedummy = new ArrayList<>();
         itemdummy = new ArrayList<>();
         descdummy = new ArrayList<>();
-        items.add(getString(R.string.temp));
+       /* items.add(getString(R.string.temp));
         items.add(getString(R.string.radio));
         items.add(getString(R.string.cb));
         items.add(getString(R.string.gps));
-        items.add(getString(R.string.chair));
+        items.add(getString(R.string.chair));*/
         desc = new ArrayList<>();
-        desc.add(getString(R.string.tempdesc));
+       /* desc.add(getString(R.string.tempdesc));
         desc.add(getString(R.string.radiodesc));
         desc.add(getString(R.string.cbdesc));
         desc.add(getString(R.string.gpsdesc));
-        desc.add(getString(R.string.chairdesc));
+        desc.add(getString(R.string.chairdesc));*/
         adapter = new ItemAdapter(this);
         ls.setAdapter(adapter);
         sa = new String[]{dbh.COLUMN_AUTO_ID,dbh.COLUMN_AUTO_NAME,dbh.COLUMN_AUTO_DESCRIPTION,dbh.COLUMN_AUTO_TYPE};
@@ -98,6 +98,29 @@ public class automobile extends AppCompatActivity {
                 cv.put(dbh.COLUMN_AUTO_DESCRIPTION, getString(R.string.tempdesc));
                 cv.put(dbh.COLUMN_AUTO_TYPE, "Temp Control");
                 db.insert(dbh.TABLE_AUTO_ITEMS, null, cv);
+            cv.clear();
+            cv.put(dbh.COLUMN_AUTO_NAME, getString(R.string.radio));
+            cv.put(dbh.COLUMN_AUTO_DESCRIPTION, getString(R.string.radiodesc));
+            cv.put(dbh.COLUMN_AUTO_TYPE, "Radio");
+            db.insert(dbh.TABLE_AUTO_ITEMS, null, cv);
+
+            cv.clear();
+            cv.put(dbh.COLUMN_AUTO_NAME, getString(R.string.cb));
+            cv.put(dbh.COLUMN_AUTO_DESCRIPTION, getString(R.string.cbdesc));
+            cv.put(dbh.COLUMN_AUTO_TYPE, "CB Radio");
+            db.insert(dbh.TABLE_AUTO_ITEMS, null, cv);
+
+            cv.clear();
+            cv.put(dbh.COLUMN_AUTO_NAME, getString(R.string.gps));
+            cv.put(dbh.COLUMN_AUTO_DESCRIPTION, getString(R.string.gpsdesc));
+            cv.put(dbh.COLUMN_AUTO_TYPE, "GPS");
+            db.insert(dbh.TABLE_AUTO_ITEMS, null, cv);
+
+            cv.clear();
+            cv.put(dbh.COLUMN_AUTO_NAME, getString(R.string.chair));
+            cv.put(dbh.COLUMN_AUTO_DESCRIPTION, getString(R.string.chairdesc));
+            cv.put(dbh.COLUMN_AUTO_TYPE, "Seat");
+            db.insert(dbh.TABLE_AUTO_ITEMS, null, cv);
 
 
             prefs.edit().putBoolean("firstTime", false).commit();

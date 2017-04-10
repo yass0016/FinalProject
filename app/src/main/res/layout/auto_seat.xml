@@ -5,7 +5,7 @@
 
     <TextView
         android:id="@+id/seatdisttv"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
@@ -13,14 +13,14 @@
 
     <SeekBar
         android:id="@+id/seatdistsb"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/seatdisttv" />
 
     <TextView
         android:id="@+id/seathitv"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/seatdistsb"
@@ -28,7 +28,7 @@
 
     <SeekBar
         android:id="@+id/seathisb"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/seathitv" />
@@ -43,9 +43,10 @@
 
     <SeekBar
         android:id="@+id/seatangsb"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
+        android:max="90"
         android:layout_below="@+id/seatangtv" />
 
     <Button

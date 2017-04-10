@@ -360,6 +360,122 @@ public class fragmentLayout extends Fragment {
                     }
                 });
                 break;
+
+            case "Seat":
+                v = inflater.inflate(R.layout.auto_seat,container,false);
+
+                final SeekBar dist,height,angle;
+                Button seat1,seat2,seat3,seat4;
+
+                dist =(SeekBar) v.findViewById(R.id.seatdistsb);
+                height = (SeekBar) v.findViewById(R.id.seathisb);
+                angle = (SeekBar) v.findViewById(R.id.seatangsb);
+                seat1 =(Button) v.findViewById(R.id.seatset1);
+                seat2 =(Button) v.findViewById(R.id.seatset2);
+                seat3 =(Button) v.findViewById(R.id.seatset3);
+                seat4 =(Button) v.findViewById(R.id.seatset4);
+                delete =(Button) v.findViewById(R.id.seatdelete);
+
+                dist.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                    @Override
+                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                        toast.cancel();
+                        toast = Toast.makeText(getActivity(),"Distance:" + progress,Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+
+                    @Override
+                    public void onStartTrackingTouch(SeekBar seekBar) {
+
+                    }
+
+                    @Override
+                    public void onStopTrackingTouch(SeekBar seekBar) {
+
+                    }
+                });
+
+                height.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                    @Override
+                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                        toast.cancel();
+                        toast = Toast.makeText(getActivity(),"Height:" + progress,Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+
+                    @Override
+                    public void onStartTrackingTouch(SeekBar seekBar) {
+
+                    }
+
+                    @Override
+                    public void onStopTrackingTouch(SeekBar seekBar) {
+
+                    }
+                });
+
+                angle.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                    @Override
+                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                        toast.cancel();
+                        toast = Toast.makeText(getActivity(),"Angle:" + progress,Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+
+                    @Override
+                    public void onStartTrackingTouch(SeekBar seekBar) {
+
+                    }
+
+                    @Override
+                    public void onStopTrackingTouch(SeekBar seekBar) {
+
+                    }
+                });
+
+                seat1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dist.setProgress(15);
+                        height.setProgress(50);
+                        angle.setProgress(90);
+                    }
+                });
+
+                seat2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dist.setProgress(40);
+                        height.setProgress(45);
+                        angle.setProgress(75);
+                    }
+                });
+
+                seat3.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dist.setProgress(100);
+                        height.setProgress(5);
+                        angle.setProgress(22);
+                    }
+                });
+
+                seat4.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dist.setProgress(0);
+                        height.setProgress(0);
+                        angle.setProgress(0);
+                    }
+                });
+
+                delete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ((FragPhone) getActivity()).delete();
+                    }
+                });
+                break;
             default:
                 v = inflater.inflate(R.layout.auto_trunk_frag,container,false);
                 TextView trunktv = (TextView) v.findViewById(R.id.trunktext);
