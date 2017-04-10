@@ -16,6 +16,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -186,6 +188,7 @@ public class automobile extends AppCompatActivity {
                             cv.put(dbh.COLUMN_AUTO_DESCRIPTION,descText.getText().toString());
                             cv.put(dbh.COLUMN_AUTO_TYPE,comboBox.getSelectedItem().toString());
                             db.insert(dbh.TABLE_AUTO_ITEMS,null,cv);
+                            idal.add(db.query(dbh.TABLE_AUTO_ITEMS,sa,dbh.COLUMN_AUTO_NAME+"= '"+nameText.getText().toString()+ "'",null,null,null,null).getColumnIndex(dbh.COLUMN_AUTO_ID));
                             items.add(nameText.getText().toString());
                             desc.add(descText.getText().toString());
                             type.add(comboBox.getSelectedItem().toString());
@@ -302,6 +305,21 @@ public class automobile extends AppCompatActivity {
             super.onPostExecute(arrayList);
         }
     }
+
+    public boolean onCreateOptionsMenu (Menu m){
+        getMenuInflater().inflate(R.menu.auto_toolbar,m);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem mi){
+        Log.i("Toolbar","Option selected");
+        builder.setTitle("Automobile");
+        builder.setMessage("Author:Sheldon McGrath\nVersion:1.0\n\nSelect an option from the menu to get more information about it. \nContinuing from there will give you controls for the option. \nMore options can be added with the button at the bottom, right of the screen");
+        builder.setPositiveButton("OK",null);
+        builder.show();
+        return true;
+    }
+
 }
 
 

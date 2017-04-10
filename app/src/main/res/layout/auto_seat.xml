@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:text="Distance to wheel" />
+        android:text="@string/dfw" />
 
     <SeekBar
         android:id="@+id/seatdistsb"
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/seatdistsb"
-        android:text="Seat Height" />
+        android:text="@string/seatheight" />
 
     <SeekBar
         android:id="@+id/seathisb"
@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/seathisb"
-        android:text="Back Angle" />
+        android:text="@string/seatangle" />
 
     <SeekBar
         android:id="@+id/seatangsb"
@@ -89,5 +89,5 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:text="Delete seat control" />
+        android:text="@string/deleteseat" />
 </RelativeLayout>

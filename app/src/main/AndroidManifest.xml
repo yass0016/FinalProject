@@ -19,7 +19,7 @@
         <activity android:name=".kitchen.KitchenMainActivity" />
         <activity android:name=".automobile.automobile" />
         <activity android:name=".automobile.fragmentLayout" />
-        <activity android:name=".automobile.FragPhone"></activity>
+        <activity android:name=".automobile.FragPhone" />
     </application>
 
 </manifest>

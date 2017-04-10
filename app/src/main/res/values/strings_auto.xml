@@ -9,10 +9,28 @@
     <string name="gps">Global Positioning Device</string>
     <string name="chair">Seat Position</string>
     <string name="tempdesc">This controls all of the temperature settings in the car.</string>
-    <string name="radiodesc">This is where all of the radio controls are. Volume, Chanel, Programed Channels, etc.</string>\
+    <string name="radiodesc">This is where all of the radio controls are. Volume, Channel, Programed Channels, etc.</string>\
     <string name="cbdesc">This controls the settings to the CB Radio. Volume, Chanel, Tune.</string>
     <string name="gpsdesc">This controls the GPS. Destination, Position, ETA, Next turn, etc.</string>
     <string name="chairdesc">This is where all the seat position setting are kept. Back angle, Bottom angle, Seat Height, Distance from Front, Programed Positions.</string>
+    <string name="volume">Volume</string>
+    <string name="channel">Channel</string>
+    <string name="gain">Gain</string>
+    <string name="deletecb">Delete CB Radio</string>
+    <string name="location">Current Location</string>
+    <string name="dest">Destination</string>
+    <string name="go">GO</string>
+    <string name="deletegps">Delete GPS</string>
+    <string name="deleterad">Delete Radio</string>
+    <string name="dfw">Distance from Wheel</string>
+    <string name="seatheight">Seat Height</string>
+    <string name="seatangle">Seat Angle</string>
+    <string name="deleteseat">Delete Seat</string>
+    <string name="tempra">Temperature</string>
+    <string name="fan">Fan Speed</string>
+    <string name="pre">Pre-sets</string>
+    <string name="deletetemp">Delete Temp Control</string>
+    <string name="desterror">Please set a destination and start point.</string>
     <string-array name="spinopt">
         <item>Temp Control</item>
         <item>Radio</item>

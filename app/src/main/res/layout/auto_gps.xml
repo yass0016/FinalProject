@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:hint="Current Location" />
+        android:hint="@string/location" />
 
     <EditText
         android:id="@+id/destet"
@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:hint="Destination" />
+        android:hint="@string/dest" />
 
     <ImageView
         android:id="@+id/turniv"
@@ -38,11 +38,11 @@
         android:id="@+id/gpsgo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="GO" />
+        android:text="@string/go" />
 
     <Button
         android:id="@+id/gpsdelete"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Delete GPS" />
+        android:text="@string/deletegps" />
 </LinearLayout>

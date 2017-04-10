@@ -4,4 +4,5 @@
     <string name="appTwo">Kitchen</string>
     <string name="appThree">House</string>
     <string name="appFour">Automobile</string>
+    <string name="title_activity_toolbar">toolbar</string>
 </resources>

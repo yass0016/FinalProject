@@ -11,7 +11,7 @@
         android:id="@+id/tvtemp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Temperature"
+        android:text="@string/tempra"
         android:layout_alignParentTop="true"/>
 
     <SeekBar
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/tvfan"
         android:layout_below="@+id/tempslider"
-        android:text="Fan Speed"/>
+        android:text="@string/fan"/>
 
     <SeekBar
         android:layout_width="match_parent"
@@ -75,7 +75,7 @@
         android:id="@+id/tvtemppre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Pre-sets"
+        android:text="@string/pre"
         android:layout_above="@+id/buttemp2"
         android:layout_alignParentStart="true"
         android:textAlignment="center"/>
@@ -94,6 +94,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:text="Delete Temp Control" />
+        android:text="@string/deletetemp" />
 
 </RelativeLayout>

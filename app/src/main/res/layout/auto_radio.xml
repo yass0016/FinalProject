@@ -8,11 +8,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:text="Volume" />
+        android:text="@string/volume" />
 
     <SeekBar
         android:id="@+id/radvolsb"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/radvoltv" />
@@ -23,11 +23,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/radvolsb"
-        android:text="Channel" />
+        android:text="@string/channel" />
 
     <SeekBar
         android:id="@+id/radcahnsb"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/radchantv" />
@@ -71,5 +71,5 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:text="Delete Radio" />
+        android:text="@string/deleterad" />
 </RelativeLayout>
