@@ -26,7 +26,7 @@ import java.util.Random;
 import static com.sayadev.finalproject.R.drawable.up;
 
 public class fragmentLayout extends Fragment {
-    Toast toast;
+    private Toast toast;
     private ProjectDatabaseHelper dbh;
     private SQLiteDatabase db;
     private String[] sa;
@@ -66,9 +66,9 @@ public class fragmentLayout extends Fragment {
                 fan = (SeekBar) v.findViewById(R.id.fanslider);
 
                 while(!cursor.isAfterLast()){
-                    tempar.add(cursor.getColumnIndex(dbh.COLUMN_TEMP_TEMP));
-                    fanar.add(cursor.getColumnIndex(dbh.COLUMN_TEMP_FAN));
-                    acar.add(cursor.getColumnIndex(dbh.COLUMN_TEMP_AC));
+                    tempar.add(cursor.getInt(cursor.getColumnIndex(dbh.COLUMN_TEMP_TEMP)));
+                    fanar.add(cursor.getInt(cursor.getColumnIndex(dbh.COLUMN_TEMP_FAN)));
+                    acar.add(cursor.getInt(cursor.getColumnIndex(dbh.COLUMN_TEMP_AC)));
                     cursor.moveToNext();
                 }
 

@@ -29,11 +29,17 @@ public class ProjectDatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_AUTO_TYPE = "type";
 
     //Auto programmed buttons tables
-    public static final String TABLE_AUTO_TEMP = "programmedButtons";
+    //temp controls
+    public static final String TABLE_AUTO_TEMP = "tempSettings";
     public static final String COLUMN_TEMP_ID = "_id";
     public static final String COLUMN_TEMP_TEMP = "temp";
     public static final String COLUMN_TEMP_FAN = "fanSpeed";
     public static final String COLUMN_TEMP_AC = "ac";
+    //radio
+    public static final String TABLE_AUTO_RADIO = "radioSettings";
+    public static final String COLUMN_RADIO_ID = "_id";
+    public static final String COLUMN_RADIO_VOLUME = "volume";
+    public static final String COLUMN_RADIO_CHANNEL = "channel";
 
 
     // Database creation sql statement
