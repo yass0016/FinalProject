@@ -1,8 +1,11 @@
 package com.sayadev.finalproject.House;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -16,39 +19,28 @@ import com.sayadev.finalproject.livingroom.TV.Channel;
  * Created by Rudwan on 2017-03-26.
  */
 
-public class TempIn extends BaseActivity {
+public class TempIn extends Fragment {
     private ImageView image;
     private TextView tempText;
     private Button addTemprature;
     private EditText tempData;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
-        setContentView(R.layout.activity_temprature_inside);
+        View view = inflater.inflate(R.layout.activity_temprature_inside, container, false);
 
-        getSupportActionBar().setTitle("Temprature Inside House");
+        final Bundle data = this.getArguments();
 
-        final Bundle data = this.getIntent().getExtras();
+        image = (ImageView) view.findViewById(R.id.tempInImage);
 
+        image.setImageDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(), getResources().getIdentifier(data.getString("itemImage"), null, getActivity().getPackageName())));
 
-        image = (ImageView) findViewById(R.id.tempInImage);
+        tempText = (TextView) view.findViewById(R.id.tempInTitle);
 
-        image.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), getResources().getIdentifier(data.getString("itemImage"), null, getPackageName())));
+        tempText.setText("ID: " + data.getString("id"));
 
-        tempText = (TextView) findViewById(R.id.tempInTitle);
-        tempData = (EditText) findViewById(R.id.tempInData);
-        addTemprature = (Button) findViewById(R.id.addTemprature);
-
-        addTemprature.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(tempData.getText().length() != 0) {
-                    tempText.setText("Temprature ID: " + data.getString("id") + " Current Temprature: " + tempData.getText().toString() + " \u2103");
-                }
-            }
-        });
-
+        return view;
     }
 }

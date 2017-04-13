@@ -1,31 +1,47 @@
 package com.sayadev.finalproject.House;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.sayadev.finalproject.BaseActivity;
+import com.sayadev.finalproject.Model.ProjectDatabaseHelper;
 import com.sayadev.finalproject.R;
 
 import java.util.ArrayList;
 
-public class House extends BaseActivity {
+public class House extends AppCompatActivity {
 
     private ListView HouseList;
     private ArrayList<HouseData> HouseItems;
     private HouseAdapter HouseAdapter;
 
-    private SQLiteDatabase db;
+    private ProjectDatabaseHelper db;
+
+    private boolean isFrameLoaded;
+    private FrameLayout houseFrame;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,39 +55,177 @@ public class House extends BaseActivity {
 
         HouseList = (ListView) findViewById(R.id.houseItems);
 
-        db = getDbHelper().getWritableDatabase();
+        db = new ProjectDatabaseHelper(this);
 
         HouseAdapter = new HouseAdapter(this);
 
         HouseList.setAdapter(HouseAdapter);
 
-        HouseItems.add(new HouseData(0, "Garage", "@drawable/garage"));
-        HouseItems.add(new HouseData(1, "Temprature Inside", "@drawable/tempin"));
-        HouseItems.add(new HouseData(2, "Temprature Outside", "@drawable/tempout"));
+        getItems();
+
+        Button addHouseItem = (Button) findViewById(R.id.addHouseItem);
+        addHouseItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AddItemDialog();
+            }
+        });
+
+        houseFrame = (FrameLayout) findViewById(R.id.hosueFrame);
+
+        isFrameLoaded = (houseFrame != null);
 
         HouseList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
                 Object o = HouseList.getItemAtPosition(position);
-                HouseData str = (HouseData) o;
+                HouseData houseInfo = (HouseData) o;
                 Bundle data = new Bundle();
 
                 data.putString("id", Long.toString(id));
-                data.putString("itemTitle", HouseItems.get(position).getTitle());
-                data.putString("itemImage", HouseItems.get(position).getImageUri());
+                data.putString("itemImage", houseInfo.getImageUri());
 
                 Intent intent = null;
 
-                if (position == 0)
-                    intent = new Intent(House.this, Garage.class);
-                else if (position == 1)
-                    intent = new Intent(House.this, TempIn.class);
-                else if (position == 2)
-                    intent = new Intent(House.this, TempOut.class);
+                if (!isFrameLoaded) {
+                    if (houseInfo.getItemType() == HouseData.GARAGE) {
+                        intent = new Intent(House.this, GarageFragment.class);
+                        intent.putExtras(data);
+                        startActivityForResult(intent, 5);
+                    } else if (houseInfo.getItemType() == HouseData.TEMPIN) {
+                        intent = new Intent(House.this, TempInFragment.class);
+                        intent.putExtras(data);
+                        startActivityForResult(intent, 5);
+                    } else if (houseInfo.getItemType() == HouseData.TEMPOUT) {
+                        intent = new Intent(House.this, TempOutFragment.class);
+                        intent.putExtras(data);
+                        startActivityForResult(intent, 5);
+                    }
+                } else {
+                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
-                intent.putExtras(data);
-                startActivity(intent);
+                    Fragment f = null;
+
+                    if (houseInfo.getItemType() == HouseData.GARAGE) {
+                        f = new Garage();
+                    } else if (houseInfo.getItemType() == HouseData.TEMPIN) {
+                        f = new TempIn();
+                    } else if (houseInfo.getItemType() == HouseData.TEMPOUT) {
+                        f = new TempOut();
+                    }
+
+                    f.setArguments(data);
+
+                    ft.replace(R.id.hosueFrame, f);
+                    ft.commit();
+                }
             }
         });
+
+        HouseList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view,
+                                           int position, long id) {
+
+                final long deviceId = id;
+                final int itemPosition = position;
+
+                AlertDialog.Builder dialog = new AlertDialog.Builder(House.this);
+
+                dialog.setTitle("Delete Item")
+                        .setMessage("Are you sure you would like to delete this item?")
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialoginterface, int i) {
+                                dialoginterface.cancel();
+                            }
+                        })
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialoginterface, int i) {
+                                db.deleteHouseItem(deviceId);
+                                HouseItems.remove(itemPosition);
+                                HouseAdapter.notifyDataSetChanged();
+                            }
+                        }).show();
+
+                return false;
+            }
+        });
+    }
+
+    public Dialog AddItemDialog() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // Get the layout inflater
+        LayoutInflater inflater = this.getLayoutInflater();
+
+        View v = inflater.inflate(R.layout.add_house_device_dialog, null);
+        builder.setView(v);
+
+        final AlertDialog show = builder.show();
+
+        Button garage = (Button) v.findViewById(R.id.addGARAGE);
+        garage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                long id = db.insertHouseItem("Garage", HouseData.GARAGE, "@drawable/garage");
+                HouseData garageData = new HouseData(id, "Garage", "@drawable/garage", HouseData.GARAGE);
+                HouseItems.add(garageData);
+                HouseAdapter.notifyDataSetChanged();
+                show.dismiss();
+            }
+        });
+
+        Button tempIn = (Button) v.findViewById(R.id.addTempIn);
+        tempIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                long id = db.insertHouseItem("Temperature Inside", HouseData.TEMPIN, "@drawable/tempin");
+                HouseData tempInData = new HouseData(id, "Temperature Inside", "@drawable/tempin", HouseData.TEMPIN);
+                HouseItems.add(tempInData);
+                HouseAdapter.notifyDataSetChanged();
+                show.dismiss();
+            }
+        });
+
+        Button tempOut = (Button) v.findViewById(R.id.addTempOut);
+        tempOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                long id = db.insertHouseItem("Temperature Outside", HouseData.TEMPOUT, "@drawable/tempout");
+                HouseData tempOutData = new HouseData(id, "Temperature Outside", "@drawable/tempout", HouseData.TEMPOUT);
+                HouseItems.add(tempOutData);
+                HouseAdapter.notifyDataSetChanged();
+                show.dismiss();
+            }
+        });
+
+        // Inflate and set the layout for the dialog
+        // Pass null as the parent view because its going in the dialog layout
+        builder.setView(v);
+
+        return builder.create();
+    }
+
+
+    private void getItems() {
+        HouseItems = new ArrayList<>();
+
+        Cursor cursor = db.getHouseItems();
+
+        cursor.moveToFirst();
+
+        while (!cursor.isAfterLast()) {
+            long _id = cursor.getLong(cursor.getColumnIndex(ProjectDatabaseHelper.COLUMN_HOUSE_ID));
+            String title = cursor.getString(cursor.getColumnIndex(ProjectDatabaseHelper.COLUMN_HOUSE_DEVICE_TITLE));
+            String uri = cursor.getString(cursor.getColumnIndex(ProjectDatabaseHelper.COLUMN_HOUSE_DEVICE_IMAGE));
+            int itemType = cursor.getInt(cursor.getColumnIndex(ProjectDatabaseHelper.COLUMN_HOUSE_DEVICE_TYPE));
+
+            HouseData data = new HouseData(_id, title, uri, itemType);
+
+            HouseItems.add(data);
+
+            cursor.moveToNext();
+        }
+
+        cursor.close();
     }
 
     private class HouseAdapter extends ArrayAdapter<HouseData> {
