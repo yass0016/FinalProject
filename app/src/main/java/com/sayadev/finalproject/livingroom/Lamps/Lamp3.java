@@ -46,7 +46,7 @@ public class Lamp3 extends Fragment {
         image.setImageDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(), getResources().getIdentifier(data.getString("itemImage"), null, getActivity().getPackageName())));
 
         lampText = (TextView) v.findViewById(R.id.lampsText);
-        lampText.setText("ID: " + data.getString("id") + " Lamp OFF ");
+        lampText.setText("ID: " + data.getString("dbId") + " Lamp OFF ");
 
         lightStatus = (Button) v.findViewById(R.id.switchLamp);
 
@@ -55,11 +55,11 @@ public class Lamp3 extends Fragment {
             public void onClick(View v) {
                 if(!status) {
                     Toast.makeText(getActivity().getApplicationContext(), "You turned the light ON", Toast.LENGTH_SHORT).show();
-                    lampText.setText("ID: " + data.getString("id") + " Light ON");
+                    lampText.setText("ID: " + data.getString("dbId") + " Light ON");
                     lightStatus.setText("SWITCH LAMP OFF");
                 } else {
                     Toast.makeText(getActivity().getApplicationContext(), "You turned the light OFF", Toast.LENGTH_SHORT).show();
-                    lampText.setText("ID: " + data.getString("id") + " Light OFF");
+                    lampText.setText("ID: " + data.getString("dbId") + " Light OFF");
                     lightStatus.setText("SWITCH LAMP ON");
                 }
                 status = !status;
@@ -123,12 +123,13 @@ public class Lamp3 extends Fragment {
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        ((LivingRoom)getActivity()).deleteItem(Integer.parseInt(data.getString("id")));
-
                         if(data.getString("orientation").equals("port")) {
+                            Intent i = new Intent();
+                            i.putExtra("id", data.getString("id"));
+                            getActivity().setResult(5, i);
                             getActivity().finish();
                         } else {
-
+                            ((LivingRoom)getActivity()).deleteItem(Integer.parseInt(data.getString("id")));
                         }
                     }
                 }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {

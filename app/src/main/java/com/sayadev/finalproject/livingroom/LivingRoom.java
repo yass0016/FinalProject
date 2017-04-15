@@ -14,6 +14,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -44,19 +45,12 @@ import com.sayadev.finalproject.livingroom.TV.TV;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class LivingRoom extends BaseActivity {
+public class LivingRoom extends AppCompatActivity {
 
     private ListView roomList;
     private ArrayList<RoomData> roomItems;
     private RoomAdapter roomAdapter;
-
-    private SQLiteDatabase db;
-
-    private String[] allColumns = { ProjectDatabaseHelper.COLUMN_ROOM_ID,
-            ProjectDatabaseHelper.COLUMN_ROOM_DEVICE_TITLE, ProjectDatabaseHelper.COLUMN_ROOM_DEVICE_IMAGE,
-            ProjectDatabaseHelper.COLUMN_ROOM_DEVICE_TYPE,
-            ProjectDatabaseHelper.COLUMN_ROOM_LAST_VISITED, ProjectDatabaseHelper.COLUMN_ROOM_CREATED};
-
+    private ProjectDatabaseHelper dbHelper;
     private boolean isFrameLoaded;
     private FrameLayout livingRoomFrame;
 
@@ -68,7 +62,7 @@ public class LivingRoom extends BaseActivity {
 
         getSupportActionBar().setTitle("Living Room");
 
-        db = getDbHelper().getWritableDatabase();
+        dbHelper = new ProjectDatabaseHelper(this);
 
         roomItems = new ArrayList<>();
 
@@ -77,12 +71,7 @@ public class LivingRoom extends BaseActivity {
         roomAdapter = new RoomAdapter(this);
 
         roomList.setAdapter(roomAdapter);
-/*
-        roomItems.add(new RoomData(0, "TV", "@drawable/tv", 0, null, null, null));
-        roomItems.add(new RoomData(1, "Lamp1", "@drawable/lamp", 1, null, null, null));
-        roomItems.add(new RoomData(2, "Blinding", "@drawable/blind", 4, null, null, null));
-        roomItems.add(new RoomData(4, "TV", "@drawable/tv", 0, null, null, null));
-*/
+
         roomAdapter.notifyDataSetChanged();
 
         livingRoomFrame = (FrameLayout) findViewById(R.id.livingRoomFrame);
@@ -98,6 +87,7 @@ public class LivingRoom extends BaseActivity {
                 Intent intent = null;
 
                 data.putString("id", Long.toString(position));
+                data.putString("dbId", Long.toString(itemData.get_id()));
                 data.putString("itemTitle", roomItems.get(position).getTitle());
                 data.putString("itemImage", roomItems.get(position).getImageUri());
                 data.putString("deviceType", Integer.toString(itemData.getItemType()));
@@ -138,29 +128,26 @@ public class LivingRoom extends BaseActivity {
 
     public void listItems() {
         roomItems = new ArrayList<>();
-        if (db.isOpen()) {
-            Cursor cursor = db.query(ProjectDatabaseHelper.TABLE_ROOM_ITEMS, allColumns, null,
-                    null, null, null, null);
+        Cursor cursor = dbHelper.getRoomItems();
 
-            cursor.moveToFirst();
+        cursor.moveToFirst();
 
-            while (!cursor.isAfterLast()) {
-                long _id = cursor.getLong(cursor.getColumnIndex(ProjectDatabaseHelper.COLUMN_ROOM_ID));
-                String title = cursor.getString(cursor.getColumnIndex(ProjectDatabaseHelper.COLUMN_ROOM_DEVICE_TITLE));
-                String imageUri = cursor.getString(cursor.getColumnIndex(ProjectDatabaseHelper.COLUMN_ROOM_DEVICE_IMAGE));
-                int itemType = cursor.getInt(cursor.getColumnIndex(ProjectDatabaseHelper.COLUMN_ROOM_DEVICE_TYPE));
-                long lastVisitDate = cursor.getLong(cursor.getColumnIndex(ProjectDatabaseHelper.COLUMN_ROOM_LAST_VISITED));
-                long createdDate = cursor.getLong(cursor.getColumnIndex(ProjectDatabaseHelper.COLUMN_ROOM_CREATED));
+        while (!cursor.isAfterLast()) {
+            long _id = cursor.getLong(cursor.getColumnIndex(ProjectDatabaseHelper.COLUMN_ROOM_ID));
+            String title = cursor.getString(cursor.getColumnIndex(ProjectDatabaseHelper.COLUMN_ROOM_DEVICE_TITLE));
+            String imageUri = cursor.getString(cursor.getColumnIndex(ProjectDatabaseHelper.COLUMN_ROOM_DEVICE_IMAGE));
+            int itemType = cursor.getInt(cursor.getColumnIndex(ProjectDatabaseHelper.COLUMN_ROOM_DEVICE_TYPE));
+            long visitCount = cursor.getLong(cursor.getColumnIndex(ProjectDatabaseHelper.COLUMN_ROOM_VISIT_COUNT));
+            long createdDate = cursor.getLong(cursor.getColumnIndex(ProjectDatabaseHelper.COLUMN_ROOM_CREATED));
 
-                RoomData data = new RoomData(_id, title, imageUri, itemType, "", lastVisitDate, createdDate);
+            RoomData data = new RoomData(_id, title, imageUri, itemType, "", visitCount, createdDate);
 
-                roomItems.add(data);
+            roomItems.add(data);
 
-                cursor.moveToNext();
-            }
-
-            cursor.close();
+            cursor.moveToNext();
         }
+
+        cursor.close();
     }
 
     public Dialog createCustomDialog() {
@@ -239,18 +226,18 @@ public class LivingRoom extends BaseActivity {
                         String title = "";
                         String imageUri = "";
                         int itemType = 0;
-                        long lastVisitDate = 0;
+                        long visitCount = 0;
                         long createdDate = 0;
                         Date currentDate;
 
-                        switch(spinner.getSelectedItemPosition()) {
+                        switch (spinner.getSelectedItemPosition()) {
                             case 0:
                                 title = "TV";
                                 itemType = RoomData.DEVICE_TV;
                                 imageUri = "@drawable/tv";
                                 currentDate = new Date();
                                 createdDate = currentDate.getTime();
-                                lastVisitDate = 0;
+                                visitCount = 0;
                                 break;
                             case 1:
                                 title = "Lamp 1";
@@ -258,7 +245,7 @@ public class LivingRoom extends BaseActivity {
                                 imageUri = "@drawable/lamp";
                                 currentDate = new Date();
                                 createdDate = currentDate.getTime();
-                                lastVisitDate = 0;
+                                visitCount = 0;
                                 break;
                             case 2:
                                 title = "Lamp 2";
@@ -266,7 +253,7 @@ public class LivingRoom extends BaseActivity {
                                 imageUri = "@drawable/lamp";
                                 currentDate = new Date();
                                 createdDate = currentDate.getTime();
-                                lastVisitDate = 0;
+                                visitCount = 0;
                                 break;
                             case 3:
                                 title = "Lamp 3";
@@ -274,7 +261,7 @@ public class LivingRoom extends BaseActivity {
                                 imageUri = "@drawable/lamp";
                                 currentDate = new Date();
                                 createdDate = currentDate.getTime();
-                                lastVisitDate = 0;
+                                visitCount = 0;
                                 break;
                             case 4:
                                 title = "Blinds";
@@ -282,22 +269,12 @@ public class LivingRoom extends BaseActivity {
                                 imageUri = "@drawable/blind";
                                 currentDate = new Date();
                                 createdDate = currentDate.getTime();
-                                lastVisitDate = 0;
+                                visitCount = 0;
                                 break;
                         }
 
-                        ContentValues values = new ContentValues();
-
-                        values.put(ProjectDatabaseHelper.COLUMN_ROOM_DEVICE_TITLE, title);
-                        values.put(ProjectDatabaseHelper.COLUMN_ROOM_DEVICE_TYPE, itemType);
-                        values.put(ProjectDatabaseHelper.COLUMN_ROOM_DEVICE_IMAGE, imageUri);
-                        values.put(ProjectDatabaseHelper.COLUMN_ROOM_CREATED, createdDate);
-                        values.put(ProjectDatabaseHelper.COLUMN_ROOM_LAST_VISITED, lastVisitDate);
-
-                        long _id = db.insert(ProjectDatabaseHelper.TABLE_ROOM_ITEMS, null,
-                                values);
-
-                        RoomData data = new RoomData(_id, title, imageUri, itemType, "", lastVisitDate, createdDate);
+                        long _id = dbHelper.insertRoomItem(title, imageUri, itemType, createdDate);
+                        RoomData data = new RoomData(_id, title, imageUri, itemType, "", visitCount, createdDate);
                         roomItems.add(data);
                         roomAdapter.notifyDataSetChanged();
                     }
@@ -328,30 +305,28 @@ public class LivingRoom extends BaseActivity {
     };
 
     public void deleteItem(int id) {
-        db.delete(ProjectDatabaseHelper.TABLE_ROOM_ITEMS, "_id=?",
-                new String[]{Long.toString(roomItems.get(id).get_id())});
-
+        dbHelper.deleteRoomItem(roomItems.get(id).get_id());
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
         if (roomItems.get(id).getItemType() == RoomData.DEVICE_TV) {
-            TV tv = (TV)getSupportFragmentManager().findFragmentById(R.id.livingRoomFrame);
+            TV tv = (TV) getSupportFragmentManager().findFragmentById(R.id.livingRoomFrame);
             ft.remove(tv);
             ft.commit();
         } else if (roomItems.get(id).getItemType() == RoomData.DEVICE_LAMP1) {
-            Lamp1 lamp1 = (Lamp1)getSupportFragmentManager().findFragmentById(R.id.livingRoomFrame);
+            Lamp1 lamp1 = (Lamp1) getSupportFragmentManager().findFragmentById(R.id.livingRoomFrame);
             ft.remove(lamp1);
             ft.commit();
         } else if (roomItems.get(id).getItemType() == RoomData.DEVICE_LAMP2) {
-            Lamp2 lamp2 = (Lamp2)getSupportFragmentManager().findFragmentById(R.id.livingRoomFrame);
+            Lamp2 lamp2 = (Lamp2) getSupportFragmentManager().findFragmentById(R.id.livingRoomFrame);
             ft.remove(lamp2);
             ft.commit();
         } else if (roomItems.get(id).getItemType() == RoomData.DEVICE_LAMP3) {
-            Lamp3 lamp3 = (Lamp3)getSupportFragmentManager().findFragmentById(R.id.livingRoomFrame);
+            Lamp3 lamp3 = (Lamp3) getSupportFragmentManager().findFragmentById(R.id.livingRoomFrame);
             ft.remove(lamp3);
             ft.commit();
         } else if (roomItems.get(id).getItemType() == RoomData.DEVICE_BLINDING) {
-            Blinding blind = (Blinding)getSupportFragmentManager().findFragmentById(R.id.livingRoomFrame);
+            Blinding blind = (Blinding) getSupportFragmentManager().findFragmentById(R.id.livingRoomFrame);
             ft.remove(blind);
             ft.commit();
         }
@@ -400,8 +375,7 @@ public class LivingRoom extends BaseActivity {
             Bundle extras = data.getExtras();
             int id = Integer.parseInt(extras.getString("id"));
 
-            db.delete(ProjectDatabaseHelper.TABLE_ROOM_ITEMS, "_id=?",
-                    new String[]{Long.toString(roomItems.get(id).get_id())});
+            dbHelper.deleteRoomItem(roomItems.get(id).get_id());
 
             roomItems.remove(id);
             roomAdapter.notifyDataSetChanged();

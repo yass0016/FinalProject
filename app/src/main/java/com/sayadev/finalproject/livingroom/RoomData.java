@@ -19,7 +19,7 @@ public class RoomData {
     private String imageUri;
     private int itemType;
     private String itemName;
-    private long lastVisitDate;
+    private long visitCount;
     private long createdDate;
 
     public RoomData() {
@@ -29,17 +29,17 @@ public class RoomData {
 
         this.itemType = DEVICE_TV;
         itemName = "";
-        lastVisitDate = 0;
+        visitCount = 0;
         createdDate = 0;
     }
 
-    public RoomData(long _id, String title, String imageUri, int itemType, String itemName, long lastVisitDate, long createdDate) {
+    public RoomData(long _id, String title, String imageUri, int itemType, String itemName, long visitCount, long createdDate) {
         this._id = _id;
         this.title = title;
         this.imageUri = imageUri;
         this.itemType = itemType;
         this.itemName = itemName;
-        this.lastVisitDate = lastVisitDate;
+        this.visitCount = visitCount;
         this.createdDate = createdDate;
     }
 
@@ -83,12 +83,12 @@ public class RoomData {
         this.itemName = itemName;
     }
 
-    public long getLastVisitDate() {
-        return lastVisitDate;
+    public long getVisitCount() {
+        return visitCount;
     }
 
-    public void setLastVisitDate(long lastVisitDate) {
-        this.lastVisitDate = lastVisitDate;
+    public void setVisitCount(long visitCount) {
+        this.visitCount = visitCount;
     }
 
     public long getCreatedDate() {

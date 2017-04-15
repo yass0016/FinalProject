@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sayadev.finalproject.House.House;
 import com.sayadev.finalproject.Model.ProjectDatabaseHelper;
@@ -54,25 +55,47 @@ public class TV extends Fragment {
 
         View v = inflater.inflate(R.layout.activity_tv, container, false);
 
-        image = (ImageView) v.findViewById(R.id.tvImage);
-
-        image.setImageDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(), getResources().getIdentifier(data.getString("itemImage"), null, getActivity().getPackageName())));
-
-        tvText = (TextView) v.findViewById(R.id.tvText);
-        tvText.setText("TV ID: " + data.getString("id") + " No Channel is Playing ");
-
-        channelData = (EditText) v.findViewById(R.id.channelTitle);
-        addChannel = (Button) v.findViewById(R.id.addChannel);
-
-        addChannel.setOnClickListener(new View.OnClickListener() {
+        Button vDown = (Button) v.findViewById(R.id.volumeDown);
+        vDown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Channel channel = new Channel();
+                Toast.makeText(getActivity().getApplicationContext(), "Volume Down", Toast.LENGTH_SHORT).show();
 
-                if(channelData.getText().length() != 0) {
-                    channel.setChannel_name(channelData.getText().toString());
-                    tvText.setText("TV ID: " + data.getString("id") + " Playing " + channel.getChannel_name());
-                }
+            }
+        });
+
+        Button vUp = (Button) v.findViewById(R.id.volumeUp);
+        vUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity().getApplicationContext(), "Volume Up", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        Button cDown = (Button) v.findViewById(R.id.channelDown);
+        cDown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity().getApplicationContext(), "Channel Down", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        Button cUp = (Button) v.findViewById(R.id.channelUp);
+        cUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity().getApplicationContext(), "Channel Up", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        Button enter = (Button) v.findViewById(R.id.enter);
+        enter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity().getApplicationContext(), "Enter", Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -83,9 +106,9 @@ public class TV extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
-        /*if(data.getString("orientation").equals("port")) {
+        if(data.getString("orientation").equals("port")) {
             inflater.inflate(R.menu.main_activity, menu);
-        }*/
+        }
 
         menu.add("Delete Device").setOnMenuItemClickListener(this.AddDevice)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);

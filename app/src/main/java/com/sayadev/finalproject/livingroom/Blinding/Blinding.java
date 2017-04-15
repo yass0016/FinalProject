@@ -48,7 +48,7 @@ public class Blinding extends Fragment {
 
         blindingText = (TextView) v.findViewById(R.id.blindingText);
 
-        blindingText.setText("ID: " + data.getString("id"));
+        blindingText.setText("ID: " + data.getString("dbId"));
 
         return v;
     }
@@ -107,12 +107,13 @@ public class Blinding extends Fragment {
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        ((LivingRoom)getActivity()).deleteItem(Integer.parseInt(data.getString("id")));
-
                         if(data.getString("orientation").equals("port")) {
+                            Intent i = new Intent();
+                            i.putExtra("id", data.getString("id"));
+                            getActivity().setResult(5, i);
                             getActivity().finish();
                         } else {
-
+                            ((LivingRoom)getActivity()).deleteItem(Integer.parseInt(data.getString("id")));
                         }
                     }
                 }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {

@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.sayadev.finalproject.BaseActivity;
 import com.sayadev.finalproject.R;
-import com.sayadev.finalproject.livingroom.TV.Channel;
 
 /**
  * Created by Rudwan on 2017-03-26.
