@@ -32,9 +32,8 @@ public class fragmentLayout extends Fragment {
     private SQLiteDatabase db;
     private String[] sa;
     private ContentValues cv;
-    private ArrayList<Integer> tempar,fanar,acar;
+    private ArrayList<Integer> tempar,fanar,acar,radvolume,radchannel;
     private Cursor cursor;
-
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance){
         toast = new Toast(getActivity());
         View v = null ;
@@ -256,9 +255,16 @@ public class fragmentLayout extends Fragment {
 
             case "Radio":
                     v = inflater.inflate(R.layout.auto_radio,container,false);
+                dbh = new ProjectDatabaseHelper(v.getContext());
+                db = dbh.getWritableDatabase();
                     Button rad1,rad2,rad3,rad4;
                     final SeekBar radvolseek,radchanseek;
 
+
+
+                radvolume = new ArrayList<>();
+                radchannel = new ArrayList<>();
+                readDB("radio");
                     delete = (Button) v.findViewById(R.id.raddelete);
                     rad1 = (Button) v.findViewById(R.id.radset1);
                     rad2 = (Button) v.findViewById(R.id.radset2);
@@ -308,29 +314,29 @@ public class fragmentLayout extends Fragment {
                 rad1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        radvolseek.setProgress(0);
-                        radchanseek.setProgress(0);
+                        radvolseek.setProgress(radvolume.get(0));
+                        radchanseek.setProgress(radchannel.get(0));
                     }
                 });
                 rad2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        radvolseek.setProgress(25);
-                        radvolseek.setProgress(25);
+                        radvolseek.setProgress(radvolume.get(1));
+                        radchanseek.setProgress(radchannel.get(1));
                     }
                 });
                 rad3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        radvolseek.setProgress(80);
-                        radchanseek.setProgress(50);
+                        radvolseek.setProgress(radvolume.get(2));
+                        radchanseek.setProgress(radchannel.get(2));
                     }
                 });
                 rad4.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        radvolseek.setProgress(80);
-                        radchanseek.setProgress(100);
+                        radvolseek.setProgress(radvolume.get(3));
+                        radchanseek.setProgress(radchannel.get(3));
                     }
                 });
 
@@ -343,6 +349,8 @@ public class fragmentLayout extends Fragment {
                 break;
             case "CB Radio":
                 v = inflater.inflate(R.layout.auto_cb,container,false);
+                dbh = new ProjectDatabaseHelper(v.getContext());
+                db = dbh.getWritableDatabase();
                 Button cb1,cb2,cb3,cb4;
                 final SeekBar cbvoseek,cbchanseek,cbgainseek;
 
@@ -453,6 +461,8 @@ public class fragmentLayout extends Fragment {
 
             case "GPS":
                 v = inflater.inflate(R.layout.auto_gps,container,false);
+                dbh = new ProjectDatabaseHelper(v.getContext());
+                db = dbh.getWritableDatabase();
                 final TextView pos,dest;
                 Button go = (Button) v.findViewById(R.id.gpsgo);
                 final ImageView direc =(ImageView) v.findViewById(R.id.turniv);
@@ -497,7 +507,8 @@ public class fragmentLayout extends Fragment {
 
             case "Seat":
                 v = inflater.inflate(R.layout.auto_seat,container,false);
-
+                dbh = new ProjectDatabaseHelper(v.getContext());
+                db = dbh.getWritableDatabase();
                 final SeekBar dist,height,angle;
                 Button seat1,seat2,seat3,seat4;
 
@@ -646,8 +657,15 @@ public class fragmentLayout extends Fragment {
                     cursor.moveToNext();
                 }
                 break;
-            case "rad":
-
+            case "radio":
+                sa = new String[]{dbh.COLUMN_RADIO_ID,dbh.COLUMN_RADIO_VOLUME,dbh.COLUMN_RADIO_CHANNEL};
+                cursor = db.query(dbh.TABLE_AUTO_RADIO,sa,null,null,null,null,null,null);
+                cursor.moveToFirst();
+                while(!cursor.isAfterLast()){
+                    radvolume.add(cursor.getInt(cursor.getColumnIndex(dbh.COLUMN_RADIO_VOLUME)));
+                    radchannel.add(cursor.getInt(cursor.getColumnIndex(dbh.COLUMN_RADIO_CHANNEL)));
+                    cursor.moveToNext();
+                }
                 break;
             case "cb":
 

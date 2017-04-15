@@ -148,6 +148,26 @@ public class automobile extends AppCompatActivity {
             cv.put(dbh.COLUMN_TEMP_AC,0);
             db.insert(dbh.TABLE_AUTO_TEMP,null,cv);
 
+            cv.clear();
+            cv.put(dbh.COLUMN_RADIO_VOLUME,0);
+            cv.put(dbh.COLUMN_RADIO_CHANNEL,0);
+            db.insert(dbh.TABLE_AUTO_RADIO,null,cv);
+
+            cv.clear();
+            cv.put(dbh.COLUMN_RADIO_VOLUME,25);
+            cv.put(dbh.COLUMN_RADIO_CHANNEL,25);
+            db.insert(dbh.TABLE_AUTO_RADIO,null,cv);
+
+            cv.clear();
+            cv.put(dbh.COLUMN_RADIO_VOLUME,80);
+            cv.put(dbh.COLUMN_RADIO_CHANNEL,50);
+            db.insert(dbh.TABLE_AUTO_RADIO,null,cv);
+
+            cv.clear();
+            cv.put(dbh.COLUMN_RADIO_VOLUME,80);
+            cv.put(dbh.COLUMN_RADIO_CHANNEL,100);
+            db.insert(dbh.TABLE_AUTO_RADIO,null,cv);
+
             prefs.edit().putBoolean("firstTime", false).commit();
         }
         builder = new AlertDialog.Builder(this);
