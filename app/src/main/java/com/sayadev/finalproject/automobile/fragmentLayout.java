@@ -1,6 +1,7 @@
 package com.sayadev.finalproject.automobile;
 
 import android.app.Fragment;
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ public class fragmentLayout extends Fragment {
     private ProjectDatabaseHelper dbh;
     private SQLiteDatabase db;
     private String[] sa;
+    private ContentValues cv;
     private ArrayList<Integer> tempar,fanar,acar;
     private Cursor cursor;
 
@@ -50,11 +52,12 @@ public class fragmentLayout extends Fragment {
                 v = inflater.inflate(R.layout.auto_temp_frag,container,false);
                 dbh = new ProjectDatabaseHelper(v.getContext());
                 db = dbh.getWritableDatabase();
-                sa = new String[]{dbh.COLUMN_TEMP_ID,dbh.COLUMN_TEMP_TEMP,dbh.COLUMN_TEMP_FAN,dbh.COLUMN_TEMP_AC};
+                cv = new ContentValues();
+                /*sa = new String[]{dbh.COLUMN_TEMP_ID,dbh.COLUMN_TEMP_TEMP,dbh.COLUMN_TEMP_FAN,dbh.COLUMN_TEMP_AC};
                 cursor = db.query(dbh.TABLE_AUTO_TEMP,sa,null,null,null,null,null,null);
-                cursor.moveToFirst();
+                cursor.moveToFirst();*/
                 final SeekBar temp,fan;
-                Button set1,set2,set3,set4;
+                Button set1,set2,set3,set4,save1,save2,save3,save4;
 
                 final Switch acswitch = (Switch) v.findViewById(R.id.acswitch);
                 delete = (Button) v.findViewById(R.id.tempdelete);
@@ -62,15 +65,20 @@ public class fragmentLayout extends Fragment {
                 set2 = (Button) v.findViewById(R.id.buttemp2);
                 set3 = (Button) v.findViewById(R.id.buttemp3);
                 set4 = (Button) v.findViewById(R.id.buttemp4);
+                save1 = (Button) v.findViewById(R.id.tempsavebutt1);
+                save2 = (Button) v.findViewById(R.id.tempsavebutt2);
+                save3 = (Button) v.findViewById(R.id.tempsavebutt3);
+                save4 = (Button) v.findViewById(R.id.tempsavebutt4);
                 temp = (SeekBar) v.findViewById(R.id.tempslider);
                 fan = (SeekBar) v.findViewById(R.id.fanslider);
 
-                while(!cursor.isAfterLast()){
+               /* while(!cursor.isAfterLast()){
                     tempar.add(cursor.getInt(cursor.getColumnIndex(dbh.COLUMN_TEMP_TEMP)));
                     fanar.add(cursor.getInt(cursor.getColumnIndex(dbh.COLUMN_TEMP_FAN)));
                     acar.add(cursor.getInt(cursor.getColumnIndex(dbh.COLUMN_TEMP_AC)));
                     cursor.moveToNext();
-                }
+                }*/
+               readDB("temp");
 
 
                 temp.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -171,6 +179,70 @@ public class fragmentLayout extends Fragment {
                         temp.setProgress(15);
                         fan.setProgress(5);*/
                         Snackbar.make(getView(),"Preset 4 selected",Snackbar.LENGTH_SHORT).show();
+                    }
+                });
+
+                save1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        cv.clear();
+                        cv.put(dbh.COLUMN_TEMP_TEMP, temp.getProgress());
+                        cv.put(dbh.COLUMN_TEMP_FAN,fan.getProgress());
+                        if(acswitch.isChecked()){
+                            cv.put(dbh.COLUMN_TEMP_AC,1);
+                        }else{
+                            cv.put(dbh.COLUMN_TEMP_AC,0);
+                        }
+                        db.update(dbh.TABLE_AUTO_TEMP,cv,dbh.COLUMN_TEMP_ID + " = " + 1,null);
+                        readDB("temp");
+                    }
+                });
+
+                save2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        cv.clear();
+                        cv.put(dbh.COLUMN_TEMP_TEMP, temp.getProgress());
+                        cv.put(dbh.COLUMN_TEMP_FAN,fan.getProgress());
+                        if(acswitch.isChecked()){
+                            cv.put(dbh.COLUMN_TEMP_AC,1);
+                        }else{
+                            cv.put(dbh.COLUMN_TEMP_AC,0);
+                        }
+                        db.update(dbh.TABLE_AUTO_TEMP,cv,dbh.COLUMN_TEMP_ID + " = " + 2,null);
+                        readDB("temp");
+                    }
+                });
+
+                save3.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        cv.clear();
+                        cv.put(dbh.COLUMN_TEMP_TEMP, temp.getProgress());
+                        cv.put(dbh.COLUMN_TEMP_FAN,fan.getProgress());
+                        if(acswitch.isChecked()){
+                            cv.put(dbh.COLUMN_TEMP_AC,1);
+                        }else{
+                            cv.put(dbh.COLUMN_TEMP_AC,0);
+                        }
+                        db.update(dbh.TABLE_AUTO_TEMP,cv,dbh.COLUMN_TEMP_ID + " = " + 3,null);
+                        readDB("temp");
+                    }
+                });
+
+                save4.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        cv.clear();
+                        cv.put(dbh.COLUMN_TEMP_TEMP, temp.getProgress());
+                        cv.put(dbh.COLUMN_TEMP_FAN,fan.getProgress());
+                        if(acswitch.isChecked()){
+                            cv.put(dbh.COLUMN_TEMP_AC,1);
+                        }else{
+                            cv.put(dbh.COLUMN_TEMP_AC,0);
+                        }
+                        db.update(dbh.TABLE_AUTO_TEMP,cv,dbh.COLUMN_TEMP_ID + " = " + 4,null);
+                        readDB("temp");
                     }
                 });
 
@@ -556,5 +628,36 @@ public class fragmentLayout extends Fragment {
 
 
         return v;
+    }
+
+    private void readDB(String type){
+        switch(type){
+            case "temp":
+                tempar.clear();
+                fanar.clear();
+                acar.clear();
+                sa = new String[]{dbh.COLUMN_TEMP_ID,dbh.COLUMN_TEMP_TEMP,dbh.COLUMN_TEMP_FAN,dbh.COLUMN_TEMP_AC};
+                cursor = db.query(dbh.TABLE_AUTO_TEMP,sa,null,null,null,null,null,null);
+                cursor.moveToFirst();
+                while(!cursor.isAfterLast()){
+                    tempar.add(cursor.getInt(cursor.getColumnIndex(dbh.COLUMN_TEMP_TEMP)));
+                    fanar.add(cursor.getInt(cursor.getColumnIndex(dbh.COLUMN_TEMP_FAN)));
+                    acar.add(cursor.getInt(cursor.getColumnIndex(dbh.COLUMN_TEMP_AC)));
+                    cursor.moveToNext();
+                }
+                break;
+            case "rad":
+
+                break;
+            case "cb":
+
+                break;
+            case "gps":
+
+                break;
+            case "seat":
+
+                break;
+        }
     }
 }

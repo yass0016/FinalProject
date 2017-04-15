@@ -31,6 +31,8 @@
     <string name="pre">Pre-sets</string>
     <string name="deletetemp">Delete Temp Control</string>
     <string name="desterror">Please set a destination and start point.</string>
+    <string name="progtext">Programmed Settings</string>
+    <string name="progsettext">Save Settings</string>
     <string-array name="spinopt">
         <item>Temp Control</item>
         <item>Radio</item>
