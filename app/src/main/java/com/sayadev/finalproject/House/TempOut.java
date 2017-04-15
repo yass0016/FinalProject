@@ -75,11 +75,10 @@ public class TempOut extends Fragment {
         private String iconName;
         private String iconFileName;
         private Bitmap weatherImage;
-
         private static final String OttawaWeatherURL = "http://api.openweathermap.org/data/2.5/weather?q=ottawa,ca&APPID=d99666875e0e51521f0040a3d97d0f6a&mode=xml&units=metric";
 
         private boolean fileExists(String fileName){
-            File file = getActivity().getBaseContext().getFileStreamPath(fileName);
+            final File file = getActivity().getBaseContext().getFileStreamPath(fileName);
             return file.exists();
         }
 
@@ -107,16 +106,16 @@ public class TempOut extends Fragment {
             weatherProgress.setProgress(values[0]);
 
             FileInputStream fis;
-            Log.i("Info", iconFileName);
-            if(fileExists(iconFileName)) {
-                Log.i("Info", iconFileName + " was found");
-                try {
-                    File f = getActivity().getFileStreamPath(iconFileName);
-                    fis = new FileInputStream(f);
-                    weatherImage = BitmapFactory.decodeStream(fis);
-                }
-                catch (FileNotFoundException e) {
-                    Log.e("Error", "Could not find image " + iconFileName);
+            if(iconFileName != null) {
+                if (fileExists(iconFileName)) {
+                    Log.i("Info", iconFileName + " was found");
+                    try {
+                        File f = getActivity().getFileStreamPath(iconFileName);
+                        fis = new FileInputStream(f);
+                        weatherImage = BitmapFactory.decodeStream(fis);
+                    } catch (FileNotFoundException e) {
+                        Log.e("Error", "Could not find image " + iconFileName);
+                    }
                 }
             }
         }
@@ -156,7 +155,7 @@ public class TempOut extends Fragment {
                         iconName = parser.getAttributeValue(null, "icon");
                     }
 
-                    progress += 1;
+                    progress += 0.1;
                     publishProgress(progress);
                 }
 
