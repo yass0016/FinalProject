@@ -43,7 +43,7 @@ public class fragmentLayout extends Fragment {
         tempar = new ArrayList();
         fanar = new ArrayList();
         acar = new ArrayList();
-
+        cv = new ContentValues();
 
         Log.i("bundle items", "" + getArguments().getString("Type"));
         switch (getArguments().getString("Type")){
@@ -51,7 +51,7 @@ public class fragmentLayout extends Fragment {
                 v = inflater.inflate(R.layout.auto_temp_frag,container,false);
                 dbh = new ProjectDatabaseHelper(v.getContext());
                 db = dbh.getWritableDatabase();
-                cv = new ContentValues();
+
                 /*sa = new String[]{dbh.COLUMN_TEMP_ID,dbh.COLUMN_TEMP_TEMP,dbh.COLUMN_TEMP_FAN,dbh.COLUMN_TEMP_AC};
                 cursor = db.query(dbh.TABLE_AUTO_TEMP,sa,null,null,null,null,null,null);
                 cursor.moveToFirst();*/
@@ -257,7 +257,7 @@ public class fragmentLayout extends Fragment {
                     v = inflater.inflate(R.layout.auto_radio,container,false);
                 dbh = new ProjectDatabaseHelper(v.getContext());
                 db = dbh.getWritableDatabase();
-                    Button rad1,rad2,rad3,rad4;
+                    Button rad1,rad2,rad3,rad4,radsave1,radsave2,radsave3,radsave4;
                     final SeekBar radvolseek,radchanseek;
 
 
@@ -270,6 +270,10 @@ public class fragmentLayout extends Fragment {
                     rad2 = (Button) v.findViewById(R.id.radset2);
                     rad3 = (Button) v.findViewById(R.id.radset3);
                     rad4 = (Button) v.findViewById(R.id.radset4);
+                save1 = (Button) v.findViewById(R.id.radsav1);
+                save2 = (Button) v.findViewById(R.id.radsav2);
+                save3 = (Button) v.findViewById(R.id.radsav3);
+                save4 = (Button) v.findViewById(R.id.radsav4);
                     radvolseek = (SeekBar) v.findViewById(R.id.radvolsb);
                     radchanseek = (SeekBar) v.findViewById(R.id.radcahnsb);
 
@@ -339,6 +343,47 @@ public class fragmentLayout extends Fragment {
                         radchanseek.setProgress(radchannel.get(3));
                     }
                 });
+                save1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        cv.clear();
+                        cv.put(dbh.COLUMN_RADIO_VOLUME, radvolseek.getProgress());
+                        cv.put(dbh.COLUMN_RADIO_CHANNEL,radchanseek.getProgress());
+                        db.update(dbh.TABLE_AUTO_RADIO,cv,dbh.COLUMN_RADIO_ID + " = " + 1,null);
+                        readDB("radio");
+                    }
+                });
+                save2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        cv.clear();
+                        cv.put(dbh.COLUMN_RADIO_VOLUME, radvolseek.getProgress());
+                        cv.put(dbh.COLUMN_RADIO_CHANNEL,radchanseek.getProgress());
+                        db.update(dbh.TABLE_AUTO_RADIO,cv,dbh.COLUMN_RADIO_ID + " = " + 2,null);
+                        readDB("radio");
+                    }
+                });
+                save3.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        cv.clear();
+                        cv.put(dbh.COLUMN_RADIO_VOLUME, radvolseek.getProgress());
+                        cv.put(dbh.COLUMN_RADIO_CHANNEL,radchanseek.getProgress());
+                        db.update(dbh.TABLE_AUTO_RADIO,cv,dbh.COLUMN_RADIO_ID + " = " + 3,null);
+                        readDB("radio");
+                    }
+                });
+                save4.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        cv.clear();
+                        cv.put(dbh.COLUMN_RADIO_VOLUME, radvolseek.getProgress());
+                        cv.put(dbh.COLUMN_RADIO_CHANNEL,radchanseek.getProgress());
+                        db.update(dbh.TABLE_AUTO_RADIO,cv,dbh.COLUMN_RADIO_ID + " = " + 4,null);
+                        readDB("radio");
+                    }
+                });
+
 
                 delete.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -658,6 +703,8 @@ public class fragmentLayout extends Fragment {
                 }
                 break;
             case "radio":
+                radchannel.clear();
+                radvolume.clear();
                 sa = new String[]{dbh.COLUMN_RADIO_ID,dbh.COLUMN_RADIO_VOLUME,dbh.COLUMN_RADIO_CHANNEL};
                 cursor = db.query(dbh.TABLE_AUTO_RADIO,sa,null,null,null,null,null,null);
                 cursor.moveToFirst();
