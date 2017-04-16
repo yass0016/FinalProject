@@ -418,7 +418,6 @@ public class LivingRoom extends AppCompatActivity {
         }
     }
 
-    // GetNotes AsyncTask
     private class GetRoomItems extends AsyncTask<Object, Object, Object> {
 
         @Override

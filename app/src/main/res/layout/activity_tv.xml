@@ -18,28 +18,58 @@
             android:layout_height="fill_parent"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/tvFrame"
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/tvFrame"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/tv" />
+
+                <TextView
+                    android:id="@+id/tvInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/tvFrame"
+                    android:layout_alignTop="@id/tvFrame"
+                    android:layout_alignRight="@id/tvFrame"
+                    android:layout_alignBottom="@id/tvFrame"
+                    android:layout_margin="1dp"
+                    android:gravity="center"
+                    android:text=""
+                    android:textSize="20dp"
+                    android:textColor="#000000" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/volumeText"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:scaleType="fitXY"
-                app:srcCompat="@drawable/tvframe" />
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/tvInfo"
+                android:layout_alignEnd="@+id/tvInfo"
+                android:layout_alignStart="@+id/tvInfo"
+                android:text=""
+                android:visibility="visible"
+                android:gravity="center"
+                android:textSize="24dp" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/tvStatus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentStart="true"
                 android:layout_below="@id/tvFrame"
-                android:text="Turn TV ON" />
+                android:text="TURN TV ON" />
 
             <RelativeLayout
-                android:id="@+id/linearLayout1"
                 android:layout_width="match_parent"
-                android:layout_height="347dp"
+                android:layout_height="265dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/tvpad"

@@ -221,9 +221,9 @@ public class ProjectDatabaseHelper extends SQLiteOpenHelper {
     }
 
     /* get lamp 1's table */
-    public Cursor getRoomLampOne() {
+    public Cursor getRoomLampOne(long deviceId) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("SELECT * FROM " + TABLE_ROOM_LAMP1, null);
+        Cursor res = db.rawQuery("SELECT * FROM " + TABLE_ROOM_LAMP1 + " WHERE " + COLUMN_ROOM_LAMP1_DEVICE_ID + "=?", new String[]{Long.toString(deviceId)});
         return res;
     }
 
@@ -244,9 +244,9 @@ public class ProjectDatabaseHelper extends SQLiteOpenHelper {
     }
 
     /* get lamp 2's table */
-    public Cursor getRoomLampTwo() {
+    public Cursor getRoomLampTwo(long deviceId) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("SELECT * FROM " + TABLE_ROOM_LAMP2, null);
+        Cursor res = db.rawQuery("SELECT * FROM " + TABLE_ROOM_LAMP2 + " WHERE " + COLUMN_ROOM_LAMP2_DEVICE_ID + "=?", new String[]{Long.toString(deviceId)});
         return res;
     }
 
@@ -275,9 +275,9 @@ public class ProjectDatabaseHelper extends SQLiteOpenHelper {
     }
 
     /* get lamp 3's table */
-    public Cursor getRoomLampThree() {
+    public Cursor getRoomLampThree(long deviceId) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("SELECT * FROM " + TABLE_ROOM_LAMP3, null);
+        Cursor res = db.rawQuery("SELECT * FROM " + TABLE_ROOM_LAMP3 + " WHERE " + COLUMN_ROOM_LAMP3_DEVICE_ID + "=?", new String[]{Long.toString(deviceId)});
         return res;
     }
 
@@ -306,9 +306,9 @@ public class ProjectDatabaseHelper extends SQLiteOpenHelper {
     }
 
     /* get TV table */
-    public Cursor getRoomTv() {
+    public Cursor getRoomTv(long deviceId) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("SELECT * FROM " + TABLE_ROOM_TV, null);
+        Cursor res = db.rawQuery("SELECT * FROM " + TABLE_ROOM_TV + " WHERE " + COLUMN_ROOM_TV_DEVICE_ID + "=?", new String[]{Long.toString(deviceId)});
         return res;
     }
 
@@ -329,9 +329,9 @@ public class ProjectDatabaseHelper extends SQLiteOpenHelper {
     }
 
     /* get blinds table */
-    public Cursor getRoomBlinds() {
+    public Cursor getRoomBlinds(long deviceId) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("SELECT * FROM " + TABLE_ROOM_BLINDS, null);
+        Cursor res = db.rawQuery("SELECT * FROM " + TABLE_ROOM_BLINDS + " WHERE " + COLUMN_ROOM_BLINDS_DEVICE_ID + "=?", new String[]{Long.toString(deviceId)});
         return res;
     }
 }
