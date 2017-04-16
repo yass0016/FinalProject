@@ -396,7 +396,7 @@ public class fragmentLayout extends Fragment {
                 v = inflater.inflate(R.layout.auto_cb,container,false);
                 dbh = new ProjectDatabaseHelper(v.getContext());
                 db = dbh.getWritableDatabase();
-                Button cb1,cb2,cb3,cb4;
+                Button cb1,cb2,cb3,cb4,cbset1,cbset2,cbset3,cbset4;
                 final SeekBar cbvoseek,cbchanseek,cbgainseek;
 
                 cbvolume = new ArrayList<>();
@@ -410,6 +410,10 @@ public class fragmentLayout extends Fragment {
                 cb2 = (Button) v.findViewById(R.id.cbset2);
                 cb3 = (Button)v.findViewById(R.id.cbset3);
                 cb4 = (Button) v.findViewById(R.id.cbset4);
+                cbset1 = (Button) v.findViewById(R.id.cbsave1);
+                cbset2 = (Button) v.findViewById(R.id.cbsave2);
+                cbset3 = (Button) v.findViewById(R.id.cbsave3);
+                cbset4 = (Button) v.findViewById(R.id.cbsave4);
                 delete = (Button) v.findViewById(R.id.cbdelete);
                 cbchanseek.setMax(32);
 
@@ -498,6 +502,51 @@ public class fragmentLayout extends Fragment {
                         cbvoseek.setProgress(cbvolume.get(3));
                         cbchanseek.setProgress(cbchannel.get(3));
                         cbgainseek.setProgress(cbgain.get(3));
+                    }
+                });
+
+                cbset1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        cv.clear();
+                        cv.put(dbh.COLUMN_CB_VOLUME,cbvoseek.getProgress());
+                        cv.put(dbh.COLUMN_CB_CHANNEL,cbchanseek.getProgress());
+                        cv.put(dbh.COLUMN_CB_GAIN,cbgainseek.getProgress());
+                        db.update(dbh.TABLE_AUTO_CB,cv,dbh.COLUMN_CB_ID + " = " + 1,null);
+                        readDB("cb");
+                    }
+                });
+                cbset2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        cv.clear();
+                        cv.put(dbh.COLUMN_CB_VOLUME,cbvoseek.getProgress());
+                        cv.put(dbh.COLUMN_CB_CHANNEL,cbchanseek.getProgress());
+                        cv.put(dbh.COLUMN_CB_GAIN,cbgainseek.getProgress());
+                        db.update(dbh.TABLE_AUTO_CB,cv,dbh.COLUMN_CB_ID + " = " + 2,null);
+                        readDB("cb");
+                    }
+                });
+                cbset3.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        cv.clear();
+                        cv.put(dbh.COLUMN_CB_VOLUME,cbvoseek.getProgress());
+                        cv.put(dbh.COLUMN_CB_CHANNEL,cbchanseek.getProgress());
+                        cv.put(dbh.COLUMN_CB_GAIN,cbgainseek.getProgress());
+                        db.update(dbh.TABLE_AUTO_CB,cv,dbh.COLUMN_CB_ID + " = " + 3,null);
+                        readDB("cb");
+                    }
+                });
+                cbset4.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        cv.clear();
+                        cv.put(dbh.COLUMN_CB_VOLUME,cbvoseek.getProgress());
+                        cv.put(dbh.COLUMN_CB_CHANNEL,cbchanseek.getProgress());
+                        cv.put(dbh.COLUMN_CB_GAIN,cbgainseek.getProgress());
+                        db.update(dbh.TABLE_AUTO_CB,cv,dbh.COLUMN_CB_ID + " = " + 4,null);
+                        readDB("cb");
                     }
                 });
 
