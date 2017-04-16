@@ -36,23 +36,19 @@ import com.sayadev.finalproject.R;
 import java.util.ArrayList;
 
 public class automobile extends AppCompatActivity {
-    private ListView ls;
     private Button butt;
-    private FloatingActionButton addbutt;
     private EditText nameText,descText;
     private ProjectDatabaseHelper dbh;
     private SQLiteDatabase db;
     private ArrayList<String> items,desc,type,typedummy,itemdummy,descdummy;
     private ArrayList<Integer> idal,iddummy;
     private ItemAdapter adapter;
-    private Cursor cursor;
     private String[] sa;
     private ContentValues cv;
     private AlertDialog.Builder builder;
     private Toast toast;
     private Getdb asyncdb;
     private Spinner comboBox;
-    private Bundle bundle;
     private ProgressBar pb;
     private int count;
 
@@ -60,14 +56,12 @@ public class automobile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_automobile);
-        addbutt = (FloatingActionButton) findViewById(R.id.floatadd);
+        FloatingActionButton addbutt = (FloatingActionButton) findViewById(R.id.floatadd);
 
 
-
-        ls = (ListView) findViewById(R.id.autoList);
+        ListView ls = (ListView) findViewById(R.id.autoList);
 
         count = 0;
-        bundle = new Bundle();
         dbh = new ProjectDatabaseHelper(this);
         db = dbh.getWritableDatabase();
         items = new ArrayList<>();
@@ -94,81 +88,8 @@ public class automobile extends AppCompatActivity {
         cv = new ContentValues();
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         if(prefs.getBoolean("firstTime",true)){
-
-                cv.put(dbh.COLUMN_AUTO_NAME, getString(R.string.temp));
-                cv.put(dbh.COLUMN_AUTO_DESCRIPTION, getString(R.string.tempdesc));
-                cv.put(dbh.COLUMN_AUTO_TYPE, "Temp Control");
-                db.insert(dbh.TABLE_AUTO_ITEMS, null, cv);
-
-            cv.clear();
-            cv.put(dbh.COLUMN_AUTO_NAME, getString(R.string.radio));
-            cv.put(dbh.COLUMN_AUTO_DESCRIPTION, getString(R.string.radiodesc));
-            cv.put(dbh.COLUMN_AUTO_TYPE, "Radio");
-            db.insert(dbh.TABLE_AUTO_ITEMS, null, cv);
-
-            cv.clear();
-            cv.put(dbh.COLUMN_AUTO_NAME, getString(R.string.cb));
-            cv.put(dbh.COLUMN_AUTO_DESCRIPTION, getString(R.string.cbdesc));
-            cv.put(dbh.COLUMN_AUTO_TYPE, "CB Radio");
-            db.insert(dbh.TABLE_AUTO_ITEMS, null, cv);
-
-            cv.clear();
-            cv.put(dbh.COLUMN_AUTO_NAME, getString(R.string.gps));
-            cv.put(dbh.COLUMN_AUTO_DESCRIPTION, getString(R.string.gpsdesc));
-            cv.put(dbh.COLUMN_AUTO_TYPE, "GPS");
-            db.insert(dbh.TABLE_AUTO_ITEMS, null, cv);
-
-            cv.clear();
-            cv.put(dbh.COLUMN_AUTO_NAME, getString(R.string.chair));
-            cv.put(dbh.COLUMN_AUTO_DESCRIPTION, getString(R.string.chairdesc));
-            cv.put(dbh.COLUMN_AUTO_TYPE, "Seat");
-            db.insert(dbh.TABLE_AUTO_ITEMS, null, cv);
-
-            cv.clear();
-            cv.put(dbh.COLUMN_TEMP_TEMP, 20);
-            cv.put(dbh.COLUMN_TEMP_FAN,5);
-            cv.put(dbh.COLUMN_TEMP_AC,1);
-            db.insert(dbh.TABLE_AUTO_TEMP,null,cv);
-
-            cv.clear();
-            cv.put(dbh.COLUMN_TEMP_TEMP, 8);
-            cv.put(dbh.COLUMN_TEMP_FAN,5);
-            cv.put(dbh.COLUMN_TEMP_AC,1);
-            db.insert(dbh.TABLE_AUTO_TEMP,null,cv);
-
-            cv.clear();
-            cv.put(dbh.COLUMN_TEMP_TEMP, 30);
-            cv.put(dbh.COLUMN_TEMP_FAN,10);
-            cv.put(dbh.COLUMN_TEMP_AC,0);
-            db.insert(dbh.TABLE_AUTO_TEMP,null,cv);
-
-            cv.clear();
-            cv.put(dbh.COLUMN_TEMP_TEMP, 15);
-            cv.put(dbh.COLUMN_TEMP_FAN,5);
-            cv.put(dbh.COLUMN_TEMP_AC,0);
-            db.insert(dbh.TABLE_AUTO_TEMP,null,cv);
-
-            cv.clear();
-            cv.put(dbh.COLUMN_RADIO_VOLUME,0);
-            cv.put(dbh.COLUMN_RADIO_CHANNEL,0);
-            db.insert(dbh.TABLE_AUTO_RADIO,null,cv);
-
-            cv.clear();
-            cv.put(dbh.COLUMN_RADIO_VOLUME,25);
-            cv.put(dbh.COLUMN_RADIO_CHANNEL,25);
-            db.insert(dbh.TABLE_AUTO_RADIO,null,cv);
-
-            cv.clear();
-            cv.put(dbh.COLUMN_RADIO_VOLUME,80);
-            cv.put(dbh.COLUMN_RADIO_CHANNEL,50);
-            db.insert(dbh.TABLE_AUTO_RADIO,null,cv);
-
-            cv.clear();
-            cv.put(dbh.COLUMN_RADIO_VOLUME,80);
-            cv.put(dbh.COLUMN_RADIO_CHANNEL,100);
-            db.insert(dbh.TABLE_AUTO_RADIO,null,cv);
-
-            prefs.edit().putBoolean("firstTime", false).commit();
+            addData();
+            prefs.edit().putBoolean("firstTime", false).apply();
         }
         builder = new AlertDialog.Builder(this);
         asyncdb = new Getdb();
@@ -297,7 +218,7 @@ public class automobile extends AppCompatActivity {
 
     private void setList(){
         items.clear();
-        cursor = db.query(dbh.TABLE_AUTO_ITEMS,sa,null,null,null,null,null,null);
+        Cursor cursor = db.query(dbh.TABLE_AUTO_ITEMS, sa, null, null, null, null, null, null);
         cursor.moveToFirst();
        while(!cursor.isAfterLast()){
             count ++;
@@ -322,7 +243,7 @@ public class automobile extends AppCompatActivity {
 
     private class ItemAdapter extends ArrayAdapter<String>{
 
-        public ItemAdapter(Context cnt){super(cnt,0);}
+        ItemAdapter(Context cnt){super(cnt,0);}
 
         public String getItem(int pos){return items.get(pos);}
 
@@ -386,6 +307,105 @@ public class automobile extends AppCompatActivity {
         builder.setPositiveButton("OK",null);
         builder.show();
         return true;
+    }
+
+    private void addData(){
+        cv.put(dbh.COLUMN_AUTO_NAME, getString(R.string.temp));
+        cv.put(dbh.COLUMN_AUTO_DESCRIPTION, getString(R.string.tempdesc));
+        cv.put(dbh.COLUMN_AUTO_TYPE, "Temp Control");
+        db.insert(dbh.TABLE_AUTO_ITEMS, null, cv);
+
+        cv.clear();
+        cv.put(dbh.COLUMN_AUTO_NAME, getString(R.string.radio));
+        cv.put(dbh.COLUMN_AUTO_DESCRIPTION, getString(R.string.radiodesc));
+        cv.put(dbh.COLUMN_AUTO_TYPE, "Radio");
+        db.insert(dbh.TABLE_AUTO_ITEMS, null, cv);
+
+        cv.clear();
+        cv.put(dbh.COLUMN_AUTO_NAME, getString(R.string.cb));
+        cv.put(dbh.COLUMN_AUTO_DESCRIPTION, getString(R.string.cbdesc));
+        cv.put(dbh.COLUMN_AUTO_TYPE, "CB Radio");
+        db.insert(dbh.TABLE_AUTO_ITEMS, null, cv);
+
+        cv.clear();
+        cv.put(dbh.COLUMN_AUTO_NAME, getString(R.string.gps));
+        cv.put(dbh.COLUMN_AUTO_DESCRIPTION, getString(R.string.gpsdesc));
+        cv.put(dbh.COLUMN_AUTO_TYPE, "GPS");
+        db.insert(dbh.TABLE_AUTO_ITEMS, null, cv);
+
+        cv.clear();
+        cv.put(dbh.COLUMN_AUTO_NAME, getString(R.string.chair));
+        cv.put(dbh.COLUMN_AUTO_DESCRIPTION, getString(R.string.chairdesc));
+        cv.put(dbh.COLUMN_AUTO_TYPE, "Seat");
+        db.insert(dbh.TABLE_AUTO_ITEMS, null, cv);
+
+        cv.clear();
+        cv.put(dbh.COLUMN_TEMP_TEMP, 20);
+        cv.put(dbh.COLUMN_TEMP_FAN,5);
+        cv.put(dbh.COLUMN_TEMP_AC,1);
+        db.insert(dbh.TABLE_AUTO_TEMP,null,cv);
+
+        cv.clear();
+        cv.put(dbh.COLUMN_TEMP_TEMP, 8);
+        cv.put(dbh.COLUMN_TEMP_FAN,5);
+        cv.put(dbh.COLUMN_TEMP_AC,1);
+        db.insert(dbh.TABLE_AUTO_TEMP,null,cv);
+
+        cv.clear();
+        cv.put(dbh.COLUMN_TEMP_TEMP, 30);
+        cv.put(dbh.COLUMN_TEMP_FAN,10);
+        cv.put(dbh.COLUMN_TEMP_AC,0);
+        db.insert(dbh.TABLE_AUTO_TEMP,null,cv);
+
+        cv.clear();
+        cv.put(dbh.COLUMN_TEMP_TEMP, 15);
+        cv.put(dbh.COLUMN_TEMP_FAN,5);
+        cv.put(dbh.COLUMN_TEMP_AC,0);
+        db.insert(dbh.TABLE_AUTO_TEMP,null,cv);
+
+        cv.clear();
+        cv.put(dbh.COLUMN_RADIO_VOLUME,0);
+        cv.put(dbh.COLUMN_RADIO_CHANNEL,0);
+        db.insert(dbh.TABLE_AUTO_RADIO,null,cv);
+
+        cv.clear();
+        cv.put(dbh.COLUMN_RADIO_VOLUME,25);
+        cv.put(dbh.COLUMN_RADIO_CHANNEL,25);
+        db.insert(dbh.TABLE_AUTO_RADIO,null,cv);
+
+        cv.clear();
+        cv.put(dbh.COLUMN_RADIO_VOLUME,80);
+        cv.put(dbh.COLUMN_RADIO_CHANNEL,50);
+        db.insert(dbh.TABLE_AUTO_RADIO,null,cv);
+
+        cv.clear();
+        cv.put(dbh.COLUMN_RADIO_VOLUME,80);
+        cv.put(dbh.COLUMN_RADIO_CHANNEL,100);
+        db.insert(dbh.TABLE_AUTO_RADIO,null,cv);
+
+        cv.clear();
+        cv.put(dbh.COLUMN_CB_VOLUME,80);
+        cv.put(dbh.COLUMN_CB_CHANNEL,16);
+        cv.put(dbh.COLUMN_CB_GAIN,5);
+        db.insert(dbh.TABLE_AUTO_CB,null,cv);
+
+        cv.clear();
+        cv.put(dbh.COLUMN_CB_VOLUME,80);
+        cv.put(dbh.COLUMN_CB_CHANNEL,9);
+        cv.put(dbh.COLUMN_CB_GAIN,10);
+        db.insert(dbh.TABLE_AUTO_CB,null,cv);
+
+        cv.clear();
+        cv.put(dbh.COLUMN_CB_VOLUME,80);
+        cv.put(dbh.COLUMN_CB_CHANNEL,19);
+        cv.put(dbh.COLUMN_CB_GAIN,0);
+        db.insert(dbh.TABLE_AUTO_CB,null,cv);
+
+        cv.clear();
+        cv.put(dbh.COLUMN_CB_VOLUME,0);
+        cv.put(dbh.COLUMN_CB_CHANNEL,1);
+        cv.put(dbh.COLUMN_CB_GAIN,0);
+        db.insert(dbh.TABLE_AUTO_CB,null,cv);
     }
 
 }

@@ -40,6 +40,12 @@ public class ProjectDatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_RADIO_ID = "_id";
     public static final String COLUMN_RADIO_VOLUME = "volume";
     public static final String COLUMN_RADIO_CHANNEL = "channel";
+    //cb
+    public static final String TABLE_AUTO_CB = "cbSettings";
+    public static final String COLUMN_CB_ID = "_id";
+    public static final String COLUMN_CB_VOLUME = "volume";
+    public static final String COLUMN_CB_CHANNEL = "channel";
+    public static final String COLUMN_CB_GAIN = "gain";
 
 
     // Database creation sql statement
@@ -61,6 +67,10 @@ public class ProjectDatabaseHelper extends SQLiteOpenHelper {
             + COLUMN_RADIO_ID + " integer primary key autoincrement, " + COLUMN_RADIO_VOLUME + " integer, "
             + COLUMN_RADIO_CHANNEL + " integer);";
 
+    private static final String CREATE_AUTO_CB = "create table " + TABLE_AUTO_CB + " ( " + COLUMN_CB_ID
+            + " integer primary key autoincrement, " + COLUMN_CB_VOLUME + " integer, " + COLUMN_CB_CHANNEL
+            + " integer, " + COLUMN_CB_GAIN + " integer);";
+
     public ProjectDatabaseHelper(Context ctx) {
         super(ctx, DATABASE_NAME, null, VERSION_NUM);
     }
@@ -71,6 +81,7 @@ public class ProjectDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_AUTO_ITEMS);
         db.execSQL(CREATE_AUTO_TEMP);
         db.execSQL(CREATE_AUTO_RADIO);
+        db.execSQL(CREATE_AUTO_CB);
         Log.i("ChatDatabaseHelper", "Calling onCreate");
     }
 
@@ -83,6 +94,7 @@ public class ProjectDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_AUTO_ITEMS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_AUTO_TEMP);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_AUTO_RADIO);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_AUTO_CB);
         onCreate(db);
 
         Log.i("ProjectDatabaseHelper", "Calling onUpgrade, oldVersion=" + oldVersion + " newVersion=" + newVersion);

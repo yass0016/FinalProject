@@ -32,7 +32,7 @@ public class fragmentLayout extends Fragment {
     private SQLiteDatabase db;
     private String[] sa;
     private ContentValues cv;
-    private ArrayList<Integer> tempar,fanar,acar,radvolume,radchannel;
+    private ArrayList<Integer> tempar,fanar,acar,radvolume,radchannel,cbvolume,cbchannel,cbgain;
     private Cursor cursor;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance){
         toast = new Toast(getActivity());
@@ -255,8 +255,8 @@ public class fragmentLayout extends Fragment {
 
             case "Radio":
                     v = inflater.inflate(R.layout.auto_radio,container,false);
-                dbh = new ProjectDatabaseHelper(v.getContext());
-                db = dbh.getWritableDatabase();
+                    dbh = new ProjectDatabaseHelper(v.getContext());
+                    db = dbh.getWritableDatabase();
                     Button rad1,rad2,rad3,rad4,radsave1,radsave2,radsave3,radsave4;
                     final SeekBar radvolseek,radchanseek;
 
@@ -399,6 +399,10 @@ public class fragmentLayout extends Fragment {
                 Button cb1,cb2,cb3,cb4;
                 final SeekBar cbvoseek,cbchanseek,cbgainseek;
 
+                cbvolume = new ArrayList<>();
+                cbchannel = new ArrayList<>();
+                cbgain = new ArrayList<>();
+                readDB("cb");
                 cbvoseek =(SeekBar) v.findViewById(R.id.cbvolsb);
                 cbchanseek =(SeekBar) v.findViewById(R.id.cbchansb);
                 cbgainseek =(SeekBar) v.findViewById(R.id.cbgainsb);
@@ -407,6 +411,7 @@ public class fragmentLayout extends Fragment {
                 cb3 = (Button)v.findViewById(R.id.cbset3);
                 cb4 = (Button) v.findViewById(R.id.cbset4);
                 delete = (Button) v.findViewById(R.id.cbdelete);
+                cbchanseek.setMax(32);
 
                 cbvoseek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                     @Override
@@ -466,33 +471,33 @@ public class fragmentLayout extends Fragment {
                 cb1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        cbvoseek.setProgress(80);
-                        cbchanseek.setProgress(16);
-                        cbgainseek.setProgress(5);
+                        cbvoseek.setProgress(cbvolume.get(0));
+                        cbchanseek.setProgress(cbchannel.get(0));
+                        cbgainseek.setProgress(cbgain.get(0));
                     }
                 });
                 cb2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        cbvoseek.setProgress(80);
-                        cbchanseek.setProgress(9);
-                        cbgainseek.setProgress(10);
+                        cbvoseek.setProgress(cbvolume.get(1));
+                        cbchanseek.setProgress(cbchannel.get(1));
+                        cbgainseek.setProgress(cbgain.get(1));
                     }
                 });
                 cb3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        cbvoseek.setProgress(80);
-                        cbchanseek.setProgress(19);
-                        cbgainseek.setProgress(0);
+                        cbvoseek.setProgress(cbvolume.get(2));
+                        cbchanseek.setProgress(cbchannel.get(2));
+                        cbgainseek.setProgress(cbgain.get(2));
                     }
                 });
                 cb4.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        cbvoseek.setProgress(0);
-                        cbchanseek.setProgress(1);
-                        cbgainseek.setProgress(0);
+                        cbvoseek.setProgress(cbvolume.get(3));
+                        cbchanseek.setProgress(cbchannel.get(3));
+                        cbgainseek.setProgress(cbgain.get(3));
                     }
                 });
 
@@ -715,7 +720,18 @@ public class fragmentLayout extends Fragment {
                 }
                 break;
             case "cb":
-
+                cbvolume.clear();
+                cbchannel.clear();
+                cbgain.clear();
+                sa = new String[]{dbh.COLUMN_CB_ID,dbh.COLUMN_CB_VOLUME,dbh.COLUMN_CB_CHANNEL,dbh.COLUMN_CB_GAIN};
+                cursor = db.query(dbh.TABLE_AUTO_CB,sa,null,null,null,null,null,null);
+                cursor.moveToFirst();
+                while(!cursor.isAfterLast()){
+                    cbvolume.add(cursor.getInt(cursor.getColumnIndex(dbh.COLUMN_CB_VOLUME)));
+                    cbchannel.add(cursor.getInt(cursor.getColumnIndex(dbh.COLUMN_CB_CHANNEL)));
+                    cbgain.add(cursor.getInt(cursor.getColumnIndex(dbh.COLUMN_CB_GAIN)));
+                    cursor.moveToNext();
+                }
                 break;
             case "gps":
 
