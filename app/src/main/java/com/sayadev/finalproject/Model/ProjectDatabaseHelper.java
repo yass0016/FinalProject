@@ -208,8 +208,25 @@ public class ProjectDatabaseHelper extends SQLiteOpenHelper {
     /* get room items */
     public Cursor getRoomItems() {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("SELECT * FROM " + TABLE_ROOM_ITEMS, null);
+        Cursor res = db.rawQuery("SELECT * FROM " + TABLE_ROOM_ITEMS + " ORDER BY " + COLUMN_ROOM_VISIT_COUNT + " DESC", null);
+
         return res;
+    }
+
+    /* set room item click count */
+    public void addDeviceCount(long deviceId) {
+        int count = 0;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT " + COLUMN_ROOM_VISIT_COUNT + " FROM " + TABLE_ROOM_ITEMS + " WHERE " + COLUMN_ROOM_ID + "=" + deviceId, null);
+
+        cursor.moveToFirst();
+        count = cursor.getInt(cursor.getColumnIndex(ProjectDatabaseHelper.COLUMN_ROOM_VISIT_COUNT));
+
+        count += 1;
+
+        SQLiteDatabase dbs = this.getWritableDatabase();
+        dbs.execSQL("UPDATE " + TABLE_ROOM_ITEMS + " SET " + COLUMN_ROOM_VISIT_COUNT + "=" + count + " WHERE " + COLUMN_ROOM_ID + "=" + deviceId);
     }
 
     /* set lamp 1's status */
@@ -224,6 +241,7 @@ public class ProjectDatabaseHelper extends SQLiteOpenHelper {
     public Cursor getRoomLampOne(long deviceId) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res = db.rawQuery("SELECT * FROM " + TABLE_ROOM_LAMP1 + " WHERE " + COLUMN_ROOM_LAMP1_DEVICE_ID + "=?", new String[]{Long.toString(deviceId)});
+
         return res;
     }
 
@@ -247,6 +265,7 @@ public class ProjectDatabaseHelper extends SQLiteOpenHelper {
     public Cursor getRoomLampTwo(long deviceId) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res = db.rawQuery("SELECT * FROM " + TABLE_ROOM_LAMP2 + " WHERE " + COLUMN_ROOM_LAMP2_DEVICE_ID + "=?", new String[]{Long.toString(deviceId)});
+
         return res;
     }
 
@@ -278,6 +297,7 @@ public class ProjectDatabaseHelper extends SQLiteOpenHelper {
     public Cursor getRoomLampThree(long deviceId) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res = db.rawQuery("SELECT * FROM " + TABLE_ROOM_LAMP3 + " WHERE " + COLUMN_ROOM_LAMP3_DEVICE_ID + "=?", new String[]{Long.toString(deviceId)});
+
         return res;
     }
 
@@ -309,6 +329,7 @@ public class ProjectDatabaseHelper extends SQLiteOpenHelper {
     public Cursor getRoomTv(long deviceId) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res = db.rawQuery("SELECT * FROM " + TABLE_ROOM_TV + " WHERE " + COLUMN_ROOM_TV_DEVICE_ID + "=?", new String[]{Long.toString(deviceId)});
+
         return res;
     }
 
@@ -332,6 +353,7 @@ public class ProjectDatabaseHelper extends SQLiteOpenHelper {
     public Cursor getRoomBlinds(long deviceId) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res = db.rawQuery("SELECT * FROM " + TABLE_ROOM_BLINDS + " WHERE " + COLUMN_ROOM_BLINDS_DEVICE_ID + "=?", new String[]{Long.toString(deviceId)});
+
         return res;
     }
 }

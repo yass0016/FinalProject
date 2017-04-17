@@ -1,12 +1,11 @@
 package com.sayadev.finalproject.livingroom;
 
 import android.app.Dialog;
-import android.content.ContentValues;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -15,7 +14,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,6 +25,7 @@ import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -90,6 +89,8 @@ public class LivingRoom extends AppCompatActivity {
                 data.putString("itemImage", roomItems.get(position).getImageUri());
                 data.putString("deviceType", Integer.toString(itemData.getItemType()));
 
+                dbHelper.addDeviceCount(itemData.get_id());
+
                 if (!isFrameLoaded) {        // phone
                     data.putString("orientation", "port");
                     intent = new Intent(LivingRoom.this, RoomDetails.class);
@@ -118,7 +119,6 @@ public class LivingRoom extends AppCompatActivity {
                     ft.replace(R.id.livingRoomFrame, f);
                     ft.commit();
                 }
-
             }
         });
 
@@ -416,17 +416,42 @@ public class LivingRoom extends AppCompatActivity {
 
     private class GetRoomItems extends AsyncTask<Object, Object, Object> {
 
+        int count = 0;
+        private ProgressDialog proDialog;
+
+        @Override
+        protected void onProgressUpdate(Object... params) {
+            super.onProgressUpdate(params);
+        }
+
         @Override
         protected Object doInBackground(Object... params) {
 
             listItems();
-
+            for(int i = 0; i < 50000000; i++) {
+            }
+            publishProgress(count);
             return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            roomList.setVisibility(View.INVISIBLE);
+
+            proDialog = new ProgressDialog(LivingRoom.this);
+            proDialog.setTitle("Room List");
+            proDialog.setMessage("Loding...");
+            proDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            proDialog.setCancelable(true);
+            proDialog.show();
         }
 
         @Override
         protected void onPostExecute(Object result) {
 
+            proDialog.dismiss();
+            roomList.setVisibility(View.VISIBLE);
+            roomAdapter.notifyDataSetChanged();
         }
     }
 
@@ -434,7 +459,7 @@ public class LivingRoom extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        new GetRoomItems().execute((Object[]) null);
+        new GetRoomItems().execute();
     }
 
     @Override

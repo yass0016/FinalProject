@@ -3,6 +3,8 @@ package com.sayadev.finalproject.livingroom.Blinding;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -14,9 +16,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.sayadev.finalproject.House.House;
+import com.sayadev.finalproject.Model.ProjectDatabaseHelper;
 import com.sayadev.finalproject.R;
 import com.sayadev.finalproject.kitchen.KitchenMainActivity;
 import com.sayadev.finalproject.livingroom.LivingRoom;
@@ -26,9 +30,17 @@ import com.sayadev.finalproject.livingroom.LivingRoom;
  */
 
 public class Blinding extends Fragment {
-    private ImageView image;
+
+    private SeekBar seek;
     private TextView blindingText;
+
+    private ProjectDatabaseHelper dbHelper;
     private Bundle data;
+
+    public long device_id;
+
+    private int blindStatus = 0;
+    private int blindLevel = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,13 +52,54 @@ public class Blinding extends Fragment {
 
         View v = inflater.inflate(R.layout.activity_blinding, container, false);
 
-        image = (ImageView) v.findViewById(R.id.blindingImage);
+        device_id = Long.parseLong(data.getString("dbId"));
 
-        image.setImageDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(), getResources().getIdentifier(data.getString("itemImage"), null, getActivity().getPackageName())));
+        dbHelper = new ProjectDatabaseHelper(getActivity());
+
+        Cursor cursor = dbHelper.getRoomBlinds(device_id);
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            blindStatus = cursor.getInt(cursor.getColumnIndex(ProjectDatabaseHelper.COLUMN_ROOM_BLINDS_STATUS));
+            blindLevel = cursor.getInt(cursor.getColumnIndex(ProjectDatabaseHelper.COLUMN_ROOM_BLINDS_LEVEL));
+
+            cursor.moveToNext();
+        }
 
         blindingText = (TextView) v.findViewById(R.id.blindingText);
+        seek = (SeekBar) v.findViewById(R.id.blindingSeek);
 
-        blindingText.setText("ID: " + data.getString("dbId"));
+
+        seek.setProgress(blindLevel);
+        if(blindStatus == 1) {
+            blindingText.setText("Blinds Level is " + blindLevel);
+        } else {
+            blindingText.setText("Blinds is Closed");
+        }
+
+        seek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            int progress = 0;
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progresValue, boolean fromUser) {
+                progress = progresValue;
+                blindingText.setText("Blinds Level is " + progresValue);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                dbHelper.setBlindsLevel(device_id, progress);
+
+                if(progress == 0)
+                    dbHelper.setBlindsStatus(device_id, 0);
+                else
+                    dbHelper.setBlindsStatus(device_id, 1);
+            }
+        });
 
         return v;
     }
