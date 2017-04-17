@@ -12,7 +12,6 @@ import android.support.annotation.ColorInt;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,10 +25,8 @@ import android.widget.Toast;
 import com.pes.androidmaterialcolorpickerdialog.ColorPicker;
 
 import com.pes.androidmaterialcolorpickerdialog.ColorPickerCallback;
-import com.sayadev.finalproject.House.House;
 import com.sayadev.finalproject.Model.ProjectDatabaseHelper;
 import com.sayadev.finalproject.R;
-import com.sayadev.finalproject.kitchen.KitchenMainActivity;
 import com.sayadev.finalproject.livingroom.LivingRoom;
 
 public class Lamp3 extends Fragment {
@@ -240,17 +237,23 @@ public class Lamp3 extends Fragment {
         switch (item.getItemId()) {
             case R.id.action_one:
                 intent = new Intent(getActivity(), LivingRoom.class);
+                getActivity().finish();
                 startActivity(intent);
                 return true;
             case R.id.action_two:
-                intent = new Intent(getActivity(), KitchenMainActivity.class);
+                intent = new Intent(getActivity(), LivingRoom.class);
+                getActivity().finish();
                 startActivity(intent);
                 return true;
             case R.id.action_three:
-                intent = new Intent(getActivity(), House.class);
+                intent = new Intent(getActivity(), LivingRoom.class);
+                getActivity().finish();
                 startActivity(intent);
                 return true;
             case R.id.action_four:
+                intent = new Intent(getActivity(), LivingRoom.class);
+                getActivity().finish();
+                startActivity(intent);
                 return true;
             case R.id.action_help:
                 createCustomDialog().show();

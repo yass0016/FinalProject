@@ -13,19 +13,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 
-import com.sayadev.finalproject.House.House;
-import com.sayadev.finalproject.kitchen.KitchenMainActivity;
 import com.sayadev.finalproject.livingroom.LivingRoom;
 
 public class MainActivity extends AppCompatActivity {
-
-    private Button appOne;
-    private Button appTwo;
-    private Button appThree;
-    private Button appFour;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,43 +25,6 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
-/*
-        appOne = (Button) findViewById(R.id.appOne);
-        appOne.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, LivingRoom.class);
-                startActivity(intent);
-            }
-        });
-
-        appTwo = (Button) findViewById(R.id.appTwo);
-        appTwo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, KitchenMainActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        appThree = (Button) findViewById(R.id.appThree);
-        appThree.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, House.class);
-                startActivity(intent);
-            }
-        });
-
-        appFour = (Button) findViewById(R.id.appFour);
-        appFour.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // replace null with our main application activity
-                Intent intent = new Intent(MainActivity.this, automobile.class);
-                startActivity(intent);
-            }
-        });*/
 
     }
 
@@ -110,14 +64,16 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             case R.id.action_two:
-                intent = new Intent(MainActivity.this, KitchenMainActivity.class);
+                intent = new Intent(MainActivity.this, LivingRoom.class);
                 startActivity(intent);
                 return true;
             case R.id.action_three:
-                intent = new Intent(MainActivity.this, House.class);
+                intent = new Intent(MainActivity.this, LivingRoom.class);
                 startActivity(intent);
                 return true;
             case R.id.action_four:
+                intent = new Intent(MainActivity.this, LivingRoom.class);
+                startActivity(intent);
                 return true;
             case R.id.action_help:
                 createCustomDialog().show();

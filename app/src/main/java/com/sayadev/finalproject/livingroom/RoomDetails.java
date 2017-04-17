@@ -3,8 +3,8 @@ package com.sayadev.finalproject.livingroom;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
-import com.sayadev.finalproject.BaseActivity;
 import com.sayadev.finalproject.R;
 import com.sayadev.finalproject.livingroom.Blinding.Blinding;
 import com.sayadev.finalproject.livingroom.Lamps.Lamp1;
@@ -12,7 +12,7 @@ import com.sayadev.finalproject.livingroom.Lamps.Lamp2;
 import com.sayadev.finalproject.livingroom.Lamps.Lamp3;
 import com.sayadev.finalproject.livingroom.TV.TV;
 
-public class RoomDetails extends BaseActivity {
+public class RoomDetails extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

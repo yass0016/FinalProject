@@ -25,14 +25,11 @@ import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.sayadev.finalproject.House.House;
 import com.sayadev.finalproject.Model.ProjectDatabaseHelper;
 import com.sayadev.finalproject.R;
-import com.sayadev.finalproject.kitchen.KitchenMainActivity;
 import com.sayadev.finalproject.livingroom.Blinding.Blinding;
 import com.sayadev.finalproject.livingroom.Lamps.Lamp1;
 import com.sayadev.finalproject.livingroom.Lamps.Lamp2;
@@ -343,17 +340,23 @@ public class LivingRoom extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_one:
                 intent = new Intent(LivingRoom.this, LivingRoom.class);
+                finish();
                 startActivity(intent);
                 return true;
             case R.id.action_two:
-                intent = new Intent(LivingRoom.this, KitchenMainActivity.class);
+                intent = new Intent(LivingRoom.this, LivingRoom.class);
+                finish();
                 startActivity(intent);
                 return true;
             case R.id.action_three:
-                intent = new Intent(LivingRoom.this, House.class);
+                intent = new Intent(LivingRoom.this, LivingRoom.class);
+                finish();
                 startActivity(intent);
                 return true;
             case R.id.action_four:
+                intent = new Intent(LivingRoom.this, LivingRoom.class);
+                finish();
+                startActivity(intent);
                 return true;
             case R.id.action_help:
                 createCustomDialog().show();
