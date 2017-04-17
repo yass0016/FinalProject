@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/kitchen_device_config_coffee_selector" />
+    <Spinner
+        android:id="@+id/kitchen_coffee_maker_config_coffee_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </Spinner>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/kitchen_device_config_coffee_selector_size" />
+    <Spinner
+        android:id="@+id/kitchen_coffee_maker_config_size_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </Spinner>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/brew_coffee_fab"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/coffee"
+        android:tint="#fff"
+        app:backgroundTint="#4E342E" />
+
+</LinearLayout>

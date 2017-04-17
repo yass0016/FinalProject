@@ -27,7 +27,14 @@ public class ProjectDatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_AUTO_NAME = "name";
     public static final String COLUMN_AUTO_DESCRIPTION = "description";
 
-    // Database creation sql statement
+    /* Kitchen Table and Columns */
+    public static final String TABLE_KITCHEN_ITEMS = "kitchenItems";
+    public static final String COLUMN_KITCHEN_ID = "_id";
+    public static final String COLUMN_KITCHEN_NAME = "name";
+    public static final String COLUMN_KITCHEN_MODEL = "model";
+    public static final String COLUMN_KITCHEN_TYPE = "type";
+
+    // Database creation sql statements
     private static final String CREATE_ROOM_ITEMS_TABLE = "create table "
             + TABLE_ROOM_ITEMS + "( " + COLUMN_ROOM_ID
             + " integer primary key autoincrement, " + COLUMN_OTHER
@@ -37,6 +44,14 @@ public class ProjectDatabaseHelper extends SQLiteOpenHelper {
             + COLUMN_AUTO_ID + " integer primary key autoincrement, "
             +  COLUMN_AUTO_NAME + " text, " + COLUMN_AUTO_DESCRIPTION + " text);";
 
+    private static final String CREATE_KITCHEN_ITEMS_TABLE = "create table " +
+            TABLE_KITCHEN_ITEMS +
+            " ( " +
+            COLUMN_KITCHEN_ID + " integer primary key autoincrement, " +
+            COLUMN_KITCHEN_NAME + " text, " +
+            COLUMN_KITCHEN_MODEL + " text, " +
+            COLUMN_KITCHEN_TYPE + " text);";
+
     public ProjectDatabaseHelper(Context ctx) {
         super(ctx, DATABASE_NAME, null, VERSION_NUM);
     }
@@ -45,6 +60,7 @@ public class ProjectDatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_ROOM_ITEMS_TABLE);
         db.execSQL(CREATE_AUTO_ITEMS);
+        db.execSQL(CREATE_KITCHEN_ITEMS_TABLE);
         Log.i("ChatDatabaseHelper", "Calling onCreate");
     }
 

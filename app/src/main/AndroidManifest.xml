@@ -18,7 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".kitchen.KitchenMainActivity" />
+        <activity android:name=".kitchen.KitchenMainActivity" />S
+        <activity android:name=".kitchen.KitchenDeviceConfig" />
 
         <activity android:name=".livingroom.LivingRoom" />
         <activity android:name=".livingroom.TV.TV" />
