@@ -16,10 +16,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.sayadev.finalproject.BaseActivity;
 import com.sayadev.finalproject.House.House;
 import com.sayadev.finalproject.R;
-import com.sayadev.finalproject.automobile.automobile;
 import com.sayadev.finalproject.kitchen.KitchenMainActivity;
 import com.sayadev.finalproject.livingroom.LivingRoom;
 
@@ -143,8 +141,6 @@ public class Blinding extends Fragment {
                 startActivity(intent);
                 return true;
             case R.id.action_four:
-                intent = new Intent(getActivity(), automobile.class);
-                startActivity(intent);
                 return true;
             case R.id.action_help:
                 createCustomDialog().show();

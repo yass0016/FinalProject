@@ -5,6 +5,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
+
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/ScrollView"
         android:layout_width="fill_parent"
@@ -22,16 +24,13 @@
                 android:id="@+id/lampsImage"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                app:srcCompat="@drawable/blind" />
+                app:srcCompat="@drawable/light_off" />
 
-            <TextView
-                android:id="@+id/lampsText"
+            <SeekBar
+                android:id="@+id/brightnessLamp"
                 android:layout_width="match_parent"
-                android:layout_height="200px"
-                android:gravity="center_vertical"
-                android:text=""
-                android:textAlignment="center"
-                android:textSize="24dp" />
+                android:layout_height="50dp"
+                android:progress="0"/>
 
             <Button
                 android:id="@+id/switchLamp"

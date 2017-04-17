@@ -100,7 +100,7 @@ public class ProjectDatabaseHelper extends SQLiteOpenHelper {
             + COLUMN_ROOM_LAMP3_DEVICE_ID + " INTEGER not null, "
             + COLUMN_ROOM_LAMP3_STATUS + " INTEGER not null default 0, "
             + COLUMN_ROOM_LAMP3_DIM_LEVEL + " INTEGER not null default 0, "
-            + COLUMN_ROOM_LAMP3_COLOR + " text);";
+            + COLUMN_ROOM_LAMP3_COLOR + " INTEGER);";
 
     private static final String CREATE_ROOM_TV_TABLE = "create table "
             + TABLE_ROOM_TV + "( "
@@ -267,7 +267,7 @@ public class ProjectDatabaseHelper extends SQLiteOpenHelper {
     }
 
     /* set lamp 3's color */
-    public void setLampThreeDimLevel(long deviceId, String color) {
+    public void setLampThreeColor(long deviceId, int color) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_ROOM_LAMP3_COLOR, color);

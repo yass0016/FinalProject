@@ -16,7 +16,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.sayadev.finalproject.House.House;
-import com.sayadev.finalproject.automobile.automobile;
 import com.sayadev.finalproject.kitchen.KitchenMainActivity;
 import com.sayadev.finalproject.livingroom.LivingRoom;
 
@@ -119,8 +118,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             case R.id.action_four:
-                intent = new Intent(MainActivity.this, automobile.class);
-                startActivity(intent);
                 return true;
             case R.id.action_help:
                 createCustomDialog().show();

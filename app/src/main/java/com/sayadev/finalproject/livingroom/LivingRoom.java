@@ -30,11 +30,9 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.sayadev.finalproject.BaseActivity;
 import com.sayadev.finalproject.House.House;
 import com.sayadev.finalproject.Model.ProjectDatabaseHelper;
 import com.sayadev.finalproject.R;
-import com.sayadev.finalproject.automobile.automobile;
 import com.sayadev.finalproject.kitchen.KitchenMainActivity;
 import com.sayadev.finalproject.livingroom.Blinding.Blinding;
 import com.sayadev.finalproject.livingroom.Lamps.Lamp1;
@@ -356,8 +354,6 @@ public class LivingRoom extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             case R.id.action_four:
-                intent = new Intent(LivingRoom.this, automobile.class);
-                startActivity(intent);
                 return true;
             case R.id.action_help:
                 createCustomDialog().show();

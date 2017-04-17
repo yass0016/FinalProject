@@ -22,22 +22,25 @@
                 android:id="@+id/lampsImage"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                app:srcCompat="@drawable/blind" />
+                app:srcCompat="@drawable/light_off" />
 
-            <TextView
-                android:id="@+id/lampsText"
+            <SeekBar
+                android:id="@+id/brightnessLamp"
                 android:layout_width="match_parent"
-                android:layout_height="200px"
-                android:gravity="center_vertical"
-                android:text=""
-                android:textAlignment="center"
-                android:textSize="24dp" />
+                android:layout_height="50dp"
+                android:progress="0"/>
 
             <Button
                 android:id="@+id/switchLamp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="TURN LAMP ON" />
+
+            <Button
+                android:id="@+id/changeLampColor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Change Lamp Color" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

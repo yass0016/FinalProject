@@ -3,6 +3,7 @@ package com.sayadev.finalproject.livingroom.Lamps;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -15,12 +16,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sayadev.finalproject.House.House;
+import com.sayadev.finalproject.Model.ProjectDatabaseHelper;
 import com.sayadev.finalproject.R;
-import com.sayadev.finalproject.automobile.automobile;
 import com.sayadev.finalproject.kitchen.KitchenMainActivity;
 import com.sayadev.finalproject.livingroom.LivingRoom;
 
@@ -29,43 +29,66 @@ import com.sayadev.finalproject.livingroom.LivingRoom;
  */
 
 public class Lamp1 extends Fragment {
-    private ImageView image;
-    private TextView lampText;
-    private Button lightStatus;
-    private boolean status = false;
+
+    private ProjectDatabaseHelper dbHelper;
     private Bundle data;
+
+    private int lampStatus = 0;
+    public long device_id;
+
+    public ImageView lampImage;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-         data = this.getArguments();
+        data = this.getArguments();
         setHasOptionsMenu(true);
 
         View v = inflater.inflate(R.layout.activity_lamp1, container, false);
 
-        image = (ImageView) v.findViewById(R.id.lampsImage);
+        lampImage = (ImageView) v.findViewById(R.id.lampsImage);
 
-        image.setImageDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(), getResources().getIdentifier(data.getString("itemImage"), null, getActivity().getPackageName())));
+        device_id = Long.parseLong(data.getString("dbId"));
 
-        lampText = (TextView) v.findViewById(R.id.lampsText);
-        lampText.setText("ID: " + data.getString("dbId") + " Lamp OFF ");
+        dbHelper = new ProjectDatabaseHelper(getActivity());
 
-        lightStatus = (Button) v.findViewById(R.id.switchLamp);
+        Cursor cursor = dbHelper.getRoomLampOne(device_id);
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            lampStatus = cursor.getInt(cursor.getColumnIndex(ProjectDatabaseHelper.COLUMN_ROOM_LAMP1_STATUS));
+
+            cursor.moveToNext();
+        }
+
+        final Button lightStatus = (Button) v.findViewById(R.id.switchLamp);
+
+        if (lampStatus == 0) {
+            lightStatus.setText("SWITCH LAMP ON");
+            lampImage.setImageDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.light_off));
+        } else {
+            lightStatus.setText("SWITCH LAMP OFF");
+            lampImage.setImageDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.light_on));
+        }
 
         lightStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!status) {
+                if (lampStatus == 0) {
                     Toast.makeText(getActivity().getApplicationContext(), "You turned the light ON", Toast.LENGTH_SHORT).show();
-                    lampText.setText("ID: " + data.getString("dbId") + " Light ON");
                     lightStatus.setText("SWITCH LAMP OFF");
+                    lampStatus = 1;
+                    lampImage.setImageDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.light_on));
+
                 } else {
                     Toast.makeText(getActivity().getApplicationContext(), "You turned the light OFF", Toast.LENGTH_SHORT).show();
-                    lampText.setText("ID: " + data.getString("dbId") + " Light OFF");
                     lightStatus.setText("SWITCH LAMP ON");
+                    lampStatus = 0;
+                    lampImage.setImageDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.light_off));
                 }
-                status = !status;
+                dbHelper.setLampOneStatus(device_id, lampStatus);
+
             }
         });
 
@@ -76,7 +99,7 @@ public class Lamp1 extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
-        if(data.getString("orientation").equals("port")) {
+        if (data.getString("orientation").equals("port")) {
             inflater.inflate(R.menu.main_activity, menu);
         }
 
@@ -126,13 +149,13 @@ public class Lamp1 extends Fragment {
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        if(data.getString("orientation").equals("port")) {
+                        if (data.getString("orientation").equals("port")) {
                             Intent i = new Intent();
                             i.putExtra("id", data.getString("id"));
                             getActivity().setResult(5, i);
                             getActivity().finish();
                         } else {
-                            ((LivingRoom)getActivity()).deleteItem(Integer.parseInt(data.getString("id")));
+                            ((LivingRoom) getActivity()).deleteItem(Integer.parseInt(data.getString("id")));
                         }
                     }
                 }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -162,8 +185,6 @@ public class Lamp1 extends Fragment {
                 startActivity(intent);
                 return true;
             case R.id.action_four:
-                intent = new Intent(getActivity(), automobile.class);
-                startActivity(intent);
                 return true;
             case R.id.action_help:
                 createCustomDialog().show();
