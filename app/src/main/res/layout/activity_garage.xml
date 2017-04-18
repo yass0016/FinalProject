@@ -35,7 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:gravity="center_vertical"
-                android:text="TextView"
+                android:text=""
                 android:textAlignment="center"
                 android:textSize="24dp" />
 
@@ -43,13 +43,13 @@
                 android:id="@+id/openGarage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Open Garage"/>
+                android:text="@string/open_garage"/>
 
             <Button
                 android:id="@+id/openLamp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Turn ON Light"/>
+                android:text="@string/light_on"/>
 
         </LinearLayout>
     </ScrollView>

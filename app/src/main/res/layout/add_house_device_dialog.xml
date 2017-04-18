@@ -7,19 +7,19 @@
         android:id="@+id/addGARAGE"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add Garage" />
+        android:text="@string/add_garage" />
 
     <Button
         android:id="@+id/addTempIn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add Temperature Inside" />
+        android:text="@string/add_temperature_inside" />
 
     <Button
         android:id="@+id/addTempOut"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add Temperature Outside" />
+        android:text="@string/add_temperature_outside" />
 
 
 </LinearLayout>

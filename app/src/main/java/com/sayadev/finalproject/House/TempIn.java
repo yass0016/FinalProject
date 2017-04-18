@@ -4,12 +4,10 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -87,7 +85,7 @@ public class TempIn extends Fragment {
             cursor.moveToNext();
         }
 
-        tempText.setText("Current Set Temperature: " + temperature + " \u2103");
+        tempText.setText(getResources().getText(R.string.current_set_temp) + " " + temperature + " \u2103");
 
         getSchedItems();
         adapter.notifyDataSetChanged();
@@ -104,10 +102,10 @@ public class TempIn extends Fragment {
             public void onClick(View v) {
                 try {
                     temperature = Integer.parseInt(tempData.getText().toString());
-                    tempText.setText("Current Set Temperature: " + temperature + " \u2103");
+                    tempText.setText(getResources().getText(R.string.current_set_temp) + " " + temperature + " \u2103");
                     dbHelper.setHouseTempInTemp(device_id, temperature);
                 } catch (NumberFormatException e) {
-                    Snackbar.make(getActivity().findViewById(android.R.id.content), "Remember to Enter Temperature", Snackbar.LENGTH_LONG)
+                    Snackbar.make(getActivity().findViewById(android.R.id.content), R.string.temp_error, Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
             }
@@ -115,8 +113,6 @@ public class TempIn extends Fragment {
 
         tempInList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
-                Object o = tempInList.getItemAtPosition(position);
-                HouseTempInData tempInData = (HouseTempInData) o;
                 updateSchedDialog(position, id).show();
             }
         });
@@ -131,14 +127,14 @@ public class TempIn extends Fragment {
 
                 AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
 
-                dialog.setTitle("Delete Item")
-                        .setMessage("Are you sure you would like to delete this item?")
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                dialog.setTitle(R.string.delete_item)
+                        .setMessage(R.string.delete_item_confirm)
+                        .setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialoginterface, int i) {
                                 dialoginterface.cancel();
                             }
                         })
-                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        .setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialoginterface, int i) {
 
                                 dbHelper.deleteHouseTempInSched(device_id, deviceId);
@@ -238,7 +234,7 @@ public class TempIn extends Fragment {
                             tempInItems.set(position, new HouseTempInData(itemId, Integer.parseInt(temp.getText().toString()), c.getTime().getTime()));
                             adapter.notifyDataSetChanged();
                         } catch (NumberFormatException e) {
-                            Snackbar.make(getActivity().findViewById(android.R.id.content), "Sheduale was not created. Remember to Enter Temperature!", Snackbar.LENGTH_LONG)
+                            Snackbar.make(getActivity().findViewById(android.R.id.content),R.string.schedule_update_error, Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
                         }
 
@@ -306,7 +302,7 @@ public class TempIn extends Fragment {
                             tempInItems.add(new HouseTempInData(_id, Integer.parseInt(temp.getText().toString()), c.getTime().getTime()));
                             adapter.notifyDataSetChanged();
                         } catch (NumberFormatException e) {
-                            Snackbar.make(getActivity().findViewById(android.R.id.content), "Sheduale was not created. Remember to Enter Temperature!", Snackbar.LENGTH_LONG)
+                            Snackbar.make(getActivity().findViewById(android.R.id.content), R.string.schedule_create_error, Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
                         }
 

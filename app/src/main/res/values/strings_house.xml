@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>\
+    <!-- Garage -->
+    <string name="open_garage">OPEN GARAGE</string>
+    <string name="close_garage">CLOSE GARAGE</string>
+    <string name="light_on">TURN LIGHT ON</string>
+    <string name="light_off">TURN LIGHT OFF</string>
+
+    <string name="open">OPEN</string>
+    <string name="closed">CLOSED</string>
+    <string name="on">ON</string>
+    <string name="off">OFF</string>
+
+    <string name="garage_is">Garage is</string>
+    <string name="light_is">Light is</string>
+
+    <string name="opened_garage">You opened the garage, Light automatically turned ON</string>
+    <string name="closed_garage">You closed the garage</string>
+
+    <string name="turned_light_on">You turned the light ON</string>
+    <string name="turned_light_off">You turned the light OFF</string>
+
+    <!-- House -->
+    <string name="house_title">House Items</string>
+    <string name="add_item">Add Item</string>
+    <string name="delete_item">Delete Item</string>
+
+    <string name="delete_item_confirm">Are you sure you would like to delete this item?</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="dialog_ok">OK</string>
+
+    <string name="garage">Garage</string>
+    <string name="temperature_inside">Temperature Inside</string>
+    <string name="temperature_outside">Temperature Outside</string>
+
+    <string name="add_garage">Add Garage</string>
+    <string name="add_temperature_inside">Add Temperature Inside</string>
+    <string name="add_temperature_outside">Add Temperature Outside</string>
+
+    <!-- Temp In -->
+    <string name="enter_tempin">Enter Temperature</string>
+    <string name="set_house_tempin">Set House Temperature</string>
+    <string name="add_schedule">Add Schedule</string>
+    <string name="current_set_temp">Current Set Temperature:</string>
+    <string name="temp_error">Remember to Enter Temperature</string>
+
+    <!-- Temp In Schedule -->
+    <string name="set_time">SET TIME</string>
+    <string name="schedule_create_error">Schedule was not created. Remember to Enter Temperature</string>
+    <string name="schedule_update_error">Schedule was not updated. Remember to Enter Temperature</string>
+
+    <!-- Temp Out -->
+    <string name="current_temp">Current Temperature</string>
+    <string name="max_temp">Maximum Temperature</string>
+    <string name="min_temp">Minimum Temperature</string>
+</resources>

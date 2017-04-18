@@ -36,7 +36,6 @@ public class House extends AppCompatActivity {
     private ProjectDatabaseHelper db;
 
     private boolean isFrameLoaded;
-    private FrameLayout houseFrame;
 
 
     @Override
@@ -45,7 +44,11 @@ public class House extends AppCompatActivity {
 
         setContentView(R.layout.activity_house);
 
-        getSupportActionBar().setTitle("House Items");
+        try{
+            getSupportActionBar().setTitle(R.string.house_title);
+        } catch (NullPointerException e) {
+
+        }
 
         HouseItems = new ArrayList<>();
 
@@ -67,6 +70,7 @@ public class House extends AppCompatActivity {
             }
         });
 
+        FrameLayout houseFrame;
         houseFrame = (FrameLayout) findViewById(R.id.hosueFrame);
 
         isFrameLoaded = (houseFrame != null);
@@ -80,7 +84,7 @@ public class House extends AppCompatActivity {
                 data.putString("id", Long.toString(id));
                 data.putString("itemImage", houseInfo.getImageUri());
 
-                Intent intent = null;
+                Intent intent;
 
                 if (!isFrameLoaded) {
                     if (houseInfo.getItemType() == HouseData.GARAGE) {
@@ -109,7 +113,11 @@ public class House extends AppCompatActivity {
                         f = new TempOut();
                     }
 
-                    f.setArguments(data);
+                    try{
+                        f.setArguments(data);
+                    } catch (NullPointerException e) {
+
+                    }
 
                     ft.replace(R.id.hosueFrame, f);
                     ft.commit();
@@ -127,14 +135,14 @@ public class House extends AppCompatActivity {
 
                 AlertDialog.Builder dialog = new AlertDialog.Builder(House.this);
 
-                dialog.setTitle("Delete Item")
-                        .setMessage("Are you sure you would like to delete this item?")
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                dialog.setTitle(R.string.delete_item)
+                        .setMessage(R.string.delete_item_confirm)
+                        .setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialoginterface, int i) {
                                 dialoginterface.cancel();
                             }
                         })
-                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        .setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialoginterface, int i) {
 
                                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -148,8 +156,10 @@ public class House extends AppCompatActivity {
                                 HouseItems.remove(itemPosition);
                                 HouseAdapter.notifyDataSetChanged();
 
-                                ft.remove(f);
-                                ft.commit();
+                                if(f != null) {
+                                    ft.remove(f);
+                                    ft.commit();
+                                }
                             }
                         }).show();
 
@@ -172,8 +182,8 @@ public class House extends AppCompatActivity {
         garage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                long id = db.insertHouseItem("Garage", HouseData.GARAGE, "@drawable/garage");
-                HouseData garageData = new HouseData(id, "Garage", "@drawable/garage", HouseData.GARAGE);
+                long id = db.insertHouseItem(getResources().getText(R.string.garage).toString(), HouseData.GARAGE, "@drawable/garage");
+                HouseData garageData = new HouseData(id, getResources().getText(R.string.garage).toString(), "@drawable/garage", HouseData.GARAGE);
                 HouseItems.add(garageData);
                 HouseAdapter.notifyDataSetChanged();
                 show.dismiss();
@@ -184,8 +194,8 @@ public class House extends AppCompatActivity {
         tempIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                long id = db.insertHouseItem("Temperature Inside", HouseData.TEMPIN, "@drawable/tempin");
-                HouseData tempInData = new HouseData(id, "Temperature Inside", "@drawable/tempin", HouseData.TEMPIN);
+                long id = db.insertHouseItem(getResources().getText(R.string.temperature_inside).toString(), HouseData.TEMPIN, "@drawable/tempin");
+                HouseData tempInData = new HouseData(id, getResources().getText(R.string.temperature_inside).toString(), "@drawable/tempin", HouseData.TEMPIN);
                 HouseItems.add(tempInData);
                 HouseAdapter.notifyDataSetChanged();
                 show.dismiss();
@@ -196,8 +206,8 @@ public class House extends AppCompatActivity {
         tempOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                long id = db.insertHouseItem("Temperature Outside", HouseData.TEMPOUT, "@drawable/tempout");
-                HouseData tempOutData = new HouseData(id, "Temperature Outside", "@drawable/tempout", HouseData.TEMPOUT);
+                long id = db.insertHouseItem(getResources().getText(R.string.temperature_outside).toString(), HouseData.TEMPOUT, "@drawable/tempout");
+                HouseData tempOutData = new HouseData(id, getResources().getText(R.string.temperature_outside).toString(), "@drawable/tempout", HouseData.TEMPOUT);
                 HouseItems.add(tempOutData);
                 HouseAdapter.notifyDataSetChanged();
                 show.dismiss();

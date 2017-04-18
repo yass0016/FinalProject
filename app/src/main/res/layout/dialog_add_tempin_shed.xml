@@ -18,7 +18,7 @@
         android:id="@+id/btn_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="SET TIME"
+        android:text="@string/set_time"
         android:layout_toEndOf="@+id/in_time" />
 
     <EditText
@@ -29,5 +29,5 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/btn_time"
         android:inputType="number"
-        android:hint="Enter Temperature"/>
+        android:hint="@string/enter_tempin"/>
 </RelativeLayout>

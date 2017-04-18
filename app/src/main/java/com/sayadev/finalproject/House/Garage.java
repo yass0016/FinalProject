@@ -15,8 +15,6 @@ import android.widget.Toast;
 import com.sayadev.finalproject.Model.ProjectDatabaseHelper;
 import com.sayadev.finalproject.R;
 
-import org.w3c.dom.Text;
-
 /**
  * Created by Rudwan on 2017-03-26.
  */
@@ -61,44 +59,50 @@ public class Garage extends Fragment {
         text = (TextView) v.findViewById(R.id.garageText);
 
         if (garageStatus == 0) {
-            openGarage.setText("OPEN GARAGE");
+            openGarage.setText(getResources().getText(R.string.open_garage));
             garageImage.setImageDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.garageclosed));
 
         } else {
-            openGarage.setText("CLOSE GARAGE");
+            openGarage.setText(getResources().getText(R.string.close_garage));
             garageImage.setImageDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.garageopen));
         }
 
 
         if (lampStatus == 0) {
-            openLight.setText("TURN LIGHT ON");
+            openLight.setText(getResources().getText(R.string.light_on));
         } else {
-            openLight.setText("TURN LIGHT OFF");
+            openLight.setText(getResources().getText(R.string.light_off));
         }
 
-        text.setText("Garage is " + ((garageStatus == 1) ? "OPEN" : "CLOSED") + " Light is " + ((lampStatus == 1) ? "ON" : "OFF"));
+        text.setText(getResources().getText(R.string.garage_is)
+                + " " + ((garageStatus == 1) ? getResources().getText(R.string.open) : getResources().getText(R.string.closed))
+                + " " + getResources().getText(R.string.light_is)
+                + " " + ((lampStatus == 1) ? getResources().getText(R.string.on) : getResources().getText(R.string.off)));
 
         openGarage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (garageStatus == 0) {
-                    Toast.makeText(getActivity().getApplicationContext(), "You opened the garage, Light automatically turned ON", Toast.LENGTH_SHORT).show();
-                    openGarage.setText("CLOSE GARAGE");
-                    openLight.setText("TURN LIGHT OFF");
+                    Toast.makeText(getActivity().getApplicationContext(), getResources().getText(R.string.opened_garage), Toast.LENGTH_SHORT).show();
+                    openGarage.setText(getResources().getText(R.string.close_garage));
+                    openLight.setText(getResources().getText(R.string.light_off));
                     garageStatus = 1;
                     lampStatus = 1;
                     garageImage.setImageDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.garageopen));
                     dbHelper.setHouseGarageLightStatus(device_id, lampStatus);
 
                 } else {
-                    Toast.makeText(getActivity().getApplicationContext(), "You closed the garage", Toast.LENGTH_SHORT).show();
-                    openGarage.setText("OPEN GARAGE");
+                    Toast.makeText(getActivity().getApplicationContext(), getResources().getText(R.string.closed_garage), Toast.LENGTH_SHORT).show();
+                    openGarage.setText(getResources().getText(R.string.open_garage));
                     garageStatus = 0;
                     garageImage.setImageDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.garageclosed));
 
                 }
                 dbHelper.setHouseGarageDoorStatus(device_id, garageStatus);
-                text.setText("Garage is " + ((garageStatus == 1) ? "OPEN" : "CLOSED") + " Light is " + ((lampStatus == 1) ? "ON" : "OFF"));
+                text.setText(getResources().getText(R.string.garage_is)
+                        + " " + ((garageStatus == 1) ? getResources().getText(R.string.open) : getResources().getText(R.string.closed))
+                        + " " + getResources().getText(R.string.light_is)
+                        + " " + ((lampStatus == 1) ? getResources().getText(R.string.on) : getResources().getText(R.string.off)));
 
             }
         });
@@ -107,16 +111,19 @@ public class Garage extends Fragment {
             @Override
             public void onClick(View v) {
                 if (lampStatus == 0) {
-                    Toast.makeText(getActivity().getApplicationContext(), "You turned the light ON", Toast.LENGTH_SHORT).show();
-                    openLight.setText("TURN LIGHT OFF");
+                    Toast.makeText(getActivity().getApplicationContext(), getResources().getText(R.string.turned_light_on), Toast.LENGTH_SHORT).show();
+                    openLight.setText(getResources().getText(R.string.light_off));
                     lampStatus = 1;
                 } else {
-                    Toast.makeText(getActivity().getApplicationContext(), "You turned the light OFF", Toast.LENGTH_SHORT).show();
-                    openLight.setText("TURN LIGHT ON");
+                    Toast.makeText(getActivity().getApplicationContext(), getResources().getText(R.string.turned_light_off), Toast.LENGTH_SHORT).show();
+                    openLight.setText(getResources().getText(R.string.light_on));
                     lampStatus = 0;
                 }
                 dbHelper.setHouseGarageLightStatus(device_id, lampStatus);
-                text.setText("Garage is " + ((garageStatus == 1) ? "OPEN" : "CLOSED") + " Light is " + ((lampStatus == 1) ? "ON" : "OFF"));
+                text.setText(getResources().getText(R.string.garage_is)
+                        + " " + ((garageStatus == 1) ? getResources().getText(R.string.open) : getResources().getText(R.string.closed))
+                        + " " + getResources().getText(R.string.light_is)
+                        + " " + ((lampStatus == 1) ? getResources().getText(R.string.on) : getResources().getText(R.string.off)));
 
             }
         });

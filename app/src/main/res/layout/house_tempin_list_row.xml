@@ -9,7 +9,7 @@
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:gravity="center_vertical"
-        android:text="TextView"
+        android:text=""
         android:textAlignment="center"
         android:textSize="18dp" />
 
@@ -20,7 +20,7 @@
         android:layout_alignParentEnd="true"
         android:layout_toRightOf="@id/houseTempInTimeDate"
         android:gravity="center_vertical"
-        android:text="TextView"
+        android:text=""
         android:textAlignment="center"
         android:textSize="18dp" />
 
