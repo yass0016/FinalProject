@@ -1,20 +1,16 @@
 package com.sayadev.finalproject.House;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.support.v7.app.AppCompatActivity;
 
-import com.sayadev.finalproject.BaseActivity;
 import com.sayadev.finalproject.R;
 
 /**
  * Created by Rudwan on 2017-04-12.
  */
 
-public class TempInFragment extends BaseActivity {
+public class TempInFragment extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

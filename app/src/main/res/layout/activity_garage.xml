@@ -22,7 +22,7 @@
                 android:id="@+id/garageImage"
                 android:layout_width="match_parent"
                 android:layout_height="75dp"
-                app:srcCompat="@drawable/blind" />
+                app:srcCompat="@drawable/garage" />
 
             <TextView
                 android:id="@+id/garageText"

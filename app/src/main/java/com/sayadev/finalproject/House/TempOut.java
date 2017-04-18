@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.util.Xml;
 import android.view.LayoutInflater;
@@ -78,7 +77,7 @@ public class TempOut extends Fragment {
         private static final String OttawaWeatherURL = "http://api.openweathermap.org/data/2.5/weather?q=ottawa,ca&APPID=d99666875e0e51521f0040a3d97d0f6a&mode=xml&units=metric";
 
         private boolean fileExists(String fileName){
-            final File file = getActivity().getBaseContext().getFileStreamPath(fileName);
+            final File file = getActivity().getApplicationContext().getFileStreamPath(fileName);
             return file.exists();
         }
 
@@ -106,7 +105,7 @@ public class TempOut extends Fragment {
             weatherProgress.setProgress(values[0]);
 
             FileInputStream fis;
-            if(iconFileName != null) {
+            if(iconFileName != null && getActivity() != null) {
                 if (fileExists(iconFileName)) {
                     Log.i("Info", iconFileName + " was found");
                     try {

@@ -44,6 +44,7 @@ public class ProjectDatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_HOUSE_TEMPIN_S_TEMP = "schedTemp";
     public static final String COLUMN_HOUSE_TEMPIN_S_DATE = "schedDate";
 
+    // Create database sql statements house items
     private static final String CREATE_HOUSE_ITEMS_TABLE = "create table "
             + TABLE_HOUSE_ITEMS + "( "
             + COLUMN_HOUSE_ID + " integer primary key autoincrement, "
@@ -59,12 +60,14 @@ public class ProjectDatabaseHelper extends SQLiteOpenHelper {
             + COLUMN_HOUSE_GARAGE_DOOR + " integer default 0, "
             + COLUMN_HOUSE_GARAGE_LIGHT + " integer default 0);";
 
+    // Create database sql statements house tempin
     private static final String CREATE_HOUSE_TEMPIN_TABLE = "create table "
             + TABLE_HOUSE_TEMPIN + "( "
             + COLUMN_HOUSE_TEMPIN_ID + " integer primary key autoincrement, "
             + COLUMN_HOUSE_TEMPIN_DEVICE_ID + " integer, "
             + COLUMN_HOUSE_TEMPIN_CURRENT_TEMP + " integer);";
 
+    // Create database sql statements house tempin sheduale
     private static final String CREATE_HOUSE_TEMPIN_SCHED_TABLE = "create table "
             + TABLE_HOUSE_TEMPIN_SCHED + "( "
             + COLUMN_HOUSE_TEMPIN_SCHED_ID + " integer primary key autoincrement, "
@@ -91,7 +94,11 @@ public class ProjectDatabaseHelper extends SQLiteOpenHelper {
         Log.w(ProjectDatabaseHelper.class.getName(),
                 "Upgrading database from version " + oldVersion + " to "
                         + newVersion + ", which will destroy all old data");
-        db.execSQL("DROP TABLE IF EXISTS messages");
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_HOUSE_ITEMS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_HOUSE_TEMPIN);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_HOUSE_TEMPIN_SCHED);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_HOUSE_GARAGE);
+
         onCreate(db);
 
         Log.i("ProjectDatabaseHelper", "Calling onUpgrade, oldVersion=" + oldVersion + " newVersion=" + newVersion);
@@ -113,10 +120,6 @@ public class ProjectDatabaseHelper extends SQLiteOpenHelper {
         ContentValues house_tempin_values = new ContentValues();
         house_tempin_values.put(COLUMN_HOUSE_TEMPIN_DEVICE_ID, _id);
         db.insert(TABLE_HOUSE_TEMPIN, null, house_tempin_values);
-
-        ContentValues house_tempinsched_values = new ContentValues();
-        house_tempinsched_values.put(COLUMN_HOUSE_TEMPIN_SCHED_DEVICE_ID, _id);
-        db.insert(TABLE_HOUSE_TEMPIN_SCHED, null, house_tempinsched_values);
 
         return _id;
     }
@@ -141,79 +144,86 @@ public class ProjectDatabaseHelper extends SQLiteOpenHelper {
         return res;
     }
 
-    /*
-    //save automobile temperature
-    public void saveAutomobileTemperature(String auto_temp, long device_id) {
+    // save garage door status
+    public void setHouseGarageDoorStatus(long device_id, int status) {
         SQLiteDatabase db = getWritableDatabase();
-        ContentValues automobile_temp_values = new ContentValues();
-        automobile_temp_values.put(COLUMN_AUTOMOBILE_AIR_TEMPERATURE, auto_temp);
-        db.update(TABLE_AUTOMOBILE_AIR_CONDITION, automobile_temp_values, COLUMN_AUTOMOBILE_AIR_DEVICE_ID + "=?", new String[]{Long.toString(device_id)});
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_HOUSE_GARAGE_DOOR, status);
+        db.update(TABLE_HOUSE_GARAGE, values, COLUMN_HOUSE_GARAGE_DEVICE_ID + "=?", new String[]{Long.toString(device_id)});
     }
 
-    public Cursor getAutomobileTemperature(long device_id) {
+    // save garage light status
+    public void setHouseGarageLightStatus(long device_id, int status) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_HOUSE_GARAGE_LIGHT, status);
+        db.update(TABLE_HOUSE_GARAGE, values, COLUMN_HOUSE_GARAGE_DEVICE_ID + "=?", new String[]{Long.toString(device_id)});
+    }
+
+    // get garage table
+    public Cursor getHouseGarage(long device_id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("SELECT " + COLUMN_AUTOMOBILE_AIR_TEMPERATURE + " FROM " + TABLE_AUTOMOBILE_AIR_CONDITION + " WHERE " +
-                COLUMN_AUTOMOBILE_AIR_DEVICE_ID + "=?", new String[]{Long.toString(device_id)});
+        Cursor res = db.rawQuery("SELECT * FROM " + TABLE_HOUSE_GARAGE + " WHERE " +
+                COLUMN_HOUSE_GARAGE_DEVICE_ID + "=?", new String[]{Long.toString(device_id)});
         return res;
     }
 
-    //save automobile lights
-    public void saveAutomobileLowBeam(int auto_low_beam, long device_id) {
+    // save house tempin temperature
+    public void setHouseTempInTemp(long device_id, int temp) {
         SQLiteDatabase db = getWritableDatabase();
-        ContentValues automobile_low_beam_values = new ContentValues();
-        automobile_low_beam_values.put(COLUMN_AUTOMOBILE_LIGHTS_LOW, auto_low_beam);
-        db.update(TABLE_AUTOMOBILE_LIGHTS, automobile_low_beam_values, COLUMN_AUTOMOBILE_LIGHTS_DEVICE_ID + "=?", new String[]{Long.toString(device_id)});
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_HOUSE_TEMPIN_CURRENT_TEMP, temp);
+        db.update(TABLE_HOUSE_TEMPIN, values, COLUMN_HOUSE_TEMPIN_DEVICE_ID + "=?", new String[]{Long.toString(device_id)});
     }
 
-    public void saveAutomobileHighBeam(int auto_high_beam, long device_id) {
-        SQLiteDatabase db = getWritableDatabase();
-        ContentValues automobile_high_beam_values = new ContentValues();
-        automobile_high_beam_values.put(COLUMN_AUTOMOBILE_LIGHTS_HIGH, auto_high_beam);
-        db.update(TABLE_AUTOMOBILE_LIGHTS, automobile_high_beam_values, COLUMN_AUTOMOBILE_LIGHTS_DEVICE_ID + "=?", new String[]{Long.toString(device_id)});
-    }
-
-    public void saveAutomobileFog(int auto_fog, long device_id) {
-        SQLiteDatabase db = getWritableDatabase();
-        ContentValues automobile_fog_values = new ContentValues();
-        automobile_fog_values.put(COLUMN_AUTOMOBILE_LIGHTS_FOG, auto_fog);
-        db.update(TABLE_AUTOMOBILE_LIGHTS, automobile_fog_values, COLUMN_AUTOMOBILE_LIGHTS_DEVICE_ID + "=?", new String[]{Long.toString(device_id)});
-    }
-
-    public void saveAutomobileInterior(int auto_interior, long device_id) {
-        SQLiteDatabase db = getWritableDatabase();
-        ContentValues automobile_interior_values = new ContentValues();
-        automobile_interior_values.put(COLUMN_AUTOMOBILE_LIGHTS_INTERIOR, auto_interior);
-        db.update(TABLE_AUTOMOBILE_LIGHTS, automobile_interior_values, COLUMN_AUTOMOBILE_LIGHTS_DEVICE_ID + "=?", new String[]{Long.toString(device_id)});
-    }
-
-    //save automobile radio channels
-    public void saveAutomobileRadioChannelNumber(int channel_number, long device_id) {
-        SQLiteDatabase db = getWritableDatabase();
-        ContentValues automobile_channel_values = new ContentValues();
-        automobile_channel_values.put(COLUMN_AUTOMOBILE_RADIO_CHANNEL_NUMBER, channel_number);
-        db.update(TABLE_AUTOMOBILE_RADIO, automobile_channel_values, COLUMN_AUTOMOBILE_RADIO_DEVICE_ID + "=?", new String[]{Long.toString(device_id)});
-    }
-
-    //save automobile radio frequency
-    public void saveAutomobileRadioChannelFreq(float frequency, long device_id) {
-        SQLiteDatabase db = getWritableDatabase();
-        ContentValues automobile_freq_values = new ContentValues();
-        automobile_freq_values.put(COLUMN_AUTOMOBILE_RADIO_FREQUENCY, frequency);
-        db.update(TABLE_AUTOMOBILE_RADIO, automobile_freq_values, COLUMN_AUTOMOBILE_RADIO_DEVICE_ID + "=?", new String[]{Long.toString(device_id)});
-    }
-
-    public Cursor getAutomobileLights(long device_id) {
+    // get tempin table
+    public Cursor getHouseTempIn(long device_id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("SELECT * FROM " + TABLE_AUTOMOBILE_LIGHTS + " WHERE " +
-                COLUMN_AUTOMOBILE_LIGHTS_DEVICE_ID + "=?", new String[]{Long.toString(device_id)});
+        Cursor res = db.rawQuery("SELECT * FROM " + TABLE_HOUSE_TEMPIN + " WHERE " +
+                COLUMN_HOUSE_TEMPIN_DEVICE_ID + "=?", new String[]{Long.toString(device_id)});
         return res;
     }
 
-    public Cursor getAutomobileRadio(long device_id) {
+    // save house tempin sched temperature
+    public void setHouseTempInSchedTemp(long device_id, long id, int temp) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_HOUSE_TEMPIN_S_TEMP, temp);
+        db.update(TABLE_HOUSE_TEMPIN_SCHED, values, COLUMN_HOUSE_TEMPIN_SCHED_DEVICE_ID + "=?" + " AND " + COLUMN_HOUSE_TEMPIN_SCHED_ID + "=?", new String[]{Long.toString(device_id), Long.toString(id)});
+    }
+
+    // save house tempin sched date and time
+    public void setHouseTempInSchedDate(long device_id, long id, long datetime) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_HOUSE_TEMPIN_S_DATE, datetime);
+        db.update(TABLE_HOUSE_TEMPIN_SCHED, values, COLUMN_HOUSE_TEMPIN_SCHED_DEVICE_ID + "=?" + " AND " + COLUMN_HOUSE_TEMPIN_SCHED_ID + "=?", new String[]{Long.toString(device_id), Long.toString(id)});
+    }
+
+    // insert tempin sched item
+    public long insertHouseTempInSched(long device_id, long datetime, int temp) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_HOUSE_TEMPIN_SCHED_DEVICE_ID, device_id);
+        values.put(COLUMN_HOUSE_TEMPIN_S_DATE, datetime);
+        values.put(COLUMN_HOUSE_TEMPIN_S_TEMP, temp);
+        long _id = db.insert(TABLE_HOUSE_TEMPIN_SCHED, null, values);
+
+        return _id;
+    }
+
+    // delete tempin sched
+    public void deleteHouseTempInSched(long device_id, long id) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(TABLE_HOUSE_TEMPIN_SCHED, COLUMN_HOUSE_TEMPIN_SCHED_DEVICE_ID + "=?" + " AND " + COLUMN_HOUSE_TEMPIN_SCHED_ID + "=?",
+                new String[]{Long.toString(device_id), Long.toString(id)});
+    }
+
+    // get tempin scheduale table
+    public Cursor getHouseTempInSched(long device_id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("SELECT * FROM " + TABLE_AUTOMOBILE_RADIO + " WHERE " +
-                COLUMN_AUTOMOBILE_RADIO_DEVICE_ID + "=?", new String[]{Long.toString(device_id)});
+        Cursor res = db.rawQuery("SELECT * FROM " + TABLE_HOUSE_TEMPIN_SCHED + " WHERE " +
+                COLUMN_HOUSE_TEMPIN_SCHED_DEVICE_ID + "=?", new String[]{Long.toString(device_id)});
         return res;
     }
-*/
 }

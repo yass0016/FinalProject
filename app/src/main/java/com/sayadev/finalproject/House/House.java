@@ -5,10 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
@@ -25,7 +22,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.sayadev.finalproject.BaseActivity;
 import com.sayadev.finalproject.Model.ProjectDatabaseHelper;
 import com.sayadev.finalproject.R;
 
@@ -140,9 +136,20 @@ public class House extends AppCompatActivity {
                         })
                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialoginterface, int i) {
+
+                                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                                Fragment f = null;
+
+                                if(isFrameLoaded) {
+                                    f = getSupportFragmentManager().findFragmentById(R.id.hosueFrame);
+                                }
+
                                 db.deleteHouseItem(deviceId);
                                 HouseItems.remove(itemPosition);
                                 HouseAdapter.notifyDataSetChanged();
+
+                                ft.remove(f);
+                                ft.commit();
                             }
                         }).show();
 
@@ -250,7 +257,7 @@ public class House extends AppCompatActivity {
             LayoutInflater inflater = House.this.getLayoutInflater();
             View result = null;
 
-            result = inflater.inflate(R.layout.house_data, null);
+            result = inflater.inflate(R.layout.house_list_row, null);
 
             TextView HouseItemText = (TextView) result.findViewById((R.id.houseItemText));
             HouseItemText.setText(getItem(position).getTitle());

@@ -9,7 +9,7 @@
         android:id="@+id/houseItemImage"
         android:layout_height="75dp"
         android:layout_width="match_parent"
-        app:srcCompat="@drawable/blind" />
+        app:srcCompat="@drawable/tempout" />
 
     <TextView
         android:id="@+id/houseItemText"
