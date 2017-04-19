@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/custom"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <EditText
+        android:id="@+id/add_kitchen_device_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/kitchen_add_device_name"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/add_kitchen_device_model"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/kitchen_add_device_model"
+        android:inputType="text" />
+    
+    <Spinner
+        android:id="@+id/add_kitchen_device_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dialog">
+    </Spinner>
+
+</LinearLayout>
