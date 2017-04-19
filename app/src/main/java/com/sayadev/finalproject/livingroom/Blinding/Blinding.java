@@ -22,6 +22,10 @@ import com.sayadev.finalproject.livingroom.LivingRoom;
 
 /**
  * Created by saleh on 3/26/2017.
+ * This fragment contains all the layout to simulate controls for
+ * closing and opening blinds remotely
+ *
+ * You can close and open a blind using a seek bar
  */
 
 public class Blinding extends Fragment {
@@ -41,18 +45,25 @@ public class Blinding extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        /* get bundle */
         data = this.getArguments();
 
+        /* set custom menu */
         setHasOptionsMenu(true);
 
+        /* inflate to the blind layout */
         View v = inflater.inflate(R.layout.activity_blinding, container, false);
 
+        /* get database device id */
         device_id = Long.parseLong(data.getString("dbId"));
 
+        /* get database helper object */
         dbHelper = new ProjectDatabaseHelper(getActivity());
 
+        /* open a cursor to read all columns from blinds table */
         Cursor cursor = dbHelper.getRoomBlinds(device_id);
 
+        /* read columns from beginning */
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             blindStatus = cursor.getInt(cursor.getColumnIndex(ProjectDatabaseHelper.COLUMN_ROOM_BLINDS_STATUS));
@@ -61,16 +72,21 @@ public class Blinding extends Fragment {
             cursor.moveToNext();
         }
 
+        /* get text and seek bar from layout */
         blindingText = (TextView) v.findViewById(R.id.blindingText);
         seek = (SeekBar) v.findViewById(R.id.blindingSeek);
 
+        /* set seek bar to previous settings */
         seek.setProgress(blindLevel);
+
+        /* check if blinds is closed or open */
         if(blindStatus == 1) {
             blindingText.setText(getResources().getText(R.string.blind_level_is) + " " + blindLevel);
         } else {
             blindingText.setText(getResources().getText(R.string.blind_is_closed));
         }
 
+        /* set seek bar event */
         seek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int progress = 0;
 

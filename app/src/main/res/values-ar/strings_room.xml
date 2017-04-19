@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Blinding -->
+    <string name="blind_level_is">لفل الستارة</string>
+    <string name="blind_is_closed">الستارة مغلقة</string>
+    <string name="blind_dialog_ok">اوكي</string>
+    <string name="blind_dialog_cancel">كانسل</string>
+    <string name="blind_change_lamp_color">غير لون الضوء</string>
+
+    <!-- lamps -->
+    <string name="room_switch_lamp_on">اشعل الضوء</string>
+    <string name="room_switch_lamp_off">اطفى الضوء</string>
+    <string name="room_lamp_turned_on">لقد تم اشعال الضوء</string>
+    <string name="room_lamp_turned_off">لقد تم اطفاء الضوء</string>
+
+    <!-- lamps - color picker library by Simone Pessotto (GitHub) -->
+    <string name="materialcolorpicker__descLib">اختيار اللون</string>
+    <string name="materialcolorpicker__errHex">خطء في اللون</string>
+    <string name="materialcolorpicker__inputColor">اللون:</string>
+    <string name="materialcolorpicker__btnSelectColor">اختار</string>
+    <string name="materialcolorpicker__hash" translatable="false">#</string>
+
+    <!-- TV -->
+    <string name="turn_tv_on">اشعل التلفاز</string>
+    <string name="turn_tv_off">اطفء التلفاز</string>
+    <string name="room_tv_volume">الصوت</string>
+    <string name="room_tv_playing_channel">عرض القناة</string>
+    <string name="room_tv_channel_error">القناة يجب ان تكون بين ال ٠ و ال ١٠</string>
+    <string name="room_tv_no_channel_error">القناة لا يجوز ان تكون فاضية</string>
+    <string name="room_tv_channel_number">رقم القناة</string>
+
+    <!-- house -->
+    <string name="living_room">Living Room</string>
+
+    <string name="dialog_room_device_type">نوع الجهاز:</string>
+    <string name="dialog_room_device_tv">التلفاز</string>
+    <string name="dialog_room_device_lamp1">الضوء ١</string>
+    <string name="dialog_room_device_lamp2">الضوء ٢</string>
+    <string name="dialog_room_device_lamp3">الضوء ٣</string>
+    <string name="dialog_room_device_blinding">الستارة</string>
+
+    <string name="dialog_room_device_tv_desc">يستطيع المستخدم التحكم بجهاز التلفاز عن بعد</string>
+    <string name="dialog_room_device_lamp1_desc">يمكن التحكم بضوء رقم واحد</string>
+    <string name="dialog_room_device_lamp2_desc">يمكن التكم بضوء رقم اثنين</string>
+    <string name="dialog_room_device_lamp3_desc">يمكن التحكم بضوء رقم ثلاثة</string>
+    <string name="dialog_room_device_blinding_desc">يمكن التحكم بالستارة</string>
+
+    <string name="room_delete_device">الغاء الجهاز</string>
+    <string name="room_about_device">عن الجهاز</string>
+    <string name="room_add_device">اضافة جهاز جديد</string>
+    <string name="room_item_added">تم اضافة الجهاز بنجاح</string>
+    <string name="room_item_deleted">تمت ازالت الجهاز بنجاح</string>
+
+    <string-array name="rooms_array">
+        <item>التلفاز</item>
+        <item>الضوء ١</item>
+        <item>الضوء ٢</item>
+        <item>الضوء ٣</item>
+        <item>الستارة</item>
+    </string-array>
+
+    <string name="tv_help">
+        مساعدة التلفاز
+    </string>
+    <string name="lamp1_help">
+مساعدة ضوء واحد
+    </string>
+    <string name="lamp2_help">
+مساعدة ضوء اثنين
+    </string>
+    <string name="lamp3_help">
+مساعدة ضوء ثلاثة
+    </string>
+    <string name="blind_help">
+مساعدة الستار
+    </string>
+    <string name="dialog_delete_device">حقا تريد الغاء الجهاز؟</string>
+</resources>

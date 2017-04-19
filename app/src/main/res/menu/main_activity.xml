@@ -2,35 +2,35 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/action_one"
-        android:title="Living Room"
+        android:title="@string/appOne"
         android:icon="@drawable/room"
         android:orderInCategory="101"
         app:showAsAction="always"
         />
 
     <item android:id="@+id/action_two"
-        android:title="Kitchen"
+        android:title="@string/appTwo"
         android:icon="@drawable/kitchen"
         android:orderInCategory="101"
         app:showAsAction="always"
         />
 
     <item android:id="@+id/action_three"
-        android:title="House"
+        android:title="@string/appThree"
         android:icon="@drawable/home"
         android:orderInCategory="101"
         app:showAsAction="always"
         />
 
     <item android:id="@+id/action_four"
-        android:title="Automobile"
+        android:title="@string/appFour"
         android:icon="@drawable/automobile"
         android:orderInCategory="101"
         app:showAsAction="always"
         />
 
     <item android:id="@+id/action_help"
-        android:title="Help"
+        android:title="@string/help"
         android:orderInCategory="101"
         />
 </menu>

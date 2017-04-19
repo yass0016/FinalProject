@@ -4,6 +4,8 @@
     <string name="appTwo">Kitchen</string>
     <string name="appThree">House</string>
     <string name="appFour">Automobile</string>
+    <string name="help">Help</string>
+
     <string name="appInfo">Use the buttons on the toolbar to switch between activities.\nFor help, use the help item from the drop down menu in the toolbar.</string>
     <string name="title_activity_toolbar">toolbar</string>
 
