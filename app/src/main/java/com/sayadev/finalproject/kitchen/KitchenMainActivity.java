@@ -289,6 +289,15 @@ public class KitchenMainActivity extends AppCompatActivity {
                 KitchenDevice newDevice = new KitchenDevice(type, name, model, id);
                 newDeviceList.add(newDevice);
 
+                try
+                {
+                    // For demonstration purposes only to prove the progressbar works
+                    Thread.sleep(1000);
+                }
+                catch (InterruptedException e)
+                {
+
+                }
                 publishProgress(Math.round((cursor.getPosition() / rowCount) * 100));
                 cursor.moveToNext();
             }
