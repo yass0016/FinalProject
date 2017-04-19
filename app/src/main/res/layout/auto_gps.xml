@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <EditText
+        android:id="@+id/curlocet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="@string/location" />
+
+    <EditText
+        android:id="@+id/destet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="@string/dest" />
+
+    <ImageView
+        android:id="@+id/turniv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@android:color/background_light"
+        android:layout_weight="0.75" />
+
+    <TextView
+        android:id="@+id/streetnametv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="" />
+
+    <Button
+        android:id="@+id/gpsgo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/go" />
+
+    <Button
+        android:id="@+id/gpsdelete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/deletegps" />
+</LinearLayout>

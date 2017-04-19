@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.sayadev.finalproject.automobile.fragmentLayout">
+
+
+    <Button
+        android:id="@+id/tempsavebutt1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:layout_below="@+id/textView3"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:id="@+id/tempsavebutt2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2"
+        android:layout_below="@+id/textView3"
+        android:layout_toEndOf="@+id/tempsavebutt1" />
+
+    <Button
+        android:id="@+id/tempsavebutt3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3"
+        android:layout_alignBaseline="@+id/tempsavebutt2"
+        android:layout_alignBottom="@+id/tempsavebutt2"
+        android:layout_toStartOf="@+id/tempsavebutt4" />
+
+    <Button
+        android:id="@+id/tempsavebutt4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="4"
+        android:layout_alignBaseline="@+id/tempsavebutt3"
+        android:layout_alignBottom="@+id/tempsavebutt3"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttemp2"
+        android:layout_centerHorizontal="true"
+        android:text="@string/progsettext" />
+
+    <TextView
+        android:id="@+id/tvtemp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tempra"
+        android:layout_alignParentTop="true"/>
+
+    <SeekBar
+        android:id="@+id/tempslider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="30"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/acswitch"
+        android:layout_below="@+id/tvtemp"/>
+
+    <Switch
+        android:id="@+id/acswitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="AC"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/tvtemp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvfan"
+        android:layout_below="@+id/tempslider"
+        android:text="@string/fan"/>
+
+    <SeekBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/fanslider"
+        android:max="10"
+        android:layout_below="@+id/tvfan"/>
+
+    <Button
+        android:id="@+id/buttemp1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:layout_marginTop="36dp"
+        android:layout_below="@+id/fanslider"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:id="@+id/buttemp2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2"
+        android:layout_alignBaseline="@+id/buttemp1"
+        android:layout_alignBottom="@+id/buttemp1"
+        android:layout_toEndOf="@+id/buttemp1" />
+
+    <Button
+        android:id="@+id/buttemp3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3"
+        android:layout_alignBaseline="@+id/buttemp4"
+        android:layout_alignBottom="@+id/buttemp4"
+        android:layout_toStartOf="@+id/buttemp4" />
+
+
+    <Button
+        android:id="@+id/buttemp4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="4"
+        android:layout_below="@+id/tempprog"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:id="@+id/tempdelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:text="@string/deletetemp" />
+
+    <TextView
+        android:id="@+id/tempprog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/buttemp2"
+        android:layout_centerHorizontal="true"
+        android:text="@string/progtext" />
+
+    <TextView
+        android:id="@+id/tempprogset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttemp2"
+        android:layout_centerHorizontal="true"
+        android:text="@string/progsettext" />
+
+</RelativeLayout>

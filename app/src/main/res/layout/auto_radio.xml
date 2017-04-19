@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/radsav1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:layout_below="@+id/textView4"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:id="@+id/radsav2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2"
+        android:layout_alignBaseline="@+id/radsav1"
+        android:layout_alignBottom="@+id/radsav1"
+        android:layout_toEndOf="@+id/radsav1" />
+
+    <Button
+        android:id="@+id/radsav3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3"
+        android:layout_below="@+id/textView4"
+        android:layout_toStartOf="@+id/radsav4" />
+
+    <Button
+        android:id="@+id/radsav4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="4"
+        android:layout_alignBaseline="@+id/radsav3"
+        android:layout_alignBottom="@+id/radsav3"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/radset2"
+        android:layout_centerHorizontal="true"
+        android:text="@string/progsettext" />
+
+    <TextView
+        android:id="@+id/radvoltv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/volume" />
+
+    <SeekBar
+        android:id="@+id/radvolsb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/radvoltv"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/radchantv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/radvolsb"
+        android:text="@string/channel" />
+
+    <SeekBar
+        android:id="@+id/radcahnsb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/radchantv" />
+
+    <Button
+        android:id="@+id/radset1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/radchantv"
+        android:layout_marginTop="35dp"
+        android:text="1" />
+
+    <Button
+        android:id="@+id/radset2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2"
+        android:layout_alignBaseline="@+id/radset1"
+        android:layout_alignBottom="@+id/radset1"
+        android:layout_toEndOf="@+id/radset1" />
+
+    <Button
+        android:id="@+id/radset4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/radset2"
+        android:layout_alignParentEnd="true"
+        android:text="4" />
+
+    <Button
+        android:id="@+id/radset3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/radset4"
+        android:layout_toStartOf="@+id/radset4"
+        android:text="3" />
+
+    <Button
+        android:id="@+id/raddelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:text="@string/deleterad" />
+
+    <TextView
+        android:id="@+id/radprogtv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/radset2"
+        android:layout_centerHorizontal="true"
+        android:text="@string/progtext" />
+
+    <TextView
+        android:id="@+id/radprogsettv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/radset2"
+        android:layout_centerHorizontal="true"
+        android:text="@string/progsettext" />
+</RelativeLayout>
