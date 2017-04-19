@@ -1,5 +1,6 @@
 package com.sayadev.finalproject.kitchen;
 
+import android.app.Dialog;
 import android.app.Fragment;
 import android.content.ContentValues;
 import android.content.Context;
@@ -16,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,8 +30,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sayadev.finalproject.House.House;
 import com.sayadev.finalproject.Model.ProjectDatabaseHelper;
 import com.sayadev.finalproject.R;
+import com.sayadev.finalproject.automobile.automobile;
+import com.sayadev.finalproject.livingroom.LivingRoom;
 
 
 import java.util.ArrayList;
@@ -319,7 +324,7 @@ public class KitchenMainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
+/*    @Override
     public boolean onCreateOptionsMenu(Menu m) {
         getMenuInflater().inflate(R.menu.kitchen_toolbar_menu, m);
         return true;
@@ -349,5 +354,59 @@ public class KitchenMainActivity extends AppCompatActivity {
         }
 
         return action_performed;
+    }
+  */
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_activity, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent = null;
+        switch (item.getItemId()) {
+            case R.id.action_one:
+                intent = new Intent(KitchenMainActivity.this, LivingRoom.class);
+                finish();
+                startActivity(intent);
+                return true;
+            case R.id.action_two:
+                intent = new Intent(KitchenMainActivity.this, KitchenMainActivity.class);
+                finish();
+                startActivity(intent);
+                return true;
+            case R.id.action_three:
+                intent = new Intent(KitchenMainActivity.this, House.class);
+                finish();
+                startActivity(intent);
+                return true;
+            case R.id.action_four:
+                intent = new Intent(KitchenMainActivity.this, automobile.class);
+                finish();
+                startActivity(intent);
+                return true;
+            case R.id.action_help:
+                AlertDialog.Builder about_builder = new AlertDialog.Builder(this)
+                        .setTitle(R.string.kitchen_toolbar_menu_about)
+                        .setMessage(R.string.kitchen_about_dialog_msg)
+                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+
+                AlertDialog about_dialog = about_builder.create();
+                about_dialog.show();
+
+                return true;
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

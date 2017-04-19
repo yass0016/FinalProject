@@ -299,7 +299,7 @@ public class automobile extends AppCompatActivity {
         }
     }
 
-    public boolean onCreateOptionsMenu (Menu m){
+    /*public boolean onCreateOptionsMenu (Menu m){
         getMenuInflater().inflate(R.menu.auto_toolbar,m);
         return true;
     }
@@ -311,7 +311,7 @@ public class automobile extends AppCompatActivity {
         builder.setPositiveButton("OK",null);
         builder.show();
         return true;
-    }
+    }*/
 
     private void addData(){
         cv.put(dbh.COLUMN_AUTO_NAME, getString(R.string.temp));
@@ -412,26 +412,6 @@ public class automobile extends AppCompatActivity {
         db.insert(dbh.TABLE_AUTO_CB,null,cv);
     }
 
-    public Dialog createCustomDialog() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        // Get the layout inflater
-        LayoutInflater inflater = this.getLayoutInflater();
-
-        View v = inflater.inflate(R.layout.main_dialog, null);
-
-        // Inflate and set the layout for the dialog
-        // Pass null as the parent view because its going in the dialog layout
-        builder.setView(v)
-                // Add action buttons
-                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-
-                    }
-                });
-        return builder.create();
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -444,27 +424,30 @@ public class automobile extends AppCompatActivity {
         Intent intent = null;
         switch (item.getItemId()) {
             case R.id.action_one:
-                intent = new Intent(House.this, LivingRoom.class);
+                intent = new Intent(automobile.this, LivingRoom.class);
                 finish();
                 startActivity(intent);
                 return true;
             case R.id.action_two:
-                intent = new Intent(House.this, KitchenMainActivity.class);
+                intent = new Intent(automobile.this, KitchenMainActivity.class);
                 finish();
                 startActivity(intent);
                 return true;
             case R.id.action_three:
-                intent = new Intent(House.this, House.class);
+                intent = new Intent(automobile.this, House.class);
                 finish();
                 startActivity(intent);
                 return true;
             case R.id.action_four:
-                intent = new Intent(House.this, automobile.class);
+                intent = new Intent(automobile.this, automobile.class);
                 finish();
                 startActivity(intent);
                 return true;
             case R.id.action_help:
-                createCustomDialog().show();
+                builder.setTitle("Automobile");
+                builder.setMessage("Author:Sheldon McGrath\nVersion:1.0\n\nSelect an option from the menu to get more information about it. \nContinuing from there will give you controls for the option. \nMore options can be added with the button at the bottom, right of the screen");
+                builder.setPositiveButton("OK",null);
+                builder.show();
                 return true;
             default:
                 // If we got here, the user's action was not recognized.
