@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>\
+    <!-- Garage -->
+    <string name="open_garage">افتح باب المرآب</string>
+    <string name="close_garage">أغلق المرآب</string>
+    <string name="light_on">شغل الإنارة</string>
+    <string name="light_off">أطفئ الإنارة</string>
+
+    <string name="open">افتح</string>
+    <string name="closed">أغلق</string>
+    <string name="on">تشغيل</string>
+    <string name="off">إيقاف</string>
+
+    <string name="garage_is">المرآب </string>
+    <string name="light_is">الضوء </string>
+
+    <string name="opened_garage">لقد فتحت المرآب, الضوء سيعمل أوتوماتيكيا</string>
+    <string name="closed_garage">لقد أغلقت المرآب</string>
+
+    <string name="turned_light_on">لقد أشعلت الإنارة</string>
+    <string name="turned_light_off">لقد أطفأت الإنارة</string>
+
+    <!-- House -->
+    <string name="house_title">مواد المنزل</string>
+    <string name="add_item">أضف مادة</string>
+    <string name="delete_item">احذف مادة</string>
+
+    <string name="delete_item_confirm">هل أنت متأكد أنك تريد حذف هذه المادة؟</string>
+    <string name="dialog_cancel">إلغاء</string>
+    <string name="dialog_ok">حسنا</string>
+
+    <string name="garage">مرآب</string>
+    <string name="temperature_inside">الحرارة الداخلية</string>
+    <string name="temperature_outside">الحرارة في الخارج</string>
+
+    <string name="add_garage">أضف مرآبا</string>
+    <string name="add_temperature_inside">أضف حرارة داخلية</string>
+    <string name="add_temperature_outside">أضف حرارة خارجية</string>
+
+    <!-- Temp In -->
+    <string name="enter_tempin">أدخل درة حرارة</string>
+    <string name="set_house_tempin">حدد درجة حرارة المنزل</string>
+    <string name="add_schedule">أضف جدولا</string>
+    <string name="current_set_temp">درجة الحرارة المحددة حاليا:</string>
+    <string name="temp_error">تذكر أن تدخل درجة الحرارة</string>
+
+    <!-- Temp In Schedule -->
+    <string name="set_time">حدد وقتا</string>
+    <string name="schedule_create_error">الجدول غير معد, تذكر أن تدخل درجة حرارة</string>
+    <string name="schedule_update_error">الجدول غير محدث, تذكر أن تدخل درجة حرارة</string>
+
+    <!-- Temp Out -->
+    <string name="current_temp">درجة الحرارة الحالية</string>
+    <string name="max_temp">درجة الحرارة القصوى</string>
+    <string name="min_temp">درجة الحرارة الدنيا</string>
+</resources>
