@@ -6,12 +6,16 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -24,6 +28,15 @@ import android.widget.TextView;
 
 import com.sayadev.finalproject.Model.ProjectDatabaseHelper;
 import com.sayadev.finalproject.R;
+import com.sayadev.finalproject.automobile.automobile;
+import com.sayadev.finalproject.kitchen.KitchenMainActivity;
+import com.sayadev.finalproject.livingroom.Blinding.Blinding;
+import com.sayadev.finalproject.livingroom.Lamps.Lamp1;
+import com.sayadev.finalproject.livingroom.Lamps.Lamp2;
+import com.sayadev.finalproject.livingroom.Lamps.Lamp3;
+import com.sayadev.finalproject.livingroom.LivingRoom;
+import com.sayadev.finalproject.livingroom.RoomData;
+import com.sayadev.finalproject.livingroom.TV.TV;
 
 import java.util.ArrayList;
 
@@ -276,6 +289,67 @@ public class House extends AppCompatActivity {
             HouseItemImage.setImageDrawable(ContextCompat.getDrawable(result.getContext(), getResources().getIdentifier(getItem(position).getImageUri(), null, getPackageName())));
 
             return result;
+        }
+    }
+
+    public Dialog createCustomDialog() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // Get the layout inflater
+        LayoutInflater inflater = this.getLayoutInflater();
+
+        View v = inflater.inflate(R.layout.dialog_house_about, null);
+
+        // Inflate and set the layout for the dialog
+        // Pass null as the parent view because its going in the dialog layout
+        builder.setView(v)
+                // Add action buttons
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                });
+        return builder.create();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_activity, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent = null;
+        switch (item.getItemId()) {
+            case R.id.action_one:
+                intent = new Intent(House.this, LivingRoom.class);
+                finish();
+                startActivity(intent);
+                return true;
+            case R.id.action_two:
+                intent = new Intent(House.this, KitchenMainActivity.class);
+                finish();
+                startActivity(intent);
+                return true;
+            case R.id.action_three:
+                intent = new Intent(House.this, House.class);
+                finish();
+                startActivity(intent);
+                return true;
+            case R.id.action_four:
+                intent = new Intent(House.this, automobile.class);
+                finish();
+                startActivity(intent);
+                return true;
+            case R.id.action_help:
+                createCustomDialog().show();
+                return true;
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
         }
     }
 }

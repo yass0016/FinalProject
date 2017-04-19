@@ -18,7 +18,6 @@
     <string name="materialcolorpicker__errHex">خطء في اللون</string>
     <string name="materialcolorpicker__inputColor">اللون:</string>
     <string name="materialcolorpicker__btnSelectColor">اختار</string>
-    <string name="materialcolorpicker__hash" translatable="false">#</string>
 
     <!-- TV -->
     <string name="turn_tv_on">اشعل التلفاز</string>
@@ -30,7 +29,8 @@
     <string name="room_tv_channel_number">رقم القناة</string>
 
     <!-- house -->
-    <string name="living_room">Living Room</string>
+    <string name="living_room">غرفة المعيشة</string>
+    <string name="aboutRoom">بقلم صالح ياسين</string>
 
     <string name="dialog_room_device_type">نوع الجهاز:</string>
     <string name="dialog_room_device_tv">التلفاز</string>

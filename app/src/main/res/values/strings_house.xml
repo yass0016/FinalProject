@@ -37,6 +37,15 @@
     <string name="add_temperature_inside">Add Temperature Inside</string>
     <string name="add_temperature_outside">Add Temperature Outside</string>
 
+    <string name="aboutHouse">
+        By Rudwan Al Shama\'a\n
+        You can add devices by using the Add Device Button\n
+        GPS Device: You can open and close the door. Light will turn automatically.\n
+        \tYou can turn the light ON or OFF afterwards\n
+        Temperature Inside Device: You can set the house temperature or schedule a temperature\n
+        Temperature Outside Device: You can see the current weather outside.
+    </string>
+
     <!-- Temp In -->
     <string name="enter_tempin">Enter Temperature</string>
     <string name="set_house_tempin">Set House Temperature</string>

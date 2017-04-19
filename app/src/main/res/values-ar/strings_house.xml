@@ -37,6 +37,16 @@
     <string name="add_temperature_inside">أضف حرارة داخلية</string>
     <string name="add_temperature_outside">أضف حرارة خارجية</string>
 
+    <string name="aboutHouse">
+بواسطة رضوان الشماع \ n
+        يمكنك إضافة أجهزة باستخدام زر إضافة جهاز \ n
+        جهاز غس: يمكنك فتح وإغلاق الباب. سيتم تشغيل الضوء تلقائيا. \ n
+        \ تيو يمكن تشغيل ضوء أو إيقاف بعد ذلك \ n
+        درجة الحرارة داخل الجهاز: يمكنك تعيين درجة حرارة المنزل أو جدولة درجة الحرارة \ n
+        درجة الحرارة خارج الجهاز: يمكنك ان ترى الطقس الحالي خارج.
+    </string>
+
+
     <!-- Temp In -->
     <string name="enter_tempin">أدخل درة حرارة</string>
     <string name="set_house_tempin">حدد درجة حرارة المنزل</string>

@@ -28,8 +28,11 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.sayadev.finalproject.House.House;
 import com.sayadev.finalproject.Model.ProjectDatabaseHelper;
 import com.sayadev.finalproject.R;
+import com.sayadev.finalproject.automobile.automobile;
+import com.sayadev.finalproject.kitchen.KitchenMainActivity;
 import com.sayadev.finalproject.livingroom.Blinding.Blinding;
 import com.sayadev.finalproject.livingroom.Lamps.Lamp1;
 import com.sayadev.finalproject.livingroom.Lamps.Lamp2;
@@ -150,7 +153,7 @@ public class LivingRoom extends AppCompatActivity {
         // Get the layout inflater
         LayoutInflater inflater = this.getLayoutInflater();
 
-        View v = inflater.inflate(R.layout.main_dialog, null);
+        View v = inflater.inflate(R.layout.dialog_room_about, null);
 
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
@@ -344,17 +347,17 @@ public class LivingRoom extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             case R.id.action_two:
-                intent = new Intent(LivingRoom.this, LivingRoom.class);
+                intent = new Intent(LivingRoom.this, KitchenMainActivity.class);
                 finish();
                 startActivity(intent);
                 return true;
             case R.id.action_three:
-                intent = new Intent(LivingRoom.this, LivingRoom.class);
+                intent = new Intent(LivingRoom.this, House.class);
                 finish();
                 startActivity(intent);
                 return true;
             case R.id.action_four:
-                intent = new Intent(LivingRoom.this, LivingRoom.class);
+                intent = new Intent(LivingRoom.this, automobile.class);
                 finish();
                 startActivity(intent);
                 return true;
