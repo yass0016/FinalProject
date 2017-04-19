@@ -346,6 +346,18 @@ public class KitchenMainActivity extends AppCompatActivity {
 
                 action_performed = true;
                 break;
+            case R.id.action_help:
+                HelpDialogFragment help_dialog = HelpDialogFragment.newInstance();
+                help_dialog.show(getFragmentManager(), "HelpDialog");
+
+                action_performed = true;
+                break;
+            case R.id.action_oss:
+                LicencesDialogFragment oss_dialog = LicencesDialogFragment.newInstance();
+                oss_dialog.show(getFragmentManager(), "LicensesDialog");
+
+                action_performed = true;
+                break;
         }
 
         return action_performed;

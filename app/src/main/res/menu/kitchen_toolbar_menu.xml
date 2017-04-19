@@ -11,5 +11,9 @@
         android:id="@+id/action_help"
         android:title="@string/kitchen_toolbar_menu_help"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_oss"
+        android:title="@string/kitchen_toolbar_menu_oss"
+        app:showAsAction="never" />
 
 </menu>

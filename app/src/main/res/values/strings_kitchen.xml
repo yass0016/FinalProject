@@ -13,6 +13,7 @@
     <string name="kitchen_device_load_msg">Done loading devices</string>
     <string name="kitchen_toolbar_menu_about">About</string>
     <string name="kitchen_toolbar_menu_help">Help</string>
+    <string name="kitchen_toolbar_menu_oss">Licences</string>
     <string name="kitchen_about_dialog_msg">Final Project\nKitchen Activity\nTryton Van Meer</string>
 
     <string name="kitchen_device_type_refrigerator">Refrigerator</string>
@@ -27,4 +28,6 @@
     <string name="kitchen_device_config_coffee_selector_size">Select Size</string>
     <string name="kitchen_device_config_coffee_dialog_title">Brewing Coffee</string>
     <string name="kitchen_device_config_coffee_dialog_msg">Use the following QR code to retrieve your coffee when it is ready</string>
+
+    <string name="action_licenses">Open Source Licenses</string>
 </resources>
