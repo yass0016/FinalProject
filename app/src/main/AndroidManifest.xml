@@ -18,22 +18,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".kitchen.KitchenMainActivity" />S
-        <activity android:name=".kitchen.KitchenDeviceConfig" />
-
         <activity android:name=".livingroom.LivingRoom" />
         <activity android:name=".livingroom.TV.TV" />
-        <activity android:name=".livingroom.Lamps.Lamps" />
+        <activity android:name=".livingroom.Lamps.Lamp1" />
         <activity android:name=".livingroom.Blinding.Blinding" />
-
-
-        <activity android:name=".House.House"></activity>
-        <activity android:name=".House.Garage"></activity>
-        <activity android:name=".House.TempIn"></activity>
-        <activity android:name=".House.TempOut"></activity>
+        <activity android:name=".livingroom.RoomDetails" />
+        <activity android:name=".livingroom.Lamps.Lamp2" />
+        <activity android:name=".livingroom.Lamps.Lamp3" />
 
         <activity android:name=".automobile.automobile" />
+        <activity android:name=".automobile.FragPhone" />
 
+        <activity android:name=".kitchen.KitchenMainActivity" />
+        <activity android:name=".kitchen.KitchenDeviceConfig" />
     </application>
 
 </manifest>
