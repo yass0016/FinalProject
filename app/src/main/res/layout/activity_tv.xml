@@ -65,56 +65,56 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentStart="true"
                 android:layout_below="@id/tvFrame"
-                android:text="TURN TV ON" />
+                android:text="@string/turn_tv_on" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="265dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/tvpad"
+                android:background="@drawable/pad"
                 android:orientation="vertical">
 
                 <Button
                     android:id="@+id/volumeDown"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="26dp"
-                    android:layout_toStartOf="@+id/channelUp"
                     android:background="@android:color/transparent"
-                    android:text="" />
+                    android:text=""
+                    android:layout_marginStart="12dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true" />
 
                 <Button
                     android:id="@+id/volumeUp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/volumeDown"
-                    android:layout_alignBottom="@+id/volumeDown"
-                    android:layout_marginStart="42dp"
-                    android:layout_toEndOf="@+id/channelDown"
                     android:background="@android:color/transparent"
-                    android:text="" />
+                    android:text=""
+                    android:layout_alignBaseline="@+id/enter"
+                    android:layout_alignBottom="@+id/enter"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="14dp" />
 
                 <Button
                     android:id="@+id/channelDown"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/volumeUp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="29dp"
                     android:background="@android:color/transparent"
-                    android:text="" />
+                    android:text=""
+                    android:layout_marginBottom="12dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true" />
 
                 <Button
                     android:id="@+id/channelUp"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:layout_above="@+id/volumeUp"
-                    android:layout_alignStart="@+id/channelDown"
-                    android:layout_marginBottom="31dp"
                     android:background="@android:color/transparent"
-                    android:text="" />
+                    android:text=""
+                    android:layout_marginTop="12dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignStart="@+id/channelDown" />
 
                 <Button
                     android:id="@+id/enter"

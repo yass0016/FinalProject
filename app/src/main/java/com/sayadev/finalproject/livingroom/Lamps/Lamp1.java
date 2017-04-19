@@ -63,10 +63,10 @@ public class Lamp1 extends Fragment {
         final Button lightStatus = (Button) v.findViewById(R.id.switchLamp);
 
         if (lampStatus == 0) {
-            lightStatus.setText("SWITCH LAMP ON");
+            lightStatus.setText(R.string.room_switch_lamp_on);
             lampImage.setImageDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.light_off));
         } else {
-            lightStatus.setText("SWITCH LAMP OFF");
+            lightStatus.setText(R.string.room_switch_lamp_off);
             lampImage.setImageDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.light_on));
         }
 
@@ -74,14 +74,14 @@ public class Lamp1 extends Fragment {
             @Override
             public void onClick(View v) {
                 if (lampStatus == 0) {
-                    Toast.makeText(getActivity().getApplicationContext(), "You turned the light ON", Toast.LENGTH_SHORT).show();
-                    lightStatus.setText("SWITCH LAMP OFF");
+                    Toast.makeText(getActivity().getApplicationContext(), R.string.room_lamp_turned_on, Toast.LENGTH_SHORT).show();
+                    lightStatus.setText(R.string.room_switch_lamp_off);
                     lampStatus = 1;
                     lampImage.setImageDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.light_on));
 
                 } else {
-                    Toast.makeText(getActivity().getApplicationContext(), "You turned the light OFF", Toast.LENGTH_SHORT).show();
-                    lightStatus.setText("SWITCH LAMP ON");
+                    Toast.makeText(getActivity().getApplicationContext(), R.string.room_lamp_turned_off, Toast.LENGTH_SHORT).show();
+                    lightStatus.setText(R.string.room_switch_lamp_on);
                     lampStatus = 0;
                     lampImage.setImageDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.light_off));
                 }
@@ -101,7 +101,7 @@ public class Lamp1 extends Fragment {
             inflater.inflate(R.menu.main_activity, menu);
         }
 
-        menu.add("Delete Device").setOnMenuItemClickListener(this.AddDevice)
+        menu.add(R.string.room_delete_device).setOnMenuItemClickListener(this.AddDevice)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
     }
 

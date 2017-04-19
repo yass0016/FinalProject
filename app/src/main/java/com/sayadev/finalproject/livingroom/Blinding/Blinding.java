@@ -64,12 +64,11 @@ public class Blinding extends Fragment {
         blindingText = (TextView) v.findViewById(R.id.blindingText);
         seek = (SeekBar) v.findViewById(R.id.blindingSeek);
 
-
         seek.setProgress(blindLevel);
         if(blindStatus == 1) {
-            blindingText.setText("Blinds Level is " + blindLevel);
+            blindingText.setText(getResources().getText(R.string.blind_level_is) + " " + blindLevel);
         } else {
-            blindingText.setText("Blinds is Closed");
+            blindingText.setText(getResources().getText(R.string.blind_is_closed));
         }
 
         seek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -78,7 +77,7 @@ public class Blinding extends Fragment {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progresValue, boolean fromUser) {
                 progress = progresValue;
-                blindingText.setText("Blinds Level is " + progresValue);
+                blindingText.setText(getResources().getText(R.string.blind_level_is) + " " + progresValue);
             }
 
             @Override
@@ -89,9 +88,10 @@ public class Blinding extends Fragment {
             public void onStopTrackingTouch(SeekBar seekBar) {
                 dbHelper.setBlindsLevel(device_id, progress);
 
-                if(progress == 0)
+                if(progress == 0) {
                     dbHelper.setBlindsStatus(device_id, 0);
-                else
+                    blindingText.setText(getResources().getText(R.string.blind_is_closed));
+                } else
                     dbHelper.setBlindsStatus(device_id, 1);
             }
         });
@@ -107,7 +107,7 @@ public class Blinding extends Fragment {
             inflater.inflate(R.menu.main_activity, menu);
         }
 
-        menu.add("Delete Device").setOnMenuItemClickListener(this.AddDevice)
+        menu.add(R.string.room_delete_device).setOnMenuItemClickListener(this.AddDevice)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
     }
 
@@ -150,7 +150,7 @@ public class Blinding extends Fragment {
         // Pass null as the parent view because its going in the dialog layout
         builder.setView(v)
                 // Add action buttons
-                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.blind_dialog_ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         if(data.getString("orientation").equals("port")) {
@@ -162,7 +162,7 @@ public class Blinding extends Fragment {
                             ((LivingRoom)getActivity()).deleteItem(Integer.parseInt(data.getString("id")));
                         }
                     }
-                }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                }).setNegativeButton(R.string.blind_dialog_cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int id) {
 
@@ -174,7 +174,7 @@ public class Blinding extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent = null;
+        Intent intent;
         switch (item.getItemId()) {
             case R.id.action_one:
                 intent = new Intent(getActivity(), LivingRoom.class);

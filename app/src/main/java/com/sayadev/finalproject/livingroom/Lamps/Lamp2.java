@@ -91,11 +91,11 @@ public class Lamp2 extends Fragment {
 
 
         if (lampStatus == 0) {
-            lightStatus.setText("SWITCH LAMP ON");
+            lightStatus.setText(R.string.room_switch_lamp_on);
             dimLevel.setEnabled(false);
             lampImage.setImageDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.light_off));
         } else {
-            lightStatus.setText("SWITCH LAMP OFF");
+            lightStatus.setText(R.string.room_switch_lamp_off);
             dimLevel.setEnabled(true);
             lampImage.setImageDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.light_on));
             lampImage.setImageBitmap(SetBrightness(BitmapFactory.decodeResource(getResources(), R.drawable.light_on),lampBrightness));
@@ -105,16 +105,16 @@ public class Lamp2 extends Fragment {
             @Override
             public void onClick(View v) {
                 if (lampStatus == 0) {
-                    Toast.makeText(getActivity().getApplicationContext(), "You turned the light ON", Toast.LENGTH_SHORT).show();
-                    lightStatus.setText("SWITCH LAMP OFF");
+                    Toast.makeText(getActivity().getApplicationContext(), R.string.room_lamp_turned_on, Toast.LENGTH_SHORT).show();
+                    lightStatus.setText(R.string.room_switch_lamp_off);
                     lampStatus = 1;
                     dimLevel.setEnabled(true);
                     lampImage.setImageDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.light_on));
                     lampImage.setImageBitmap(SetBrightness(BitmapFactory.decodeResource(getResources(), R.drawable.light_on), lampBrightness));
 
                 } else {
-                    Toast.makeText(getActivity().getApplicationContext(), "You turned the light OFF", Toast.LENGTH_SHORT).show();
-                    lightStatus.setText("SWITCH LAMP ON");
+                    Toast.makeText(getActivity().getApplicationContext(), R.string.room_lamp_turned_off, Toast.LENGTH_SHORT).show();
+                    lightStatus.setText(R.string.room_switch_lamp_on);
                     lampStatus = 0;
                     dimLevel.setEnabled(false);
                     lampImage.setImageDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.light_off));
@@ -135,7 +135,7 @@ public class Lamp2 extends Fragment {
             inflater.inflate(R.menu.main_activity, menu);
         }
 
-        menu.add("Delete Device").setOnMenuItemClickListener(this.AddDevice)
+        menu.add(R.string.room_delete_device).setOnMenuItemClickListener(this.AddDevice)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
     }
 

@@ -37,7 +37,7 @@
                 android:id="@+id/switchLamp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TURN LAMP ON" />
+                android:text="@string/room_switch_lamp_on" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

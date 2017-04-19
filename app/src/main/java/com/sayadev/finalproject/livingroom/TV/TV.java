@@ -72,14 +72,14 @@ public class TV extends Fragment {
         if(tvStatus == 0) {
             volumeText.setVisibility(View.INVISIBLE);
             tvInfo.setVisibility(View.INVISIBLE);
-            tvStatusButton.setText("TURN TV ON");
+            tvStatusButton.setText(R.string.turn_tv_on);
         } else {
             volumeText.setVisibility(View.VISIBLE);
             tvInfo.setVisibility(View.VISIBLE);
-            tvStatusButton.setText("TURN TV OFF");
+            tvStatusButton.setText(R.string.turn_tv_off);
 
-            volumeText.setText("Volume " + volume);
-            tvInfo.setText("Playing Channel " + channelNumber);
+            volumeText.setText(getResources().getText(R.string.room_tv_volume).toString() + " " + volume);
+            tvInfo.setText(getResources().getText(R.string.room_tv_playing_channel).toString() + " " + channelNumber);
         }
 
         Button vDown = (Button) v.findViewById(R.id.volumeDown);
@@ -92,7 +92,7 @@ public class TV extends Fragment {
                     volume = 0;
 
                 volumeText.setVisibility(View.VISIBLE);
-                volumeText.setText("Volume " + volume);
+                volumeText.setText(getResources().getText(R.string.room_tv_volume).toString() + " " + volume);
 
                 dbHelper.setTvVolume(device_id, volume);
             }
@@ -108,7 +108,7 @@ public class TV extends Fragment {
                     volume = 20;
 
                 volumeText.setVisibility(View.VISIBLE);
-                volumeText.setText("Volume " + volume);
+                volumeText.setText(getResources().getText(R.string.room_tv_volume).toString() + " " + volume);
                 dbHelper.setTvVolume(device_id, volume);
             }
         });
@@ -122,7 +122,7 @@ public class TV extends Fragment {
                 else
                     channelNumber = 0;
 
-                tvInfo.setText("Playing Channel " + channelNumber);
+                tvInfo.setText(getResources().getText(R.string.room_tv_playing_channel).toString() + " " +  channelNumber);
                 dbHelper.setTvChannel(device_id, channelNumber);
             }
         });
@@ -136,7 +136,7 @@ public class TV extends Fragment {
                 else
                     channelNumber = 10;
 
-                tvInfo.setText("Playing Channel " + channelNumber);
+                tvInfo.setText(getResources().getText(R.string.room_tv_playing_channel).toString() + " " +  channelNumber);
                 dbHelper.setTvChannel(device_id, channelNumber);
             }
         });
@@ -155,15 +155,15 @@ public class TV extends Fragment {
                 if(tvStatus == 1) {
                     tvInfo.setVisibility(View.INVISIBLE);
                     volumeText.setVisibility(View.INVISIBLE);
-                    tvStatusButton.setText("TURN TV ON");
+                    tvStatusButton.setText(R.string.turn_tv_on);
                     tvStatus = 0;
                 } else {
                     tvInfo.setVisibility(View.VISIBLE);
                     volumeText.setVisibility(View.VISIBLE);
-                    tvStatusButton.setText("TURN TV OFF");
+                    tvStatusButton.setText(R.string.turn_tv_off);
 
-                    volumeText.setText("Volume " + volume);
-                    tvInfo.setText("Playing Channel " + channelNumber);
+                    volumeText.setText(getResources().getText(R.string.room_tv_volume).toString() + " " + volume);
+                    tvInfo.setText(getResources().getText(R.string.room_tv_playing_channel).toString() + " " +  channelNumber);
                     tvStatus = 1;
                 }
                 dbHelper.setTvStatus(device_id, tvStatus);
@@ -181,7 +181,7 @@ public class TV extends Fragment {
             inflater.inflate(R.menu.main_activity, menu);
         }
 
-        menu.add("Delete Device").setOnMenuItemClickListener(this.AddDevice)
+        menu.add(R.string.room_delete_device).setOnMenuItemClickListener(this.AddDevice)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
     }
 
@@ -233,14 +233,15 @@ public class TV extends Fragment {
                             int number = Integer.parseInt(channel.getText().toString());
                             if(number <= 10 && number >= 0) {
                                 channelNumber = number;
-                                tvInfo.setText("Playing Channel " + number);
+                                tvInfo.setText(getResources().getText(R.string.room_tv_playing_channel).toString() + " " +  number);
                                 dbHelper.setTvChannel(device_id, number);
                             } else {
-                                Snackbar.make(getActivity().findViewById(android.R.id.content), "Channel can't be less than 0 or larger than 10", Snackbar.LENGTH_LONG)
+                                Snackbar.make(getActivity().findViewById(android.R.id.content), R.string.room_tv_channel_error, Snackbar.LENGTH_LONG)
                                         .setAction("Action", null).show();
                             }
                         } catch (NumberFormatException e) {
-
+                            Snackbar.make(getActivity().findViewById(android.R.id.content), R.string.room_tv_no_channel_error, Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
                         }
                     }
                 }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {

@@ -34,13 +34,13 @@
                 android:id="@+id/switchLamp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TURN LAMP ON" />
+                android:text="@string/room_switch_lamp_on" />
 
             <Button
                 android:id="@+id/changeLampColor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Change Lamp Color" />
+                android:text="@string/blind_change_lamp_color" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

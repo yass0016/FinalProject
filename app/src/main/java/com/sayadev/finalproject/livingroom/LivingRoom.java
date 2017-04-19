@@ -54,7 +54,7 @@ public class LivingRoom extends AppCompatActivity {
 
         setContentView(R.layout.activity_living_room);
 
-        getSupportActionBar().setTitle("Living Room");
+        getSupportActionBar().setTitle(R.string.living_room);
 
         dbHelper = new ProjectDatabaseHelper(this);
 
@@ -227,7 +227,7 @@ public class LivingRoom extends AppCompatActivity {
 
                         switch (spinner.getSelectedItemPosition()) {
                             case 0:
-                                title = "TV";
+                                title = getResources().getText(R.string.dialog_room_device_tv).toString();
                                 itemType = RoomData.DEVICE_TV;
                                 imageUri = "@drawable/tv";
                                 currentDate = new Date();
@@ -235,7 +235,7 @@ public class LivingRoom extends AppCompatActivity {
                                 visitCount = 0;
                                 break;
                             case 1:
-                                title = "Lamp 1";
+                                title = getResources().getText(R.string.dialog_room_device_lamp1).toString();
                                 itemType = RoomData.DEVICE_LAMP1;
                                 imageUri = "@drawable/lamp";
                                 currentDate = new Date();
@@ -243,7 +243,7 @@ public class LivingRoom extends AppCompatActivity {
                                 visitCount = 0;
                                 break;
                             case 2:
-                                title = "Lamp 2";
+                                title = getResources().getText(R.string.dialog_room_device_lamp2).toString();
                                 itemType = RoomData.DEVICE_LAMP2;
                                 imageUri = "@drawable/lamp";
                                 currentDate = new Date();
@@ -251,7 +251,7 @@ public class LivingRoom extends AppCompatActivity {
                                 visitCount = 0;
                                 break;
                             case 3:
-                                title = "Lamp 3";
+                                title = getResources().getText(R.string.dialog_room_device_lamp3).toString();
                                 itemType = RoomData.DEVICE_LAMP3;
                                 imageUri = "@drawable/lamp";
                                 currentDate = new Date();
@@ -259,7 +259,7 @@ public class LivingRoom extends AppCompatActivity {
                                 visitCount = 0;
                                 break;
                             case 4:
-                                title = "Blinds";
+                                title = getResources().getText(R.string.dialog_room_device_blinding).toString();
                                 itemType = RoomData.DEVICE_BLINDING;
                                 imageUri = "@drawable/blind";
                                 currentDate = new Date();
@@ -285,7 +285,7 @@ public class LivingRoom extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        menu.add("Add Device").setOnMenuItemClickListener(this.AddDevice)
+        menu.add(R.string.room_add_device).setOnMenuItemClickListener(this.AddDevice)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         inflater.inflate(R.menu.main_activity, menu);
         return true;
@@ -329,7 +329,7 @@ public class LivingRoom extends AppCompatActivity {
         roomItems.remove(id);
         roomAdapter.notifyDataSetChanged();
 
-        Snackbar.make(this.findViewById(android.R.id.content), "Item was deleted successfully", Snackbar.LENGTH_LONG)
+        Snackbar.make(this.findViewById(android.R.id.content), R.string.room_item_deleted, Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
     }
 
@@ -378,7 +378,7 @@ public class LivingRoom extends AppCompatActivity {
 
             roomItems.remove(id);
             roomAdapter.notifyDataSetChanged();
-            Snackbar.make(this.findViewById(android.R.id.content), "Item was deleted successfully", Snackbar.LENGTH_LONG)
+            Snackbar.make(this.findViewById(android.R.id.content), R.string.room_item_deleted, Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
         }
     }
@@ -431,7 +431,7 @@ public class LivingRoom extends AppCompatActivity {
         protected Object doInBackground(Object... params) {
 
             listItems();
-            for(int i = 0; i < 50000000; i++) {
+            for(int i = 0; i < 30000000; i++) {
             }
             publishProgress(count);
             return null;
