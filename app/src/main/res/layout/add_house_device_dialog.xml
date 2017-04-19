@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/addGARAGE"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_garage" />
+
+    <Button
+        android:id="@+id/addTempIn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_temperature_inside" />
+
+    <Button
+        android:id="@+id/addTempOut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_temperature_outside" />
+
+
+</LinearLayout>

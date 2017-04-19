@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.sayadev.finalproject.House.House;
 import com.sayadev.finalproject.automobile.automobile;
 import com.sayadev.finalproject.kitchen.KitchenMainActivity;
 import com.sayadev.finalproject.livingroom.LivingRoom;
@@ -70,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             case R.id.action_three:
-                intent = new Intent(MainActivity.this, LivingRoom.class);
+                intent = new Intent(MainActivity.this, House.class);
                 startActivity(intent);
                 return true;
             case R.id.action_four:
